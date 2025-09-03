@@ -1,0 +1,21 @@
+﻿@using ShippingSystem.Domain.Entities
+@model Governorates
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+        </tr>
+    </tbody>
+</table>
+<a asp-action="Index" asp-controller="Governorate" class="btn btn-dark"><i class="bi bi-back-arrow"></i>Go to List</a>

@@ -1,8 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using ShippingSystem.Application.Interfaces;
+using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.Interfaces;
 using ShippingSystem.Infrastructure.Data;
+using ShippingSystem.Infrastructure.Repositories;
+using System.Reflection;
 
 namespace ShippingSystem.Presentation
 {
@@ -24,6 +29,14 @@ namespace ShippingSystem.Presentation
                 Options.Password.RequireNonAlphanumeric = false;
                 Options.Password.RequireDigit = true;
             }).AddEntityFrameworkStores<ShippingDbContext>();
+
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
+            builder.Services.AddScoped<IGovernorateService, GovernorateService>();
+            builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
+
+            //Auto Mapper
+            builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 
             var app = builder.Build();

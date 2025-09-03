@@ -1,0 +1,34 @@
+﻿@using ShippingSystem.Domain.Entities
+@model Regions
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Governorates</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>
+               @if(Model.Governorates!=null && Model.Governorates.Any()){
+                   @foreach(var item in Model.Governorates){
+                       <span>@item.Name</span>
+                       <br />
+                   }
+               }
+               else{
+                   <span>There are no governorates</span>
+               }
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+<a asp-action="Index" asp-controller="Region" class="btn btn-dark"><i class="bi bi-arrow-back"></i>Go Back</a>
