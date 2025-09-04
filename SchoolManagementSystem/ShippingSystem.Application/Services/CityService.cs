@@ -17,6 +17,11 @@ namespace ShippingSystem.Application.Services
             this._cityRepo = _cityRepo;   
         }
 
+        public async Task<Cities> cityHasGov(int cityId)
+        {
+            return await _cityRepo.cityHasGov(cityId);
+        }
+
         public async Task<List<Cities>> cityListByGov(int govId)
         {
           return await _cityRepo.cityListByGov(govId);

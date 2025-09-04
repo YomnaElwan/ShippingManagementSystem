@@ -53,6 +53,8 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",govRegionViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
+     
         public async Task<IActionResult> SaveNew(GovRegionViewModel govRegModel)
         {
             if (govRegModel.RegionId == 0)

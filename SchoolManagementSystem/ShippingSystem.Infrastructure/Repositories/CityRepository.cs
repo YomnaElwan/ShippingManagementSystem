@@ -17,6 +17,12 @@ namespace ShippingSystem.Infrastructure.Repositories
         {
             this.cxt = cxt;
         }
+
+        public async Task<Cities> cityHasGov(int cityId)
+        {
+            return await cxt.City.Include(c => c.Governorate).FirstOrDefaultAsync(c => c.Id == cityId);
+        }
+
         public async Task<List<Cities>> cityListByGov(int govId)
         {
             return await cxt.City.Where(c => c.GovernorateId == govId).ToListAsync();    

@@ -29,6 +29,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNew(Regions newRegion)
         {
             if (ModelState.IsValid) {

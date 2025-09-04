@@ -10,5 +10,7 @@ namespace ShippingSystem.Domain.Interfaces
     public interface ICityRepository:IGenericRepository<Cities>
     {
         Task<List<Cities>> cityListByGov(int govId);
+        Task<Cities> cityHasGov(int cityId);
+
     }
 }

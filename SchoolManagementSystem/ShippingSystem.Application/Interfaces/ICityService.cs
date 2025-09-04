@@ -10,6 +10,7 @@ namespace ShippingSystem.Application.Interfaces
     public interface ICityService:IGenericService<Cities>
     {
         Task<List<Cities>> cityListByGov(int govId);
+        Task<Cities> cityHasGov(int cityId);
 
     }
 }

@@ -14,6 +14,7 @@
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div>
+        <label asp-for="RegionId"></label>
         <select asp-for="RegionId" class="form form-control" asp-items="regionList">
             <option value="0">--Select Region--</option>
         </select>

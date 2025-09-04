@@ -10,6 +10,8 @@ namespace ShippingSystem.Presentation.Mappings
         {
             CreateMap<Governorates,GovRegionViewModel>();
             CreateMap<GovRegionViewModel, Governorates>();
+            CreateMap<Cities, CityViewModel>();
+            CreateMap<CityViewModel, Cities>();
         }
     }
 }
