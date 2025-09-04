@@ -76,6 +76,13 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",cityVM);
         }
 
+        public async Task<IActionResult> Delete(int Id)
+        {
+           await citiesService.DeleteAsync(Id);
+           await citiesService.SaveAsync();
+           return RedirectToAction("Index");
+        }
+
 
     }
 }

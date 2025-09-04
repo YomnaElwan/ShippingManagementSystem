@@ -72,6 +72,13 @@ namespace ShippingSystem.Presentation.Controllers
             govRegModel.RegionList = await regionService.GetAllAsync();
             return View("Add",govRegModel);
         }
+
+        public async Task<IActionResult> Delete (int Id)
+        {
+            await governService.DeleteAsync(Id);
+            await governService.SaveAsync();
+            return RedirectToAction("Index");
+        }
     
 
         

@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\views\\city\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\city\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\views\\region\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\region\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\controllers\\citycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\citycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\viewmodels\\cityviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\viewmodels\\cityviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.domain\\validation\\uniquecityattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|solutionrelative:shippingsystem.domain\\validation\\uniquecityattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.domain\\validation\\uniqueregionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|solutionrelative:shippingsystem.domain\\validation\\uniqueregionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\views\\city\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\city\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\schoolmanagementsystem\\shippingsystem.presentation\\controllers\\regioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\regioncontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,78 +32,26 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\City\\Index.cshtml",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\City\\Index.cshtml",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\City\\Index.cshtml",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\City\\Index.cshtml",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAABkAAABXAAAAAAAAAA==",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\Region\\Index.cshtml",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Region\\Index.cshtml",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\Region\\Index.cshtml",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Region\\Index.cshtml",
+              "ViewState": "AgIAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-04T05:39:48.071Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CityViewModel.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\ViewModels\\CityViewModel.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\ViewModels\\CityViewModel.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\ViewModels\\CityViewModel.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\ViewModels\\CityViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T03:02:17.41Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "UniqueRegionAttribute.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\Validation\\UniqueRegionAttribute.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Domain\\Validation\\UniqueRegionAttribute.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\Validation\\UniqueRegionAttribute.cs",
-              "RelativeToolTip": "ShippingSystem.Domain\\Validation\\UniqueRegionAttribute.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T05:29:02.216Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UniqueCityAttribute.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\Validation\\UniqueCityAttribute.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Domain\\Validation\\UniqueCityAttribute.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\Validation\\UniqueCityAttribute.cs",
-              "RelativeToolTip": "ShippingSystem.Domain\\Validation\\UniqueCityAttribute.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABEAAAB/AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T05:27:22.004Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Add.cshtml",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\City\\Add.cshtml",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\City\\Add.cshtml",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Views\\City\\Add.cshtml",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\City\\Add.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAKAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-04T04:37:27.528Z",
+              "WhenOpened": "2025-09-04T07:26:24.023Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CityController.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Controllers\\CityController.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\CityController.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Controllers\\CityController.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\CityController.cs",
-              "ViewState": "AgIAABwAAAAAAAAAAAAIwCYAAAAJAAAAAAAAAA==",
+              "Title": "RegionController.cs",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Controllers\\RegionController.cs",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\RegionController.cs",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\Controllers\\RegionController.cs",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\RegionController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAxwBMAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T03:06:55.547Z",
+              "WhenOpened": "2025-09-04T07:26:06.096Z",
               "EditorCaption": ""
             }
           ]

@@ -66,7 +66,7 @@ namespace ShippingSystem.Infrastructure.Repositories
                 if (prop != null)
                 {
                     prop.SetValue(obj, false);
-                    context.Set<T>().Update(obj);
+                    context.Update(obj);
                 }
                 else
                 {
