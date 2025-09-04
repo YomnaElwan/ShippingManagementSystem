@@ -10,12 +10,29 @@
     <thead>
         <tr>
             <td>Name</td>
+            <td>Region</td>
+            <td>Cities</td>
         </tr>
     </thead>
     <tbody>
         <tr>
-            <td>@Model.Name</td>
+            <td>@Model?.Name</td>
+            <td>@Model?.Region.Name</td>
+            <td>
+               
+                @if(Model?.Cities!=null && Model.Cities.Any()){
+                    <ul>
+                        @foreach(var item in Model.Cities){
+                            <li>@item.Name</li>
+                        }
+                    </ul>
+                }
+                else{
+                    <span>This Governorate doesnt have any city!</span>
+                }
+            </td>
         </tr>
     </tbody>
 </table>
-<a asp-action="Index" asp-controller="Governorate" class="btn btn-dark"><i class="bi bi-back-arrow"></i>Go to List</a>
+<a asp-action="Index" asp-controller="Governorate" class="btn btn-dark"><i class="bi bi-arrow-left"></i>Back to List</a>
+

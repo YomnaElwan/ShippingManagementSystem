@@ -17,9 +17,9 @@ namespace ShippingSystem.Application.Services
             this.govsRepo = govsRepo;
         }
 
-        public async Task<List<Governorates>> govsIncludeRegion()
+        public Task<Governorates> govByIdIncludeRegion(int govId)
         {
-            return await govsRepo.govsIncludeRegion();
+            return govsRepo.govByIdIncludeRegion(govId);
         }
 
         public async Task<List<Governorates>> regionGovsList(int regionId)

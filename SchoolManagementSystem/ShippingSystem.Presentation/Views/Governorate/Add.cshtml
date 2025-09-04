@@ -10,12 +10,11 @@
     <div asp-validation-summary="All" class="text-danger"></div>
     <div>
         <label asp-for="Name"></label>
-        <input asp-for="Name" class="form form-control"/>
+        <input asp-for="Name" class="form form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div>
-        <label asp-for="RegionId"></label>
-        <select asp-for="RegionId" asp-items="regionList" class="form form-control">
+        <select asp-for="RegionId" class="form form-control" asp-items="regionList">
             <option value="0">--Select Region--</option>
         </select>
         <span asp-validation-for="RegionId" class="text-danger"></span>
@@ -24,11 +23,8 @@
         <input type="submit" value="Add" class="btn btn-success mt-3"/>
     </div>
 </form>
-<div>
-    <a asp-action="Index" asp-controller="Governorate" class="btn btn-dark mt-3"><i class="bi bi-back-arrow"></i>Back to List</a>
-</div>
+<a class="btn btn-dark mt-3" asp-action="Index" asp-controller="Governorate"><i class="bi bi-left-arrow"></i>Back To List</a>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
-

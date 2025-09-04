@@ -18,9 +18,9 @@ namespace ShippingSystem.Infrastructure.Repositories
             this._context = _context;
         }
 
-        public async Task<List<Governorates>> govsIncludeRegion()
+        public async Task<Governorates> govByIdIncludeRegion(int govId)
         {
-            return await _context.Governorate.Include(g => g.Region).ToListAsync();
+            return await _context.Governorate.Include(r => r.Region).FirstOrDefaultAsync(g => g.Id == govId);
         }
 
         public async Task<List<Governorates>> regionGovsList(int regionId)

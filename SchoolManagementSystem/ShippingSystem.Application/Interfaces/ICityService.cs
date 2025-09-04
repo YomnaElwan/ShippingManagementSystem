@@ -7,11 +7,9 @@ using System.Threading.Tasks;
 
 namespace ShippingSystem.Application.Interfaces
 {
-    public interface IGovernorateService:IGenericService<Governorates>
+    public interface ICityService:IGenericService<Cities>
     {
-        Task<List<Governorates>> regionGovsList(int regionId);
-        Task<Governorates> govByIdIncludeRegion(int govId);
-
+        Task<List<Cities>> cityListByGov(int govId);
 
     }
 }

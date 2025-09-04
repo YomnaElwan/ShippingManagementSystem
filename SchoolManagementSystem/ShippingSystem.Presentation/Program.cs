@@ -34,6 +34,8 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
             builder.Services.AddScoped<IGovernorateService, GovernorateService>();
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
+            builder.Services.AddScoped<ICityService, CityService>();
+            builder.Services.AddScoped<ICityRepository, CityRepository>();
 
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

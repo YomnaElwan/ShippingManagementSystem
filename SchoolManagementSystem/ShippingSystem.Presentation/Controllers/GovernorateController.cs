@@ -9,65 +9,70 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class GovernorateController : Controller
     {
-        private readonly IGovernorateService _govService;
-        private readonly IGenericService<Regions> _regionService;
+        private readonly IGenericService<Governorates> govService;
+        private readonly IGovernorateService governService;
+        private readonly ICityService cityService;
         private readonly IMapper _mapper;
-        public GovernorateController(IGovernorateService _govService,
-                                     IGenericService<Regions> _regionService,
-                                     IMapper _mapper)
+        private readonly IGenericService<Regions> regionService;
+        public GovernorateController(IGenericService<Governorates> govService, 
+                                     IGovernorateService governService,
+                                     ICityService _cityService,
+                                     IMapper _mapper,
+                                     IGenericService<Regions>regionService)                     
         {
-            this._govService = _govService;
-            this._regionService = _regionService;
+            this.govService = govService;
+            this.governService = governService;
+            this.cityService = _cityService;
             this._mapper = _mapper;
+            this.regionService = regionService;
         }
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Governorates> govsList = await _govService.govsIncludeRegion();
-            return View("Index", govsList);
+            List<Governorates> govList = await govService.GetAllAsync();
+            return View("Index",govList);
+        }
+        [HttpGet]
+        public async Task<IActionResult> Details(int Id)
+        {
+            Governorates gov =await governService.govByIdIncludeRegion(Id);
+            List<Cities> cityList = await cityService.cityListByGov(Id);
+            gov.Cities = cityList;
+           
+          
+            return View("Details",gov);
         }
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            List<Regions> regions = await _regionService.GetAllAsync();
-            GovRegionViewModel regList = new GovRegionViewModel()
+            List<Regions> regionList = await regionService.GetAllAsync();
+            GovRegionViewModel govRegionViewModel = new GovRegionViewModel()
             {
-                RegionList = regions
+                RegionList = regionList
             };
-
-            return View("Add",regList);
+            return View("Add",govRegionViewModel);
         }
         [HttpPost]
-        public async Task<IActionResult> SaveNew(GovRegionViewModel newGovFromRequest)
+        public async Task<IActionResult> SaveNew(GovRegionViewModel govRegModel)
         {
-            if (newGovFromRequest.RegionId == 0)
+            if (govRegModel.RegionId == 0)
             {
-                ModelState.AddModelError("RegionId", "Please Select a Region");
+                ModelState.AddModelError("RegionId", "You Must Choose a Region ");
             }
+
             if (ModelState.IsValid)
             {
-                var newGovMapped = _mapper.Map<Governorates>(newGovFromRequest);
-                await _govService.AddAsync(newGovMapped);
-                await _govService.SaveAsync();
+                var newGov = _mapper.Map<Governorates>(govRegModel);
+                await govService.AddAsync(newGov);
+                await govService.SaveAsync();
                 return RedirectToAction("Index");
-
             }
-            List<Regions> regions = await _regionService.GetAllAsync();
-            newGovFromRequest.RegionList = regions;
-            return View("Add",newGovFromRequest);
+            govRegModel.RegionList = await regionService.GetAllAsync();
+            return View("Add",govRegModel);
         }
+    
 
-        public async Task<IActionResult> Details(int Id)
-        {
-            Governorates governorate = await _govService.GetByIdAsync(Id);
-            return View("Details",governorate);
-        }
-
-        public async Task<IActionResult> Delete(int Id)
-        {
-            await _govService.DeleteAsync(Id);
-            await _govService.SaveAsync();
-            return RedirectToAction("Index");
-        }
+        
        
         
     }

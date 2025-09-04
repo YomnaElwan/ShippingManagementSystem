@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ShippingSystem.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e46bcf372a7e152614b6664bfdd639b3ab0382e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3655f68ab7752c1d3049688e7fa89cd086e7d68b")]
 [assembly: System.Reflection.AssemblyProductAttribute("ShippingSystem.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ShippingSystem.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
