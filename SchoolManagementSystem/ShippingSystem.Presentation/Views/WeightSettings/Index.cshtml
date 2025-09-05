@@ -1,0 +1,32 @@
+﻿@using ShippingSystem.Domain.Entities
+@model List<WeightSettings>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a asp-action="New" asp-controller="WeightSettings" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New Settings</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Base Weight Limit</td>
+            <td>Price Per Kg</td>
+            <td>Settings</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.BaseWeightLimit</td>
+                <td>@item.PricePerKg</td>
+                <td>
+                    <a asp-action="Details" asp-controller="WeightSettings" asp-route-id="@item.Id" class="btn btn-info"><i class="bi bi-info-circle"></i></a>
+                    <a asp-action="Edit" asp-controller="WeightSettings" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="WeightSettings" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

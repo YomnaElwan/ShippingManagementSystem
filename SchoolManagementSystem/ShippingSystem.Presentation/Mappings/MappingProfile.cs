@@ -16,6 +16,8 @@ namespace ShippingSystem.Presentation.Mappings
             CreateMap<ReadBranchesViewModel, Branches>();
             CreateMap<Branches, AddBranchViewModel>();
             CreateMap<AddBranchViewModel, Branches>();
+            CreateMap<WeightSettings, AddWeightSettingsViewModel>();
+            CreateMap<AddWeightSettingsViewModel, WeightSettings>();
         }
     }
 }

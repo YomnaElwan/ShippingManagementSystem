@@ -36,7 +36,8 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             builder.Services.AddScoped<ICityService, CityService>();
             builder.Services.AddScoped<ICityRepository, CityRepository>();
-
+            builder.Services.AddScoped<IWeightSettingsService, WeightSettingsService>();
+            builder.Services.AddScoped<IWeightSettingsRepository, WeightSettingsRepository>();
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

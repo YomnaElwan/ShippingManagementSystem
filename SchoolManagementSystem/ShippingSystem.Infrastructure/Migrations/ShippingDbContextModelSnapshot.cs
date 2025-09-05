@@ -248,11 +248,13 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -275,7 +277,8 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("PickupCost")
                         .HasColumnType("decimal(18,2)");
@@ -341,7 +344,8 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
 
                     b.Property<int>("RegionId")
                         .HasColumnType("int");
@@ -508,7 +512,8 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
 
@@ -540,19 +545,19 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("BasePrice")
+                    b.Property<decimal>("BaseWeightLimit")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("MaxWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("MinWeight")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("PricePerKg")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId")
+                        .IsUnique();
 
                     b.ToTable("WeightSettings");
                 });
@@ -622,7 +627,7 @@ namespace ShippingSystem.Infrastructure.Migrations
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Couriers", b =>
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
-                        .WithMany("Couriers")
+                        .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -649,7 +654,7 @@ namespace ShippingSystem.Infrastructure.Migrations
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Employees", b =>
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
-                        .WithMany("Employees")
+                        .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -701,7 +706,7 @@ namespace ShippingSystem.Infrastructure.Migrations
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Orders", b =>
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("BranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -749,13 +754,20 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("WeightSettings");
                 });
 
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.Branches", b =>
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.WeightSettings", b =>
                 {
-                    b.Navigation("Couriers");
+                    b.HasOne("ShippingSystem.Domain.Entities.Cities", "Cities")
+                        .WithOne("WeightSettings")
+                        .HasForeignKey("ShippingSystem.Domain.Entities.WeightSettings", "CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Employees");
+                    b.Navigation("Cities");
+                });
 
-                    b.Navigation("Orders");
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.Cities", b =>
+                {
+                    b.Navigation("WeightSettings");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Governorates", b =>

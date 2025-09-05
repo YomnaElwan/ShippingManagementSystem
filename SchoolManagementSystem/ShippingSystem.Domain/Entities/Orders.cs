@@ -44,6 +44,7 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("PaymentMethod")]
         public int PaymentMethodId { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
+        
         [ForeignKey("WeightSettings")]
         public int WeightSettingsId { get; set; }
         public WeightSettings WeightSettings { get; set; }

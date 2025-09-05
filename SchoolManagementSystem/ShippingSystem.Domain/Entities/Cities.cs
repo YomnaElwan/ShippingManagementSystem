@@ -26,5 +26,8 @@ namespace ShippingSystem.Domain.Entities
         public int GovernorateId { get; set; }
         public Governorates? Governorate { get; set; }
 
+        //Navigation Property
+        public WeightSettings? WeightSettings { get; set; }
+
     }
 }
