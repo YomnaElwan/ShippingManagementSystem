@@ -1,4 +1,5 @@
 ﻿using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.Validation;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,7 @@ namespace ShippingSystem.Presentation.ViewModels
         public decimal PricePerKg { get; set; }
         [Required(ErrorMessage ="Please Choose a city!")]
         [DisplayName("City")]
+        [UniqueCityWeightSettings]
         public int CityId { get; set; }
         [NotMapped]
         public List<Cities>? CityList { get; set; }
