@@ -1,0 +1,25 @@
+﻿@using ShippingSystem.Domain.Entities
+@model Branches
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Location</td>
+            <td>Creation Date</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Location</td>
+            <td>@Model.CreateAt.ToString("MM/dd/yyy")</td>
+        </tr>
+    </tbody>
+</table>
+<a asp-action="Index" asp-controller="Branch" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>

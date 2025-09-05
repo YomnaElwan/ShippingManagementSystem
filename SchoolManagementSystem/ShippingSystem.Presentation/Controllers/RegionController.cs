@@ -10,7 +10,8 @@ namespace ShippingSystem.Presentation.Controllers
     {
         private readonly IGenericService<Regions> _regionService;
         private readonly IGovernorateService _govsService;
-        public RegionController(IGenericService<Regions> _regionService,IGovernorateService _govsService)
+        public RegionController(IGenericService<Regions> _regionService,
+                                IGovernorateService _govsService)
         {
             this._regionService = _regionService;
             this._govsService = _govsService;
@@ -46,6 +47,7 @@ namespace ShippingSystem.Presentation.Controllers
             region.Governorates = govsinRegionList;
             return View("Details",region);
         }
+     
         public async Task<IActionResult> Delete (int Id)
         {
             await _regionService.DeleteAsync(Id);

@@ -19,7 +19,6 @@ namespace ShippingSystem.Infrastructure.Repositories
             this.context = context;
             
         }
-
         public async Task AddAsync(T obj)
         {
             await context.Set<T>().AddAsync(obj);        
@@ -34,8 +33,7 @@ namespace ShippingSystem.Infrastructure.Repositories
         //        context.Set<T>().Remove(obj);
         //    }
         //}
-     
-
+    
         public async Task<List<T>> GetAllAsync()
         {
             return await context.Set<T>().ToListAsync();
@@ -44,11 +42,6 @@ namespace ShippingSystem.Infrastructure.Repositories
         public async Task<T> GetByIdAsync(int Id)
         {
             return await context.Set<T>().FindAsync(Id);
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
         }
 
         public async Task SaveAsync()
@@ -74,5 +67,6 @@ namespace ShippingSystem.Infrastructure.Repositories
                 }
             }
         }
+
     }
 }

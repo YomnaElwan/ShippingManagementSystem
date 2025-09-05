@@ -40,6 +40,5 @@ namespace ShippingSystem.Application.Services
             await _genericRepo.SaveAsync();
         }
 
-       
     }
 }

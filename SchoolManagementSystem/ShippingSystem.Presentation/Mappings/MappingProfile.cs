@@ -12,6 +12,10 @@ namespace ShippingSystem.Presentation.Mappings
             CreateMap<GovRegionViewModel, Governorates>();
             CreateMap<Cities, CityViewModel>();
             CreateMap<CityViewModel, Cities>();
+            CreateMap<Branches, ReadBranchesViewModel>();
+            CreateMap<ReadBranchesViewModel, Branches>();
+            CreateMap<Branches, AddBranchViewModel>();
+            CreateMap<AddBranchViewModel, Branches>();
         }
     }
 }

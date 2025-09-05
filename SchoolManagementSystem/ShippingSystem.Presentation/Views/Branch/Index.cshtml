@@ -1,0 +1,42 @@
+﻿@using ShippingSystem.Presentation.ViewModels
+@model List<ReadBranchesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a asp-action="Add" asp-controller="Branch" class="btn btn-info"><i class="bi bi-plus-circle"></i> Add New Branch</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Branch Name</td>
+            <td>CreateAt</td>
+            <td>Status</td>
+            <td>Settings</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var item in Model){
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.CreateAt</td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" class="form-check-input" onclick="return false;" 
+                        @(item.IsActive?"checked":"")/>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Details" asp-controller="Branch" asp-route-Id="@item.Id" class="btn btn-info"><i class="bi bi-info-circle"></i></a>
+                    <a asp-action="Edit" asp-controller="Branch" asp-route-Id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="Branch" asp-route-Id="@item.Id" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+  
+</table>
+
