@@ -53,5 +53,26 @@ namespace ShippingSystem.Presentation.Controllers
             await branchService.SaveAsync();
             return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var existingBranch = await branchService.GetByIdAsync(Id);
+            var mappedExistingBranch = _mapper.Map<EditBranchViewModel>(existingBranch);
+            return View("Edit",mappedExistingBranch);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEdit(EditBranchViewModel branchVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var editedRecord = _mapper.Map<Branches>(branchVM);
+                await branchService.UpdateAsync(editedRecord);
+                await branchService.SaveAsync();
+                return RedirectToAction("Index");
+
+            }
+            return View("Edit",branchVM);
+        }
     }
 }

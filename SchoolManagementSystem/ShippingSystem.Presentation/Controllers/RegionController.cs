@@ -20,7 +20,7 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Index()
         {
             List<Regions> regionsList = await _regionService.GetAllAsync();
-            return View("Index",regionsList);
+            return View("Index", regionsList);
         }
 
         [HttpGet]
@@ -33,27 +33,49 @@ namespace ShippingSystem.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNew(Regions newRegion)
         {
-            if (ModelState.IsValid) {
+            if (ModelState.IsValid)
+            {
                 await _regionService.AddAsync(newRegion);
                 await _regionService.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("AddNew", newRegion);
         }
-       public async Task<IActionResult> Details(int Id)
-       {
+        public async Task<IActionResult> Details(int Id)
+        {
             Regions region = await _regionService.GetByIdAsync(Id);
             List<Governorates> govsinRegionList = await _govsService.regionGovsList(Id);
             region.Governorates = govsinRegionList;
-            return View("Details",region);
+            return View("Details", region);
         }
-     
-        public async Task<IActionResult> Delete (int Id)
+
+        public async Task<IActionResult> Delete(int Id)
         {
             await _regionService.DeleteAsync(Id);
             await _regionService.SaveAsync();
             return RedirectToAction("Index");
         }
-        
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            Regions region = await _regionService.GetByIdAsync(Id);
+            return View("Edit",region);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEdit(Regions region)
+        {
+            if (ModelState.IsValid)
+            {
+                await _regionService.UpdateAsync(region);
+                await _regionService.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            return View("Edit", region);
+        }
     }
+
+
+
+    
 }

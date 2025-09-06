@@ -36,6 +36,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoXERldGFpbHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/Branch/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/Branch/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQnJhbmNoXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -48,6 +52,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0eVxEZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/City/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0eVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/City/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0eVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/Governorate/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR292ZXJub3JhdGVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/Governorate/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR292ZXJub3JhdGVcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/Governorate/Index.cshtml]
@@ -98,6 +110,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/WeightSettings/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VpZ2h0U2V0dGluZ3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/WeightSettings/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VpZ2h0U2V0dGluZ3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/SchoolManagementSystem/ShippingSystem.Presentation/Views/WeightSettings/Index.cshtml]

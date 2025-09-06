@@ -68,5 +68,13 @@ namespace ShippingSystem.Infrastructure.Repositories
             }
         }
 
+        public async Task UpdateAsync(T obj)
+        {
+            var existing = await context.Set<T>().FindAsync(obj.GetType().GetProperty("Id").GetValue(obj));
+            if (existing != null)
+            {
+                context.Entry(existing).CurrentValues.SetValues(obj);
+            }
+            }
     }
 }

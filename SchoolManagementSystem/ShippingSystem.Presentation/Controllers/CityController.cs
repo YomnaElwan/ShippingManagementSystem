@@ -82,6 +82,30 @@ namespace ShippingSystem.Presentation.Controllers
            await citiesService.SaveAsync();
            return RedirectToAction("Index");
         }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            List<Governorates> govList = await governoratesService.GetAllAsync();
+            var existingCity = await citiesService.cityHasGov(Id);
+            var existingCityVM = _mapper.Map<CityViewModel>(existingCity);
+            existingCityVM.GovernoratesList = govList;
+            return View("Edit",existingCityVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEdit(CityViewModel cityVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var editedCity = _mapper.Map<Cities>(cityVM);
+                await cityService.UpdateAsync(editedCity);
+                await cityService.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            cityVM.GovernoratesList = await governoratesService.GetAllAsync();
+            return View("Edit",cityVM);
+        }
+     
 
 
     }

@@ -1,0 +1,33 @@
+﻿@using ShippingSystem.Presentation.ViewModels
+@model WeightSettingsViewModel
+@{
+    ViewData["Title"] = "Edit";
+    SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
+}
+
+<h1>Edit</h1>
+<form asp-action="SaveEdit" asp-controller="WeightSettings" asp-route-id="@Model.Id" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="BaseWeightLimit"></label>(Kg)
+        <input asp-for="BaseWeightLimit" class="form form-control"/>
+        <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PricePerKg"></label>(EGP)
+        <input asp-for="PricePerKg" class="form form-control"/>
+        <span asp-validation-for="PricePerKg"></span>
+    </div>
+    <div>
+        <label asp-for="CityId"></label>
+        <select asp-for="CityId" class="form form-control" asp-items="cityList"></select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+    <div>
+        <input type="submit" value="SaveEdit" class="btn btn-success mt-3" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index" asp-controller="WeightSettings" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+</div>
+

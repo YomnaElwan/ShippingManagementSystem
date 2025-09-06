@@ -15,8 +15,8 @@ namespace ShippingSystem.Domain.Validation
         {
             int cityIdFromUsr = (int)value;
             var service = (IGenericRepository<WeightSettings>)validationContext.GetService(typeof(IGenericRepository<WeightSettings>));
-            var cityIdFromDB = service.GetAllAsync().Result.FirstOrDefault(c => c.CityId ==cityIdFromUsr);
-            if (cityIdFromDB != null)
+            var existingWeightSettings = service.GetAllAsync().Result.FirstOrDefault(c => c.CityId ==cityIdFromUsr);
+            if (existingWeightSettings != null)
             {
                 return new ValidationResult("This City Already Has Weight Settings, Please Choose Another City");
             }

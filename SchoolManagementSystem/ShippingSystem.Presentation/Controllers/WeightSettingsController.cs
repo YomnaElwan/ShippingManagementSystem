@@ -32,7 +32,7 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> New()
         {
             List<Cities> cityList = await cityService.GetAllAsync();
-            AddWeightSettingsViewModel settingVM = new AddWeightSettingsViewModel()
+            WeightSettingsViewModel settingVM = new WeightSettingsViewModel()
             {
                 CityList = cityList
             };
@@ -40,7 +40,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveNew(AddWeightSettingsViewModel settingsVM)
+        public async Task<IActionResult> SaveNew(WeightSettingsViewModel settingsVM)
         {
             if (settingsVM.CityId == 0)
             {
@@ -72,6 +72,33 @@ namespace ShippingSystem.Presentation.Controllers
             await weightSettingsService.DeleteAsync(Id);
             await weightSettingsService.SaveAsync();
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var existingRecord = await _weighSettingsService.GetById(Id);
+            if (existingRecord == null)
+            {
+                return NotFound();
+            }
+            var existRecVM = _mapper.Map<WeightSettingsViewModel>(existingRecord);
+            existRecVM.CityList = await cityService.GetAllAsync();
+            return View("Edit",existRecVM);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEdit(WeightSettingsViewModel editWSFromUser)
+        {
+            if (ModelState.IsValid)
+            {
+                var mappedEditedRec = _mapper.Map<WeightSettings>(editWSFromUser);
+                await weightSettingsService.UpdateAsync(mappedEditedRec);
+                await weightSettingsService.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            editWSFromUser.CityList = await cityService.GetAllAsync();
+            return View("Edit",editWSFromUser);
         }
     }
 }

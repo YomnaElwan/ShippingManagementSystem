@@ -79,10 +79,30 @@ namespace ShippingSystem.Presentation.Controllers
             await governService.SaveAsync();
             return RedirectToAction("Index");
         }
-    
 
-        
-       
-        
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            List<Regions> regionList = await regionService.GetAllAsync();
+            var recordFromDB =await governService.govByIdIncludeRegion(Id);
+            var existRecordVM = _mapper.Map<EditGovRegionViewModel>(recordFromDB);
+            existRecordVM.RegionList = regionList;
+            return View("Edit", existRecordVM);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> SaveEdit(EditGovRegionViewModel govRegionVM)
+        {
+            if (ModelState.IsValid)
+            {
+                var savedEditedModel = _mapper.Map<Governorates>(govRegionVM);
+                await govService.UpdateAsync(savedEditedModel);
+                await govService.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            govRegionVM.RegionList = await regionService.GetAllAsync();
+            return View("Edit", govRegionVM);
+        }
     }
 }

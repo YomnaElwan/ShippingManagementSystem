@@ -40,5 +40,9 @@ namespace ShippingSystem.Application.Services
             await _genericRepo.SaveAsync();
         }
 
+        public async Task UpdateAsync(T obj)
+        {
+            await _genericRepo.UpdateAsync(obj);
+        }
     }
 }
