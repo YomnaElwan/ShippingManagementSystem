@@ -22,8 +22,7 @@ namespace ShippingSystem.Presentation.Mappings
             CreateMap<Governorates, EditGovRegionViewModel>();
             CreateMap<EditBranchViewModel, Branches>();
             CreateMap<Branches, EditBranchViewModel>();
-
-
+            
         }
     }
 }

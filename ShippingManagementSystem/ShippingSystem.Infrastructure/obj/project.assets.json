@@ -4955,11 +4955,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Infrastructure\\ShippingSystem.Infrastructure.csproj",
+      "projectUniqueName": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Infrastructure\\ShippingSystem.Infrastructure.csproj",
       "projectName": "ShippingSystem.Infrastructure",
-      "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Infrastructure\\ShippingSystem.Infrastructure.csproj",
+      "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Infrastructure\\ShippingSystem.Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Ahmed Elwan\\.nuget\\packages\\",
-      "outputPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Infrastructure\\obj\\",
+      "outputPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -4980,8 +4980,8 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
-            "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj": {
-              "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj"
+            "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj": {
+              "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj"
             }
           }
         }

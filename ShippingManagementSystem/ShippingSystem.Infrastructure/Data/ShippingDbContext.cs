@@ -31,10 +31,21 @@ namespace ShippingSystem.Infrastructure.Data
         public DbSet<ShippingType> ShippingType { get; set; }
         public DbSet<WeightSettings> WeightSettings { get; set; }
         public DbSet<Regions> Region { get; set; }
+        public DbSet<PermissionsModule> PermissionsModule { get; set; }
+        public DbSet<RolePermissions> RolePermissions { get; set; }
+      
+
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<RolePermissions>().HasKey(rp => new { rp.RoleId, rp.PermissionsModuleId });
+            builder.Entity<RolePermissions>().HasOne(rp => rp.Role).WithMany().HasForeignKey(rp => rp.RoleId);
+            builder.Entity<RolePermissions>().HasOne(rp => rp.PermissionsModule).WithMany().HasForeignKey(rp => rp.PermissionsModuleId);
         }
     }
 }

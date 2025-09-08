@@ -1,0 +1,47 @@
+﻿@using ShippingSystem.Presentation.ViewModels
+@model ModulePermissionsVM
+@{
+    ViewData["Title"] = "Add";
+    SelectList rolesList = new SelectList(Model.Roles,"Id","Name");
+}
+
+<form asp-action="SaveAdd" asp-controller="Permissions" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="RoleId"></label>
+        <select class="form form-control" asp-items="rolesList" asp-for="RoleId">
+            <option value="">--Select Role--</option>
+        </select>
+        <span asp-validation-for="RoleId" class="text-danger"></span>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Module/Groups</td>
+                <td>View</td>
+                <td>Details</td>
+                <td>Add</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+        </thead>
+        <tbody>
+            @for(int i=0;i<Model.Modules.Count;i++){
+             <tr>
+                 <td>@Model.Modules[i].Name
+                 <input type="hidden" asp-for="ModulePerms[@i].ModuleId" value="@Model.Modules[i].Id"/>
+                 </td>
+                 <td><input asp-for="ModulePerms[@i].CanView"/></td>
+                 <td><input asp-for="ModulePerms[@i].CanViewDetails"/></td>
+                 <td><input asp-for="ModulePerms[@i].CanAdd"/></td>
+                 <td><input asp-for="ModulePerms[@i].CanEdit"/></td>
+                 <td><input asp-for="ModulePerms[i].CanDelete"/></td>
+             </tr>
+            }
+        </tbody>
+    </table>
+    <input type="submit" value="Save" class="btn btn-success" />
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

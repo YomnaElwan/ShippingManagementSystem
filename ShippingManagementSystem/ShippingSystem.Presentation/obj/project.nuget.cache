@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "jxJTonmpm9c=",
+  "dgSpecHash": "VaJlKTKOCAc=",
   "success": true,
-  "projectFilePath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\SchoolManagementSystem\\ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj",
+  "projectFilePath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Ahmed Elwan\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\Ahmed Elwan\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",

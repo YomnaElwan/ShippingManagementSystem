@@ -24,9 +24,6 @@
                         @* <li class="nav-item"> *@
                         @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> *@
                         @* </li> *@
-                        @* <li class="nav-item"> *@
-                        @*     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
-                        @* </li> *@
                         @if(User.IsInRole("Admin")){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Region" asp-action="Index">Regions</a>
@@ -44,7 +41,16 @@
                                 <a class="nav-link text-dark" asp-controller="WeightSettings" asp-action="Index">Weight Settings</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Role" asp-action="Index">Roles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="PermissionsModule" asp-action="Index">Permissions Module</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="Logout">Logout</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Permissions" asp-action="Add">Permissions</a>
                             </li>
                         }
                         else{

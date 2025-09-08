@@ -11,3 +11,16 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\SchoolManagementSy
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\SchoolManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\refint\ShippingSystem.Domain.dll
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\SchoolManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.pdb
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\SchoolManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ref\ShippingSystem.Domain.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\bin\Debug\net9.0\ShippingSystem.Domain.deps.json
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\bin\Debug\net9.0\ShippingSystem.Domain.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\bin\Debug\net9.0\ShippingSystem.Domain.pdb
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.csproj.AssemblyReference.cache
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.AssemblyInfoInputs.cache
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.AssemblyInfo.cs
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.csproj.CoreCompileInputs.cache
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.sourcelink.json
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\refint\ShippingSystem.Domain.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ShippingSystem.Domain.pdb
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Domain\obj\Debug\net9.0\ref\ShippingSystem.Domain.dll
