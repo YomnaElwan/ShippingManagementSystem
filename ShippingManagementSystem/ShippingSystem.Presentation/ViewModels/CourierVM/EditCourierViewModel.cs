@@ -7,7 +7,7 @@ namespace ShippingSystem.Presentation.ViewModels.CourierVM
 {
     public class EditCourierViewModel
     {
-        public int CourierId { get; set; }
+        public int Id { get; set; }
         [Required(ErrorMessage ="You must enter the name!")]
         [DisplayName("Name")]
         public string CourierName { get; set; }

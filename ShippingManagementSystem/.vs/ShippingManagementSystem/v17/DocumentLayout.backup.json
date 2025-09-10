@@ -36,10 +36,11 @@
               "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
               "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
               "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAmwDIAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-09-10T12:27:43.221Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -49,10 +50,11 @@
               "RelativeDocumentMoniker": "ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
               "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
               "RelativeToolTip": "ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAAIwBcAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABsAAAAAAAAAAADwvycAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T12:28:50.216Z",
-              "IsPinned": true
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Bookmark",
@@ -70,9 +72,10 @@
               "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
               "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
               "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAAHIAAAAAAAAAAAAowH0AAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAowAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-10T12:48:09.717Z"
+              "WhenOpened": "2025-09-10T22:45:40.665Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -80,9 +83,9 @@
               "Title": "CourierController.cs",
               "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\CourierController.cs",
               "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\CourierController.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\CourierController.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\CourierController.cs",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAjwJoAAAAxAAAAAAAAAA==",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\CourierController.cs*",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\CourierController.cs*",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAewIQAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-09-10T11:26:24.769Z",
               "EditorCaption": ""

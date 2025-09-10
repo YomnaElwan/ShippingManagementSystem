@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
+using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.CourierVM;
 
@@ -127,45 +128,44 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             Couriers courierFromDB = await serviceCourier.CourierWithDataById(Id);
-            EditCourierViewModel editedCourier = new EditCourierViewModel()
+            EditCourierViewModel editCourier = new EditCourierViewModel()
             {
-                CourierName=courierFromDB.User.UserName,
-                CourierEmail=courierFromDB.User.Email,
-                CourierPhone=courierFromDB.User.PhoneNumber,
-                CourierAddress=courierFromDB.User.Address,
-                BranchId=courierFromDB.BranchId,
-                GovernorateId=courierFromDB.GovernorateId,
-                DiscountTypeOptions=courierFromDB.DiscountTypeOption,
-                CompanyDiscountValue=courierFromDB.DiscountValue,
+                Id=courierFromDB.Id,
+                CourierName = courierFromDB.User.UserName,
+                CourierEmail = courierFromDB.User.Email,
+                CourierPhone = courierFromDB.User.PhoneNumber,
+                CourierAddress = courierFromDB.User.Address,
+                BranchId = courierFromDB.BranchId,
+                GovernorateId = courierFromDB.GovernorateId,
+                DiscountTypeOptions = courierFromDB.DiscountTypeOption,
+                CompanyDiscountValue = courierFromDB.DiscountValue
             };
-            editedCourier.BranchList = await branchService.GetAllAsync();
-            editedCourier.GovernorateList = await govService.GetAllAsync();
-            return View("Edit",editedCourier);
+            editCourier.BranchList= await branchService.GetAllAsync();
+            editCourier.GovernorateList = await govService.GetAllAsync();
+            return View("Edit",editCourier);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveEdit(EditCourierViewModel editFromUser)
+        public async Task<IActionResult> SaveEdit(EditCourierViewModel editedModel)
         {
             if (ModelState.IsValid)
             {
-                Couriers editedCourier = await serviceCourier.CourierWithDataById(editFromUser.CourierId);
-                editedCourier.Id = editFromUser.CourierId;
-                editedCourier.User.UserName = editFromUser.CourierName;
-                editedCourier.User.Email = editFromUser.CourierEmail;
-                editedCourier.User.PhoneNumber = editFromUser.CourierPhone;
-                editedCourier.User.Address = editFromUser.CourierAddress;
-                editedCourier.BranchId = editFromUser.BranchId;
-                editedCourier.GovernorateId = editFromUser.GovernorateId;
-                editedCourier.DiscountTypeOption = editFromUser.DiscountTypeOptions.Value;
-                editedCourier.DiscountValue = editFromUser.CompanyDiscountValue;
-                
-                await courierService.UpdateAsync(editedCourier);
+                Couriers courierFromDB = await serviceCourier.CourierWithDataById(editedModel.Id);
+                courierFromDB.User.UserName = editedModel.CourierName;
+                courierFromDB.User.Email = editedModel.CourierEmail;
+                courierFromDB.User.PhoneNumber = editedModel.CourierPhone;
+                courierFromDB.User.Address = editedModel.CourierAddress;
+                courierFromDB.BranchId = editedModel.BranchId;
+                courierFromDB.GovernorateId = editedModel.GovernorateId;
+                courierFromDB.DiscountTypeOption = editedModel.DiscountTypeOptions.Value;
+                courierFromDB.DiscountValue = editedModel.CompanyDiscountValue;
+                await courierService.UpdateAsync(courierFromDB);
                 await courierService.SaveAsync();
-                return View("Index");
+                return RedirectToAction("Index");
             }
-            editFromUser.BranchList = await branchService.GetAllAsync();
-            editFromUser.GovernorateList = await govService.GetAllAsync();
-            return View("Edit",editFromUser);
+            editedModel.BranchList = await branchService.GetAllAsync();
+            editedModel.GovernorateList = await govService.GetAllAsync();
+            return View("Edit",editedModel);
         }
         public async Task<IActionResult> Delete(int Id)
         {
