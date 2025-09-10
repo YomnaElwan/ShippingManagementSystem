@@ -68,6 +68,34 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2l0eVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Courier/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Courier/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Courier/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Courier/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ291cmllclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Employee/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQWRkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Employee/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Employee/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Governorate/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR292ZXJub3JhdGVcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -142,6 +170,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/User/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxBZGQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/User/_EmployeePartialView.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfRW1wbG95ZWVQYXJ0aWFsVmlldy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/WeightSettings/Details.cshtml]

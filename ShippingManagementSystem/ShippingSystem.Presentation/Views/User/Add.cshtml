@@ -1,0 +1,60 @@
+﻿@using ShippingSystem.Presentation.ViewModels.UsersVM
+@model AddUserViewModel
+@{
+    ViewData["Title"] = "Add";
+    SelectList roleList = new SelectList(Model.Roles, "Id", "Name");
+}
+
+<h1>Add</h1>
+<form asp-action="SaveAdd" asp-controller="User" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="RoleId"></label>
+        <select asp-for="RoleId" class="form form-control" asp-items="roleList" id="roleId" onchange="GetRoleView()">
+            <option value="">--Select Role--</option>
+        </select>
+        <span asp-validation-for="RoleId" class="text-danger"></span>
+    </div>
+    <div id="rolePartialView">
+        @if (ViewBag.SelectedRole != null)
+        {
+            switch (Model.Roles.FirstOrDefault(r => r.Id == ViewBag.SelectedRole)?.Name)
+            {
+                case "Employee":
+                    @Html.Partial("_EmployeePartialView", Model)
+                    break;
+                case "Admin":
+                    @Html.Partial("_AdminPartialView", Model)
+                    break;
+                case "Merchant":
+                    @Html.Partial("_MerchantPartialView", Model)
+                    break;
+                case "Courier":
+                    @Html.Partial("_CourierPartialView", Model)
+                    break;
+            }
+        }
+    </div>
+
+    <div>
+        <input type="submit" value="Save" class="btn btn-success mt-3"/> 
+    </div>
+</form>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function GetRoleView(){
+        var roleId=$("#roleId").val();
+        if(roleId){
+            $.ajax({
+                url:"/User/LoadRoleView?RoleId="+roleId,
+                success:function(result){
+                    $("#rolePartialView").html(result);
+                }
+            })
+        }
+    }
+</script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

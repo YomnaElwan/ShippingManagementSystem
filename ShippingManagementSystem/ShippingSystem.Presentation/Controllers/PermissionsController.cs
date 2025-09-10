@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
-using ShippingSystem.Presentation.ViewModels;
+using ShippingSystem.Presentation.ViewModels.PermissionsVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {

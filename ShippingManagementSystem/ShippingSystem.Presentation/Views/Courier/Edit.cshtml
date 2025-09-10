@@ -1,0 +1,62 @@
+﻿@using ShippingSystem.Domain.Entities
+@using ShippingSystem.Presentation.ViewModels.CourierVM
+@model EditCourierViewModel
+@{
+    ViewData["Title"] = "Edit";
+    SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
+    SelectList govList = new SelectList(Model.GovernorateList, "Id", "Name");
+
+}
+
+<h1>Edit</h1>
+<form asp-action="SaveEdit" asp-controller="Courier" asp-route-id="@Model.CourierId" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <input type="hidden" asp-for="@Model.CourierId"/>
+    </div>
+    <div>
+        <label asp-for="CourierName"></label>
+        <input asp-for="CourierName" class="form form-control" />
+        <span asp-validation-for="CourierName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CourierEmail"></label>
+        <input asp-for="CourierEmail" class="form form-control" />
+        <span asp-validation-for="CourierEmail" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CourierPhone"></label>
+        <input asp-for="CourierPhone" class="form form-control" />
+        <span asp-validation-for="CourierPhone" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CourierAddress"></label>
+        <input asp-for="CourierAddress" class="form form-control" />
+        <span asp-validation-for="CourierAddress" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CompanyDiscountValue"></label>
+        <input asp-for="CompanyDiscountValue" class="form form-control" />
+        <span asp-validation-for="CompanyDiscountValue" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <select asp-for="BranchId" class="form form-control" asp-items="branchList"></select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DiscountTypeOptions"></label>
+        <select asp-for="DiscountTypeOptions" class="form form-control" asp-items="Html.GetEnumSelectList<DiscountType>()"></select>
+        <span asp-validation-for="DiscountTypeOptions" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="GovernorateId"></label>
+        <select asp-for="GovernorateId" class="form form-control" asp-items="govList"></select>
+        <span asp-validation-for="GovernorateId" class="text-danger"></span>
+    </div>
+    <div>
+        <input type="submit" value="Save Edit" class="btn btn-success mt-3" />
+    </div>
+</form>
+<a asp-action="Index" asp-controller="Courier" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+

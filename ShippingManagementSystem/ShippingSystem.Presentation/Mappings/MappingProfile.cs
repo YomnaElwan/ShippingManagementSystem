@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using ShippingSystem.Domain.Entities;
-using ShippingSystem.Presentation.ViewModels;
+using ShippingSystem.Presentation.ViewModels.BranchVM;
+using ShippingSystem.Presentation.ViewModels.CityVM;
+using ShippingSystem.Presentation.ViewModels.GovernorateVM;
+using ShippingSystem.Presentation.ViewModels.WeightSettingsVM;
 
 namespace ShippingSystem.Presentation.Mappings
 {

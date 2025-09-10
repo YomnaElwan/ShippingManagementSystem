@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\permissionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\permissionscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\couriercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\couriercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\viewmodels\\couriervm\\editcourierviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\viewmodels\\couriervm\\editcourierviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\courier\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\courier\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -13,9 +25,35 @@
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 62,
-          "SelectedChildIndex": 2,
+          "DockedWidth": 197,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Courier\\Edit.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABEAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-10T12:27:43.221Z",
+              "IsPinned": true
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "EditCourierViewModel.cs",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
+              "RelativeToolTip": "ShippingSystem.Presentation\\ViewModels\\CourierVM\\EditCourierViewModel.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAIwBcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T12:28:50.216Z",
+              "IsPinned": true
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
@@ -26,21 +64,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PermissionsController.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\PermissionsController.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\PermissionsController.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\PermissionsController.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\PermissionsController.cs",
-              "ViewState": "AgIAACIAAAAAAAAAAAAqwCsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "EmployeeController.cs",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\EmployeeController.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAowH0AAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-08T18:04:31.512Z",
+              "WhenOpened": "2025-09-10T12:48:09.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "CourierController.cs",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\CourierController.cs",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\CourierController.cs",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\CourierController.cs",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\CourierController.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAewIAAAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-10T11:26:24.769Z",
               "EditorCaption": ""
             }
           ]
         },
         {
-          "DockedWidth": 338,
+          "DockedWidth": 203,
           "SelectedChildIndex": -1,
           "Children": [
             {

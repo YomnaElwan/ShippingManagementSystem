@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
-using ShippingSystem.Presentation.ViewModels;
+using ShippingSystem.Presentation.ViewModels.BranchVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {

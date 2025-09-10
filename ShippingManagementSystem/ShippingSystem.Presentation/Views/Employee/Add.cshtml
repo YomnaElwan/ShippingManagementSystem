@@ -1,0 +1,50 @@
+﻿@using ShippingSystem.Presentation.ViewModels.EmployeeVM
+@model AddEmployeeViewModel
+@{
+    ViewData["Title"] = "Add";
+    SelectList branchItems = new SelectList(Model.BranchList, "Id", "Name");
+}
+
+<h1>Add</h1>
+<form asp-action="SaveNew" asp-controller="Employee" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="EmployeeName"></label>
+        <input asp-for="EmployeeName" class="form form-control"/>
+        <span asp-validation-for="EmployeeName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="EmployeeEmail"></label>
+        <input asp-for="EmployeeEmail" class="form form-control"/>
+        <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form form-control"/>
+        <span asp-validation-for="Password"class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="EmployeePhone"></label>
+        <input asp-for="EmployeePhone" class="form form-control"/>
+        <span asp-validation-for="EmployeePhone" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="EmployeeAddress"></label>
+        <input asp-for="EmployeeAddress" class="form form-control"/>
+        <span asp-validation-for="EmployeeAddress" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <select class="form form-control" asp-for="BranchId" asp-items="branchItems">
+            <option value="0">--Select Branch--</option>
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Save Employee" class="btn btn-success mt-3"/>
+    </div>
+</form>
+<a asp-action="Index" asp-controller="Employee" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

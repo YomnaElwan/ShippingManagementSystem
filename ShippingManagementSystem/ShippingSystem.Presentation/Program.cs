@@ -38,6 +38,11 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<ICityRepository, CityRepository>();
             builder.Services.AddScoped<IWeightSettingsService, WeightSettingsService>();
             builder.Services.AddScoped<IWeightSettingsRepository, WeightSettingsRepository>();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+            builder.Services.AddScoped<ICourierRepository, CourierRepository>();
+            builder.Services.AddScoped<ICourierService, CourierService>();
+          
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

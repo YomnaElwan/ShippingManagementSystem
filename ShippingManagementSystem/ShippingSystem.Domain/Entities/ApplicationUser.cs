@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -11,8 +12,8 @@ namespace ShippingSystem.Domain.Entities
 {
     public class ApplicationUser:IdentityUser
     {
-        public string Address { get; set; }
-        public bool IsActive { get; set; } = true;
+        public string? Address { get; set; }
+        
 
 
     }

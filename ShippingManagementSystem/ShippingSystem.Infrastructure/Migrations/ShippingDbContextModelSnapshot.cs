@@ -164,7 +164,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -176,9 +175,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(256)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -287,8 +283,11 @@ namespace ShippingSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Couriers", b =>
                 {
-                    b.Property<string>("CourierId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("BranchId")
                         .HasColumnType("int");
@@ -302,26 +301,47 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("GovernorateId")
                         .HasColumnType("int");
 
-                    b.HasKey("CourierId");
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BranchId");
 
                     b.HasIndex("GovernorateId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Courier");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Employees", b =>
                 {
-                    b.Property<string>("EmployeeId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("BranchId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.HasKey("EmployeeId");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("BranchId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Employee");
                 });
@@ -354,20 +374,26 @@ namespace ShippingSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Merchants", b =>
                 {
-                    b.Property<string>("MerchantId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("RejOrderCostPercent")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("MerchantId");
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Merchant");
                 });
@@ -429,9 +455,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("GovernorateId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MerchantId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("MerchantId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Notes")
                         .IsRequired()
@@ -677,15 +702,15 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShippingSystem.Domain.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("CourierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ShippingSystem.Domain.Entities.Governorates", "Governorate")
                         .WithMany("Couriers")
                         .HasForeignKey("GovernorateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShippingSystem.Domain.Entities.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -700,13 +725,11 @@ namespace ShippingSystem.Infrastructure.Migrations
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
                         .WithMany()
-                        .HasForeignKey("BranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BranchId");
 
                     b.HasOne("ShippingSystem.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("EmployeeId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -730,7 +753,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
-                        .HasForeignKey("MerchantId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -763,7 +786,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("ShippingSystem.Domain.Entities.Merchants", "Merchant")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("MerchantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -840,11 +863,6 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Navigation("Couriers");
 
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.Merchants", b =>
-                {
                     b.Navigation("Orders");
                 });
 

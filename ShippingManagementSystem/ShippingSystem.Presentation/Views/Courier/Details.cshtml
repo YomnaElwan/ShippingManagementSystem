@@ -1,0 +1,36 @@
+﻿@using ShippingSystem.Presentation.ViewModels.CourierVM
+@model ReadCourierViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>PhoneNumber</td>
+            <td>Address</td>
+            <td>Branch</td>
+            <td>Governorate</td>
+            <td>Company Discount Value</td>
+            <td>Discount Type</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.CourierId</td>
+            <td>@Model.CourierName</td>
+            <td>@Model.CourierEmail</td>
+            <td>@Model.CourierPhone</td>
+            <td>@Model.CourierAddress</td>
+            <td>@Model.BranchName</td>
+            <td>@Model.GovernorateName</td>
+            <td>@Model.CompanyDiscountValue</td>
+            <td>@Model.DiscountTypeOptions</td>
+        </tr>
+    </tbody>
+</table>
+<a asp-action="Index" asp-controller="Courier" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>

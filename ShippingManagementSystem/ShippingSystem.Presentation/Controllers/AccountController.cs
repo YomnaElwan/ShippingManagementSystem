@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Domain.Entities;
-using ShippingSystem.Presentation.ViewModels;
+using ShippingSystem.Presentation.ViewModels.AccountVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {

@@ -1,0 +1,42 @@
+﻿@using ShippingSystem.Presentation.ViewModels.EmployeeVM
+@model List<GetEmployeeListViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<a asp-action="Add" asp-controller="Employee" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New Employee</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone Number</td>
+            <td>Branch</td>
+            <td>Status</td>
+            <td>Settings</td>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var emp in Model){
+            <tr>
+                <td>@emp.EmployeeId</td>
+                <td>@emp.EmployeeName</td>
+                <td>@emp.EmployeeEmail</td>
+                <td>@emp.EmployeePhone</td>
+                <td>@emp.BranchName</td>
+                <td>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" onclick="return false;" type="checkbox"
+                        @(emp.IsActive?"checked":"")/>
+                    </div>
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-controller="Employee" asp-route-id="@emp.EmployeeId" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="Employee" asp-route-id="@emp.EmployeeId" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

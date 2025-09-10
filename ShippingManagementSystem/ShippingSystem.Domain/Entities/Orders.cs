@@ -25,7 +25,7 @@ namespace ShippingSystem.Domain.Entities
         public bool VillageDelivery { get; set; }
 
         [ForeignKey("Merchant")]
-        public string MerchantId { get; set; }
+        public int MerchantId { get; set; }
         public Merchants Merchant { get; set; }
         public List<OrderItem> OrderItems { get; set; }
         [ForeignKey("Governorate")]

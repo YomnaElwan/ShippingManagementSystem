@@ -1,0 +1,45 @@
+﻿@using ShippingSystem.Presentation.ViewModels.UsersVM
+@model AddUserViewModel
+@{
+    ViewData["Title"] = "_EmployeePartialView";
+    SelectList branchList = new SelectList(Model.Branches,"Id","Name");
+}
+    <div>
+        <label asp-for="UserName"></label>
+        <input asp-for="UserName" class="form form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form form-control" />
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" class="form form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber"></label>
+        <input asp-for="PhoneNumber" class="form form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="UserAddress"></label>
+        <input asp-for="UserAddress" class="form form-control"/>
+        <span asp-validation-for="UserAddress" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <select asp-for="BranchId" class="form form-control" asp-items="branchList">
+            <option value="0">--Select Branch--</option>
+        </select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
+    </div>
+
+
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

@@ -10,22 +10,23 @@ namespace ShippingSystem.Domain.Entities
         Percentage=1,
         FixedAmount=2
     }
-
     public class Couriers
-    {
-        
-        [Key,ForeignKey("User")]
-        public string CourierId { get; set; }
+    {   
+        public int Id { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
         public ApplicationUser User { get; set; }
         public DiscountType DiscountTypeOption { get; set; }
         public decimal DiscountValue { get; set; } // The value of the discount (percentage or fixed amount)
-
+        public bool IsActive { get; set; } = true;
         [ForeignKey("Branch")]
         public int BranchId { get; set; }
         public Branches Branch { get; set; }
         [ForeignKey("Governorate")]
         public int GovernorateId { get; set; }
+        
         public Governorates Governorate { get; set; }
+        
 
     }
 }
