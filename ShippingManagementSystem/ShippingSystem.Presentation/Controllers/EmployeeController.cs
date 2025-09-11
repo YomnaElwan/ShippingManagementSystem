@@ -75,6 +75,15 @@ namespace ShippingSystem.Presentation.Controllers
                 {
                     await userManager.AddToRoleAsync(newUser, "Employee");
                     await signInManager.SignInAsync(newUser, false);
+                    Employees newEmp = new Employees()
+                    {
+                        BranchId = newEmpFromUser.BranchId,
+                        User = newUser
+                    };
+                    await empService.AddAsync(newEmp);
+                    await empService.SaveAsync();
+                    return RedirectToAction("Index");
+
                 }
                 else
                 {
@@ -83,14 +92,7 @@ namespace ShippingSystem.Presentation.Controllers
                         ModelState.AddModelError("", item.Description);
                     }
                 }
-                Employees newEmp = new Employees()
-                {
-                    BranchId = newEmpFromUser.BranchId,
-                    User = newUser
-                };
-                await empService.AddAsync(newEmp);
-                await empService.SaveAsync();
-                return RedirectToAction("Index");
+              
             }
             newEmpFromUser.BranchList = await branchService.GetAllAsync();
             return View("Add",newEmpFromUser);

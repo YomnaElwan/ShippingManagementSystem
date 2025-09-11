@@ -42,6 +42,8 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<IEmployeeService, EmployeeService>();
             builder.Services.AddScoped<ICourierRepository, CourierRepository>();
             builder.Services.AddScoped<ICourierService, CourierService>();
+            builder.Services.AddScoped<IMerchantService, MerchantService>();
+            builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
           
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());

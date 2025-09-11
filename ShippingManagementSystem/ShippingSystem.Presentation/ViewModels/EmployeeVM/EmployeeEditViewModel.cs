@@ -27,7 +27,6 @@ namespace ShippingSystem.Presentation.ViewModels.EmployeeVM
         public string? EmployeeAddress { get; set; }
         [DisplayName("Branch")]
         public int? BranchId { get; set; }
-        [NotMapped]
         public List<Branches>? BranchList { get; set; }
 
 

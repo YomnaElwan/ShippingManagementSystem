@@ -100,6 +100,18 @@ namespace ShippingSystem.Presentation.Controllers
                 {
                   await userManager.AddToRoleAsync(newUser, "Courier");
                   await signInManager.SignInAsync(newUser, false);
+                  Couriers newCourier = new Couriers()
+                  {
+                        BranchId = newCourierFromUser.BranchId,
+                        GovernorateId = newCourierFromUser.GovernorateId,
+                        User = newUser,
+                        DiscountValue = newCourierFromUser.CompanyDiscountValue,
+                        DiscountTypeOption = newCourierFromUser.DiscountTypeOptions.Value,
+                  };
+                    await courierService.AddAsync(newCourier);
+                    await courierService.SaveAsync();
+                    return RedirectToAction("Index");
+
                 }
                 else
                 {
@@ -108,16 +120,7 @@ namespace ShippingSystem.Presentation.Controllers
                         ModelState.AddModelError("", error.Description);
                     }
                 }
-                Couriers newCourier = new Couriers() {
-                    BranchId=newCourierFromUser.BranchId,
-                    GovernorateId=newCourierFromUser.GovernorateId,
-                    User=newUser,
-                    DiscountValue=newCourierFromUser.CompanyDiscountValue,
-                    DiscountTypeOption=newCourierFromUser.DiscountTypeOptions.Value,
-                };
-                await courierService.AddAsync(newCourier);
-                await courierService.SaveAsync();
-                return RedirectToAction("Index");
+             
 
             }
             newCourierFromUser.BranchList = await branchService.GetAllAsync();

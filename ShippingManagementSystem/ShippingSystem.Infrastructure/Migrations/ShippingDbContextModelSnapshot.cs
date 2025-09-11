@@ -380,11 +380,26 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CompanyName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("GovernorateId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<decimal>("RejOrderCostPercent")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("SpecialPackUpCost")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("UserId")
@@ -392,6 +407,12 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BranchId");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("GovernorateId");
 
                     b.HasIndex("UserId");
 
@@ -751,11 +772,29 @@ namespace ShippingSystem.Infrastructure.Migrations
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Merchants", b =>
                 {
+                    b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
+                        .WithMany()
+                        .HasForeignKey("BranchId");
+
+                    b.HasOne("ShippingSystem.Domain.Entities.Cities", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("ShippingSystem.Domain.Entities.Governorates", "Governorate")
+                        .WithMany()
+                        .HasForeignKey("GovernorateId");
+
                     b.HasOne("ShippingSystem.Domain.Entities.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Branch");
+
+                    b.Navigation("City");
+
+                    b.Navigation("Governorate");
 
                     b.Navigation("User");
                 });

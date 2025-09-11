@@ -1,0 +1,105 @@
+﻿@using ShippingSystem.Presentation.ViewModels.MerchantVM
+@model AddMerchantVM
+@{
+    ViewData["Title"] = "Add";
+    SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
+    SelectList govList = new SelectList(Model.GovList, "Id", "Name");
+}
+
+<h1>Add</h1>
+<form asp-action="SaveAdd" asp-controller="Merchant" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="MerchantName"></label>
+        <input asp-for="MerchantName" class="form form-control" />
+        <span asp-validation-for="MerchantName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MerchantEmail"></label>
+        <input asp-for="MerchantEmail" class="form form-control" />
+        <span asp-validation-for="MerchantEmail" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MerchantPassword"></label>
+        <input asp-for="MerchantPassword" class="form form-control"/>
+        <span asp-validation-for="MerchantPassword" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MerchantPhoneNumber"></label>
+        <input asp-for="MerchantPhoneNumber" class="form form-control" />
+        <span asp-validation-for="MerchantPhoneNumber" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="MerchantAddress"></label>
+        <input asp-for="MerchantAddress" class="form form-control"/>
+        <span asp-validation-for="MerchantAddress" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CompanyName"></label>
+        <input asp-for="CompanyName" class="form form-control"/>
+        <span asp-validation-for="CompanyName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <select asp-for="BranchId" asp-items="branchList" class="form form-control">
+            <option value="0">--Select Branch--</option>
+        </select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CityId"></label>
+        <select asp-for="CityId" class="form form-control" id="cityId">
+        </select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="GovernorateId"></label>
+        <select asp-for="GovernorateId" asp-items="govList" class="form form-control" id="governorateId" onchange="GetCityList()">
+            <option value="0">--Select Governorate--</option>
+        </select>
+        <span asp-validation-for="GovernorateId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="SpecialPackUpCost"></label>
+        <input asp-for="SpecialPackUpCost" class="form form-control" />
+        <span asp-validation-for="SpecialPackUpCost"></span>
+    </div>
+    <div>
+        <label asp-for="RejOrderCostPercent"></label>
+        <input asp-for="RejOrderCostPercent" class="form form-control" />
+        <span asp-validation-for="RejOrderCostPercent"></span>
+    </div>
+    <div>
+        <input class="btn btn-success mt-3" type="submit" value="Save"/>
+    </div>
+</form>
+<a asp-action="Index" asp-controller="Merchant"class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    function GetCityList(){
+        var govId=$("#governorateId").val();
+        if(govId&&govId!=0){
+            $.ajax({
+                url:"/Merchant/CityList?govId="+govId,
+                type:"GET",
+                success:function(result){
+                var cityDropdown = $("#cityId");
+                cityDropdown.empty();
+                cityDropdown.append('<option value="0">--Select City--</option>');
+                $.each(result, function(index, city){
+                    cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
+                });
+                },
+                error:function(){
+                    alert("Error Loading Cities!")
+                }
+            });
+        }
+    }
+</script>
+
+
+
