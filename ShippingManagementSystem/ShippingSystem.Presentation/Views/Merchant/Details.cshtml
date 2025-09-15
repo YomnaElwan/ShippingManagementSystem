@@ -1,6 +1,39 @@
-﻿@{
+﻿@using ShippingSystem.Domain.Entities
+@model Merchants
+@{
     ViewData["Title"] = "Details";
 }
 
 <h1>Details</h1>
 
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone Number</td>
+            <td>Company Name</td>
+            <td>Rejected Order Charge Percentage</td>
+            <td>Special PickUp Cost</td>
+            <td>Address</td>
+            <td>Branch</td>
+            <td>City</td>
+            <td>Governorate</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.User.UserName</td>
+            <td>@Model.User.Email</td>
+            <td>@Model.User.PhoneNumber</td>
+            <td>@Model.CompanyName</td>
+            <td>@Model.RejOrderCostPercent</td>
+            <td>@Model.SpecialPackUpCost</td>
+            <td>@Model.User.Address</td>
+            <td>@Model.Branch?.Name</td>
+            <td>@Model.City?.Name</td>
+            <td>@Model.Governorate?.Name</td>
+        </tr>
+    </tbody>
+</table>
+<a asp-action="index" asp-controller="Merchant" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>

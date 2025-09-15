@@ -41,7 +41,8 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int Id)
         {
-            return View("Details");
+            Merchants merchantDetails = await _merService.GetMerchantById(Id);
+            return View("Details",merchantDetails);
         }
         [HttpGet]
         public async Task<IActionResult> CityList(int govId)
@@ -122,13 +123,51 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            return View("Edit");
+            var existMerchant = await _merService.GetMerchantById(Id);
+            EditMerchantVM mappedEditMerchant = new EditMerchantVM()
+            {
+                Id=existMerchant.Id,
+                MerchantName=existMerchant.User.UserName,
+                MerchantEmail=existMerchant.User.Email,
+                MerchantAddress=existMerchant.User.Address,
+                MerchantPhoneNumber=existMerchant.User.PhoneNumber,
+                BranchId=existMerchant.BranchId,
+                CityId=existMerchant.CityId,
+                GovernorateId=existMerchant.GovernorateId,
+                CompanyName=existMerchant.CompanyName,
+                RejOrderCostPercent=existMerchant.RejOrderCostPercent,
+                SpecialPackUpCost=existMerchant.SpecialPackUpCost,
+            };
+            mappedEditMerchant.BranchList =await branchService.GetAllAsync();
+            mappedEditMerchant.CityList = await cityService.GetAllAsync();
+            mappedEditMerchant.GovList = await govService.GetAllAsync();
+            return View("Edit",mappedEditMerchant);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveEdit()
+        public async Task<IActionResult> SaveEdit(EditMerchantVM editedMerchant)
         {
-            return View("Edit");
+            if (ModelState.IsValid)
+            {
+                var merchantFromDB = await _merService.GetMerchantById(editedMerchant.Id);
+                merchantFromDB.User.UserName = editedMerchant.MerchantName;
+                merchantFromDB.User.Email = editedMerchant.MerchantEmail;
+                merchantFromDB.User.Address = editedMerchant.MerchantAddress;
+                merchantFromDB.User.PhoneNumber = editedMerchant.MerchantPhoneNumber;
+                merchantFromDB.BranchId = editedMerchant.BranchId;
+                merchantFromDB.CityId =editedMerchant.CityId;
+                merchantFromDB.GovernorateId = editedMerchant.GovernorateId;
+                merchantFromDB.CompanyName = editedMerchant.CompanyName;
+                merchantFromDB.RejOrderCostPercent = editedMerchant.RejOrderCostPercent;
+                merchantFromDB.SpecialPackUpCost = editedMerchant.SpecialPackUpCost;
+                await merchantService.UpdateAsync(merchantFromDB);
+                await merchantService.SaveAsync();
+                return RedirectToAction("Index");
+            }
+            editedMerchant.BranchList = await branchService.GetAllAsync();
+            editedMerchant.CityList = new List<Cities>();
+            editedMerchant.GovList = await govService.GetAllAsync();
+            return View("Edit",editedMerchant);
         }
         public async Task<IActionResult> Delete(int Id)
         {

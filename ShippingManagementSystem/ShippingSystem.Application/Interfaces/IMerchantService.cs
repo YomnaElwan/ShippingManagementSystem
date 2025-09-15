@@ -10,5 +10,6 @@ namespace ShippingSystem.Application.Interfaces
     public interface IMerchantService:IGenericService<Merchants>
     {
         Task<List<Merchants>> SpecialMerchantsList();
+        Task<Merchants> GetMerchantById(int MerchantId);
     }
 }

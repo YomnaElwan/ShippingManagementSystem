@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
 using ShippingSystem.Infrastructure.Data;
@@ -22,5 +23,10 @@ namespace ShippingSystem.Infrastructure.Repositories
         {
             return cxt.Merchant.Include(m => m.Branch).Include(m => m.User).ToListAsync();
         }
+        public Task<Merchants> GetMerchantById(int MerchantId)
+        {
+            return cxt.Merchant.Include(m => m.User).Include(m => m.Branch).Include(m => m.Governorate).Include(m => m.City).FirstOrDefaultAsync(m => m.Id == MerchantId);
+        }
+       
     }
 }

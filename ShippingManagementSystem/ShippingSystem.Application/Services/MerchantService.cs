@@ -16,6 +16,12 @@ namespace ShippingSystem.Application.Services
         {
             this.merchantRepo = merchantRepo;
         }
+
+        public Task<Merchants> GetMerchantById(int MerchantId)
+        {
+            return merchantRepo.GetMerchantById(MerchantId);
+        }
+
         public Task<List<Merchants>> SpecialMerchantsList()
         {
             return merchantRepo.SpecialMerchantsList();

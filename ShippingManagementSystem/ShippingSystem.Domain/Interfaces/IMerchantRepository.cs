@@ -10,5 +10,6 @@ namespace ShippingSystem.Domain.Interfaces
     public interface IMerchantRepository:IGenericRepository<Merchants>
     {
         public Task<List<Merchants>> SpecialMerchantsList();
+        public Task<Merchants> GetMerchantById(int MerchantId);
     }
 }
