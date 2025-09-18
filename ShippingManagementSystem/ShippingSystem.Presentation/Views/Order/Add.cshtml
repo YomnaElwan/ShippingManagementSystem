@@ -1,0 +1,132 @@
+﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
+@model AddOrderVM
+@{
+    ViewData["Title"] = "Add";
+    SelectList govList = new SelectList(Model.GovList,"Id","Name");
+    SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
+    SelectList paymentMethodList = new SelectList(Model.PaymentMethodList, "Id", "Name");
+    SelectList shippingTypeList = new SelectList(Model.ShippingTypeList, "Id", "Name");
+}
+
+<h1>Add</h1>
+<form asp-action="SaveAdd" asp-controller="Order" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="CustomerName"></label>
+        <input asp-for="CustomerName" class="form form-control"/>
+        <span asp-validation-for="CustomerName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CustomerEmail"></label>
+        <input asp-for="CustomerEmail" class="form form-control"/>
+        <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber1"></label>
+        <input asp-for="PhoneNumber1" class="form form-control"/>
+        <span asp-validation-for="PhoneNumber1" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PhoneNumber2"></label>
+        <input asp-for="PhoneNumber2" class="form form-control"/>
+        <span asp-validation-for="PhoneNumber2" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="BranchId"></label>
+        <select asp-for="BranchId" class="form form-control" asp-items="branchList">
+            <option value="0">--Select Branch--</option>
+        </select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="GovernorateId"></label>
+        <select asp-for="GovernorateId" class="form form-control" asp-items="govList" id="governorateId" onchange="GetCityList()">
+            <option value="0">--Select Governorate--</option>
+        </select>
+        <span asp-validation-for="GovernorateId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="CityId"></label>
+        <select asp-for="CityId" class="form form-control" id="cityId">
+        </select>
+        <span asp-validation-for="CityId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="PaymentMethodId"></label>
+        <select asp-for="PaymentMethodId" class="form form-control" asp-items="paymentMethodList">
+            <option value="0">--Select Payment Method--</option>
+        </select>
+        <span asp-validation-for="PaymentMethodId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="ShippingTypeId"></label>
+        <select asp-for="ShippingTypeId" class="form form-control" asp-items="shippingTypeList">
+            <option value="0">--Select Shipping Type--</option>
+        </select>
+        <span asp-validation-for="ShippingTypeId" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Address"></label>
+        <input asp-for="Address" class="form form-control"/>
+        <span asp-validation-for="Address" class="text-danger"></span>
+    </div>
+    <div class="form-group form-check">
+        <label class="form-check-label">
+            <input class="form-check-input" asp-for="VillageDelivery" /> @Html.DisplayNameFor(model => model.VillageDelivery)
+        </label>
+    </div>
+    <div>
+        <label asp-for="Notes"></label>
+        <input asp-for="Notes" class="form form-control" />
+        <span asp-validation-for="Notes" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="TotalWeight"></label>
+        <input asp-for="TotalWeight" class="form form-control"/>
+        <span asp-validation-for="TotalWeight" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="TotalCost"></label>
+        <input asp-for="TotalCost" class="form form-control"/>
+        <span asp-validation-for="TotalCost" class="text-danger"></span>
+    </div>
+    <div>
+        @* @{ *@
+        @*     Html.RenderPartialAsync("~/Views/OrderItems/Index.cshtml",Model?.OrderItems); *@
+        @* } *@
+        @await Html.PartialAsync("~/Views/OrderItems/Index.cshtml", Model.OrderItems)
+
+
+    </div>
+    <div>
+        <input class="btn btn-success mt-3" type="submit" value="Save" />
+    </div>
+</form>
+<a asp-action="Index" asp-controller="Order" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+
+<script>
+    function GetCityList(){
+        var govId=$("#governorateId").val();
+        if(govId&&govId!=0){
+            $.ajax({
+                url:"/Order/GetCityList?govId="+govId,
+                type:"GET",
+                success:function(result){
+                var cityDropdown = $("#cityId");
+                cityDropdown.empty();
+                cityDropdown.append('<option value="0">--Select City--</option>');
+                $.each(result, function(index, city){
+                    cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
+                });
+                },
+                error:function(){
+                    alert("Error Loading Cities!")
+                }
+            });
+        }
+    }
+</script>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

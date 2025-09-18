@@ -427,11 +427,13 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("OrderId")
+                    b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ProductName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Quantity")
@@ -460,6 +462,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("BranchId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("CustomerEmail")
@@ -510,6 +515,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BranchId");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("GovernorateId");
 
@@ -801,9 +808,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Orders", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.Navigation("Order");
                 });
@@ -813,6 +818,12 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasOne("ShippingSystem.Domain.Entities.Branches", "Branch")
                         .WithMany()
                         .HasForeignKey("BranchId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ShippingSystem.Domain.Entities.Cities", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -829,13 +840,13 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("ShippingSystem.Domain.Entities.PaymentMethod", "PaymentMethod")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ShippingSystem.Domain.Entities.ShippingType", "ShippingType")
-                        .WithMany("Orders")
+                        .WithMany()
                         .HasForeignKey("ShippingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -845,6 +856,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasForeignKey("WeightSettingsId");
 
                     b.Navigation("Branch");
+
+                    b.Navigation("City");
 
                     b.Navigation("Governorate");
 
@@ -901,19 +914,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("Orders");
                 });
 
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.PaymentMethod", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Regions", b =>
                 {
                     b.Navigation("Governorates");
-                });
-
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.ShippingType", b =>
-                {
-                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.WeightSettings", b =>
