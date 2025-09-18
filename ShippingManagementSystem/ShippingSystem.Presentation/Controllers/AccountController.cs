@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.AccountVM;
 
@@ -9,10 +10,15 @@ namespace ShippingSystem.Presentation.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        public AccountController(UserManager<ApplicationUser> userManager,SignInManager<ApplicationUser> signInManager)
+        private readonly IRolePermissionsService rolePermsService;
+       
+        public AccountController(UserManager<ApplicationUser> userManager,
+                                 SignInManager<ApplicationUser> signInManager,
+                                 IRolePermissionsService rolePermsService)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.rolePermsService = rolePermsService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -68,7 +74,8 @@ namespace ShippingSystem.Presentation.Controllers
                     bool checkPassword = await userManager.CheckPasswordAsync(userFromDB, loginUser.Password);
                     if (checkPassword == true)
                     {
-                       await signInManager.SignInAsync(userFromDB, loginUser.RememberMe);
+
+                        await signInManager.SignInAsync(userFromDB, loginUser.RememberMe);
                         return RedirectToAction("Index", "City");
                     }
                 }

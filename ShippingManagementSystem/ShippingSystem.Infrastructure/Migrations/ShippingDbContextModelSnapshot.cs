@@ -480,7 +480,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PaymentMethodId")
@@ -491,7 +490,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ShippingTypeId")
@@ -506,7 +504,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<bool>("VillageDelivery")
                         .HasColumnType("bit");
 
-                    b.Property<int>("WeightSettingsId")
+                    b.Property<int?>("WeightSettingsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -802,7 +800,7 @@ namespace ShippingSystem.Infrastructure.Migrations
             modelBuilder.Entity("ShippingSystem.Domain.Entities.OrderItem", b =>
                 {
                     b.HasOne("ShippingSystem.Domain.Entities.Orders", "Order")
-                        .WithMany("OrderItems")
+                        .WithMany()
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -844,9 +842,7 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.HasOne("ShippingSystem.Domain.Entities.WeightSettings", "WeightSettings")
                         .WithMany("Orders")
-                        .HasForeignKey("WeightSettingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WeightSettingsId");
 
                     b.Navigation("Branch");
 
@@ -903,11 +899,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("Couriers");
 
                     b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.Orders", b =>
-                {
-                    b.Navigation("OrderItems");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.PaymentMethod", b =>

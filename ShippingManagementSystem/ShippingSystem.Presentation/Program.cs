@@ -44,7 +44,11 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<ICourierService, CourierService>();
             builder.Services.AddScoped<IMerchantService, MerchantService>();
             builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
-          
+            builder.Services.AddScoped<IRolePermissionsRepository, RolePermissionRepository>();
+            builder.Services.AddScoped<IRolePermissionsService, RolePermissionsService>();
+
+     
+
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -61,7 +65,7 @@ namespace ShippingSystem.Presentation
 
             app.UseHttpsRedirection();
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapStaticAssets();

@@ -188,6 +188,18 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/ShippingType/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hpcHBpbmdUeXBlXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/ShippingType/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hpcHBpbmdUeXBlXEVkaXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/ShippingType/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hpcHBpbmdUeXBlXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/WeightSettings/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcV2VpZ2h0U2V0dGluZ3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
