@@ -32,10 +32,18 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         List<Governorates>? GovList { get; set; }
         [DisplayName("City")]
         public int CityId { get; set; }
-        List<Cities> CityList { get; set; }
+        List<Cities>? CityList { get; set; }
         [DisplayName("Branch")]
         public int BranchId { get; set; }
         List<Branches>? BranchList { get; set; }
+        [DisplayName("Shipping Type")]
+        public int ShippingTypeId { get; set; }
+        public List<ShippingType>? ShippingTypeList { get; set; }
+        [DisplayName("Payment Method")]
+        public int PaymentMethodId { get; set; }
+        public List<PaymentMethod>? PaymentMethodList { get; set; }
+        [DisplayName("Delivery Method")]
+        public DeliveryMethod DeliveryTypeOption { get; set; }
 
     }
 }

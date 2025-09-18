@@ -1,10 +1,15 @@
-﻿namespace ShippingSystem.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ShippingSystem.Domain.Entities
 {
     public class PaymentMethod
     {
         //CashOnDelivery, Prepaid, ExchangePackage
         public int Id { get; set; }
+        [Required(ErrorMessage ="Enter Payment Method Name!")]
         public string Name { get; set; }
-        public List<Orders> Orders { get; set; }
+        [NotMapped]
+        public List<Orders>? Orders { get; set; }
     }
 }
