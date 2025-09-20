@@ -51,6 +51,18 @@ namespace ShippingSystem.Presentation
 
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            //Sessions
+            // Add services to the container
+            builder.Services.AddControllersWithViews();
+
+            //Add Session services
+            builder.Services.AddDistributedMemoryCache(); 
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
 
             var app = builder.Build();
@@ -67,6 +79,7 @@ namespace ShippingSystem.Presentation
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();  //Use session
 
             app.MapStaticAssets();
             app.MapControllerRoute(

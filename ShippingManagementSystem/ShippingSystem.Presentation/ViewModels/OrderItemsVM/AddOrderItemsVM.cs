@@ -12,6 +12,7 @@ namespace ShippingSystem.Presentation.ViewModels.OrderItemsVM
         [DisplayName("Product Name")]
         public string ProductName { get; set; }
         [Required(ErrorMessage ="Enter Product Quantity")]
+        [Range(minimum:1,maximum:12,ErrorMessage ="Product Quantity Must Be Between 1 and 12")]
         public int Quantity { get; set; }
         [Required(ErrorMessage ="Enter Product Weight")]
         public decimal Weight { get; set; }

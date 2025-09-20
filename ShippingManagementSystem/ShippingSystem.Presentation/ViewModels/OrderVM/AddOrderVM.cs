@@ -56,17 +56,26 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public List<PaymentMethod>? PaymentMethodList { get; set; }
 
         [DisplayName("Delivery Method")]
+        [Required(ErrorMessage ="You must select delivery method")]
         public DeliveryMethod DeliveryTypeOption { get; set; }
+        public List<GetOrderItemsVM>? OrderItems { get; set; }
 
-        [Required(ErrorMessage ="Enter Order Total Cost")]
-        [DisplayName("Order Total Cost")]
-        public decimal TotalCost { get; set; }
+        //[DisplayName("Order Total Cost")]
+        //public decimal TotalCost { get; set; }  //will be calculated in the controller
 
-        [Required(ErrorMessage ="Enter Order Total Weight")]
-        [DisplayName("Order Total Weight")]
-        public decimal TotalWeight { get; set; }
+        //[DisplayName("Order Total Weight")]
+        //public decimal TotalWeight { get; set; } //will be calculated in the controller
 
-        public List<GetOrderItemsVM> OrderItems { get; set; }
+        [DisplayName("Merchant")]
+        public int MerchantId { get; set; }
+        public List<Merchants>? Merchants { get; set; }
+
+        ////Merchant Data
+        //public int MerchantId { get; set; } //will be set in the controller based on the logged in user
+        //public string MerchantPhoneNumber { get; set; } //will be set in the controller based on the logged in user
+        //public string MerchantAddress { get; set; } //will be set in the controller based on the logged in user
+
+
 
     }
 }

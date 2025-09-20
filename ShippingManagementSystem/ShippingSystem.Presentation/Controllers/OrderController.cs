@@ -1,11 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Mono.TextTemplating;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
+using ShippingSystem.Presentation.SessionExtensions;
 using ShippingSystem.Presentation.ViewModels.OrderItemsVM;
 using ShippingSystem.Presentation.ViewModels.OrderVM;
+using System.Security.Claims;
 
 namespace ShippingSystem.Presentation.Controllers
 {
@@ -15,92 +18,193 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly IGenericService<Branches> branchService;
         private readonly IGenericService<ShippingType> shippingTypeService;
         private readonly IGenericService<PaymentMethod> paymentMethodService;
-        private readonly ICityService _cityService;
+        private readonly ICityService cityService;
+        private readonly IGenericService<Orders> orderService;
         private readonly IGenericService<OrderItem> orderItemsService;
+        private readonly IMerchantService merchantService;
         public OrderController(IGenericService<Governorates> govService,
                                IGenericService<Branches> branchService,
                                IGenericService<ShippingType> shippingTypeService,
                                IGenericService<PaymentMethod> paymentMethodService,
-                               ICityService _cityService,
-                               IGenericService<OrderItem> orderItemsService)
+                               ICityService cityService,
+                               IGenericService<Orders> orderService,
+                               IGenericService<OrderItem> orderItemsService,
+                               IMerchantService merchantService)
         {
             this.govService = govService;
             this.branchService = branchService;
             this.shippingTypeService = shippingTypeService;
             this.paymentMethodService = paymentMethodService;
-            this._cityService = _cityService;
+            this.cityService = cityService;
+            this.orderService = orderService;
             this.orderItemsService = orderItemsService;
+            this.merchantService = merchantService;
         }
-        [HttpGet]
-        public async Task<IActionResult> GetCityList(int govId)
+        [HttpPost]
+        public IActionResult AddProductToOrder(AddOrderItemsVM product)
         {
-            List<Cities> cityList = await _cityService.cityListByGov(govId);
+            // استرجاع المنتجات من السيشن أو إنشاء List جديدة
+            List<GetOrderItemsVM> items = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems")
+                                         ?? new List<GetOrderItemsVM>();
+
+            // إضافة المنتج الجديد
+            items.Add(new GetOrderItemsVM
+            {
+                Id = items.Count + 1,
+                ProductName = product.ProductName,
+                Quantity = product.Quantity,
+                Weight = product.Weight,
+                Price = product.Price
+            });
+
+            // تحديث السيشن
+            HttpContext.Session.SetObjectAsJson("OrderItems", items);
+
+            // إرجاع Partial جديد بالجدول
+            return PartialView("_GetOrderItemsPartial", items);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult>GetCityList(int govId)
+        {
+            List<Cities> cityList = await cityService.cityListByGov(govId);
             return Json(cityList);
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult AddProductForm()
         {
-            return View();
+            return PartialView("_AddProductForm", new AddOrderItemsVM());
         }
-        [HttpGet]
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
-            List<Governorates> govList = await govService.GetAllAsync();
-            List<Branches> branchList = await branchService.GetAllAsync();
-            List<ShippingType> shippingTypeList = await shippingTypeService.GetAllAsync();
-            List<PaymentMethod> paymentMethodList = await paymentMethodService.GetAllAsync();
-
-            // هات المنتجات (OrderItems) من الداتابيز
-            // أو لو لسه بتضيفهم مؤقت ممكن ترجع لستة فاضية
-            var orderItems = await orderItemsService.GetAllAsync();
-            var orderItemsVM = orderItems.Select(o => new GetOrderItemsVM
+            AddOrderVM addOrderVM = new AddOrderVM()
             {
-                Id = o.Id,
-                ProductName = o.ProductName,
-                Quantity = o.Quantity,
-                Weight = o.Weight,
-                Price = o.Price
-            }).ToList();
-
-            AddOrderVM orderViewModel = new AddOrderVM()
-            {
-                GovList = govList,
-                BranchList = branchList,
-                ShippingTypeList = shippingTypeList,
-                PaymentMethodList = paymentMethodList,
+                GovList = await govService.GetAllAsync(),
+                BranchList = await branchService.GetAllAsync(),
+                ShippingTypeList = await shippingTypeService.GetAllAsync(),
+                PaymentMethodList = await paymentMethodService.GetAllAsync(),
                 CityList = new List<Cities>(),
-                OrderItems = orderItemsVM
+                Merchants = await merchantService.SpecialMerchantsList()
+
             };
-
-            return View("Add", orderViewModel);
+            return View("Add",addOrderVM);
         }
-
-        //public async Task<IActionResult> Add()
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> SaveAdd(AddOrderVM newOrderFromUser)
         //{
-        //    List<Governorates> govList = await govService.GetAllAsync();
-        //    List<Branches> branchList = await branchService.GetAllAsync();
-        //    List<ShippingType> shippingTypeList = await shippingTypeService.GetAllAsync();
-        //    List<PaymentMethod> paymentMethodList = await paymentMethodService.GetAllAsync();
+        //    if (ModelState.IsValid) {
+        //        Orders newOrder = new Orders()
+        //        {
+        //            CustomerName = newOrderFromUser.CustomerName,
+        //            CustomerEmail = newOrderFromUser.CustomerEmail,
+        //            BranchId = newOrderFromUser.BranchId,
+        //            GovernorateId = newOrderFromUser.GovernorateId,
+        //            CityId = newOrderFromUser.CityId,
+        //            Address = newOrderFromUser.Address,
+        //            PhoneNumber1 = newOrderFromUser.PhoneNumber1,
+        //            PhoneNumber2 = newOrderFromUser.PhoneNumber2,
+        //            DeliveryTypeOption = newOrderFromUser.DeliveryTypeOption,
+        //            ShippingTypeId = newOrderFromUser.ShippingTypeId,
+        //            PaymentMethodId = newOrderFromUser.PaymentMethodId,
+        //            TotalCost = newOrderFromUser.TotalCost,
+        //            TotalWeight = newOrderFromUser.TotalWeight,
+        //            MerchantId = newOrderFromUser.MerchantId,
+        //            Notes = newOrderFromUser.Notes,
 
-        //    AddOrderVM orderViewModel = new AddOrderVM()
-        //    {
-        //        GovList = govList,
-        //        BranchList = branchList,
-        //        ShippingTypeList = shippingTypeList,
-        //        PaymentMethodList = paymentMethodList,
-        //        CityList = new List<Cities>(),
-        //        OrderItems = new List<GetOrderItemsVM>()
-        //    };
+        //        };
+        //        await orderService.AddAsync(newOrder);
+        //        await orderService.SaveAsync();
 
-        //    return View("Add",orderViewModel);
+        //        foreach (var item in newOrderFromUser.OrderItems)
+        //        {
+        //            OrderItem newOrderItems = new OrderItem()
+        //            {
+        //                ProductName = item.ProductName,
+        //                Quantity = item.Quantity,
+        //                OrderId = newOrder.Id,
+        //                Weight = item.Weight,
+        //                Price = item.Price,
+        //            };
+        //            await orderItemsService.AddAsync(newOrderItems);
+
+        //        }
+        //        await orderItemsService.SaveAsync();
+
+        //        return RedirectToAction("Index", "Home");
+        //    }
+
+
+        //    return View("Add",newOrderFromUser);
         //}
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAdd(AddOrderVM newOrder)
+        public async Task<IActionResult> SaveAdd(AddOrderVM newOrderFromUser)
         {
-           
-            return View("Add", newOrder);
+            if (ModelState.IsValid)
+            {
+                var orderItems = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems");
+
+                decimal totalCost = orderItems.Sum(item => item.Price * item.Quantity);
+                decimal totalWeight = orderItems.Sum(item => item.Weight * item.Quantity);
+
+                var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var merchant = (await merchantService.GetAllAsync())
+                .FirstOrDefault(m => m.UserId == userId);
+
+                Orders newOrder = new Orders()
+                {
+                    CustomerName = newOrderFromUser.CustomerName,
+                    CustomerEmail = newOrderFromUser.CustomerEmail,
+                    BranchId = newOrderFromUser.BranchId,
+                    GovernorateId = newOrderFromUser.GovernorateId,
+                    CityId = newOrderFromUser.CityId,
+                    Address = newOrderFromUser.Address,
+                    PhoneNumber1 = newOrderFromUser.PhoneNumber1,
+                    PhoneNumber2 = newOrderFromUser.PhoneNumber2,
+                    DeliveryTypeOption = newOrderFromUser.DeliveryTypeOption,
+                    ShippingTypeId = newOrderFromUser.ShippingTypeId,
+                    PaymentMethodId = newOrderFromUser.PaymentMethodId,
+                    TotalCost = totalCost,
+                    TotalWeight = totalWeight ,
+                    MerchantId = merchant.Id,
+                    Notes = newOrderFromUser.Notes,
+                };
+
+                await orderService.AddAsync(newOrder);
+                await orderService.SaveAsync();
+
+                // ✅ هنا بنسحب الـ Items من السيشن
+
+                if (orderItems != null && orderItems.Any())
+                {
+                    foreach (var item in orderItems)
+                    {
+                        OrderItem newOrderItems = new OrderItem()
+                        {
+                            ProductName = item.ProductName,
+                            Quantity = item.Quantity,
+                            OrderId = newOrder.Id,
+                            Weight = item.Weight,
+                            Price = item.Price,
+                        };
+                        await orderItemsService.AddAsync(newOrderItems);
+                    }
+
+                    await orderItemsService.SaveAsync();
+                }
+
+                // بعد الحفظ، امسحي السيشن
+                HttpContext.Session.Remove("OrderItems");
+
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View("Add", newOrderFromUser);
         }
+
     }
 }

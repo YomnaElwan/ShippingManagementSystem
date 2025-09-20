@@ -1,4 +1,5 @@
-﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
+﻿@using ShippingSystem.Domain.Entities
+@using ShippingSystem.Presentation.ViewModels.OrderVM
 @model AddOrderVM
 @{
     ViewData["Title"] = "Add";
@@ -6,6 +7,7 @@
     SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
     SelectList paymentMethodList = new SelectList(Model.PaymentMethodList, "Id", "Name");
     SelectList shippingTypeList = new SelectList(Model.ShippingTypeList, "Id", "Name");
+    SelectList merchantList = new SelectList(Model.Merchants, "Id", "User.UserName");
 }
 
 <h1>Add</h1>
@@ -66,6 +68,13 @@
         <span asp-validation-for="ShippingTypeId" class="text-danger"></span>
     </div>
     <div>
+        <label asp-for="DeliveryTypeOption"></label>
+        <select class="form form-control" asp-for="DeliveryTypeOption" asp-items="@Html.GetEnumSelectList<DeliveryMethod>()">
+            <option value="">--Select Delivery Type--</option>
+        </select>
+        <span asp-validation-for="DeliveryTypeOption" class="text-danger"></span>
+    </div>
+    <div>
         <label asp-for="Address"></label>
         <input asp-for="Address" class="form form-control"/>
         <span asp-validation-for="Address" class="text-danger"></span>
@@ -80,30 +89,35 @@
         <input asp-for="Notes" class="form form-control" />
         <span asp-validation-for="Notes" class="text-danger"></span>
     </div>
-    <div>
-        <label asp-for="TotalWeight"></label>
-        <input asp-for="TotalWeight" class="form form-control"/>
-        <span asp-validation-for="TotalWeight" class="text-danger"></span>
+  
+    @* <div> *@
+    @*     <label asp-for="MerchantId"></label> *@
+    @*     <select asp-for="MerchantId" asp-items="merchantList" class="form form-control"></select> *@
+    @* </div> *@
+
+    <div id="orderItemsContainer">
+        @await Html.PartialAsync("_GetOrderItemsPartial", Model.OrderItems)
     </div>
+
     <div>
-        <label asp-for="TotalCost"></label>
-        <input asp-for="TotalCost" class="form form-control"/>
-        <span asp-validation-for="TotalCost" class="text-danger"></span>
+        <button type="button" class="btn btn-primary" id="btnAddProduct">
+            <i class="bi bi-plus-circle"></i> Add Product
+        </button>
     </div>
-    <div>
-        @* @{ *@
-        @*     Html.RenderPartialAsync("~/Views/OrderItems/Index.cshtml",Model?.OrderItems); *@
-        @* } *@
-        @await Html.PartialAsync("~/Views/OrderItems/Index.cshtml", Model.OrderItems)
+
+    <div id="addProductSection"></div>
 
 
-    </div>
+
     <div>
         <input class="btn btn-success mt-3" type="submit" value="Save" />
     </div>
 </form>
 <a asp-action="Index" asp-controller="Order" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
 
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
 <script>
     function GetCityList(){
         var govId=$("#governorateId").val();
@@ -125,8 +139,50 @@
             });
         }
     }
+
 </script>
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/jquery-validation/dist/additional-methods.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+<script>
+       $(document).ready(function () {
+
+        // تحميل الفورم
+        $("#btnAddProduct").click(function () {
+            $.get("/Order/AddProductForm", function (data) {
+                $("#addProductSection").html(data);
+            });
+        });
+
+        // حفظ المنتج
+        $(document).on("click", "#btnSaveProduct", function () {
+            var product = {
+                ProductName: $("#ProductName").val(),
+                Quantity: $("#Quantity").val(),
+                Weight: $("#Weight").val(),
+                Price: $("#Price").val()
+            };
+
+            $.ajax({
+                url: '/Order/AddProductToOrder',
+                type: 'POST',
+                data: product,
+                success: function (result) {
+                    // تحديث الجدول
+                    $("#orderItemsContainer").html(result);
+
+                    // تفريغ الفورم
+                    $("#addProductSection").html("");
+                },
+                error: function () {
+                    alert("Error adding product!");
+                }
+            });
+        });
+
+    });
+
+</script>
+
+
+
+
+
