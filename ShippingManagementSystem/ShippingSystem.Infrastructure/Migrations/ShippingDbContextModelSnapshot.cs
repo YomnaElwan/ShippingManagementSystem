@@ -450,6 +450,23 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.ToTable("OrderItems");
                 });
 
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.OrderStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrderStatus");
+                });
+
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Orders", b =>
                 {
                     b.Property<int>("Id")
@@ -468,6 +485,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CustomerEmail")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -482,19 +502,14 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("GovernorateId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MerchantAddress")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("MerchantId")
                         .HasColumnType("int");
 
-                    b.Property<string>("MerchantPhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderStatusId")
+                        .HasColumnType("int");
 
                     b.Property<int>("PaymentMethodId")
                         .HasColumnType("int");
@@ -530,6 +545,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasIndex("GovernorateId");
 
                     b.HasIndex("MerchantId");
+
+                    b.HasIndex("OrderStatusId");
 
                     b.HasIndex("PaymentMethodId");
 
@@ -848,6 +865,12 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ShippingSystem.Domain.Entities.OrderStatus", "OrderStatus")
+                        .WithMany()
+                        .HasForeignKey("OrderStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ShippingSystem.Domain.Entities.PaymentMethod", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
@@ -871,6 +894,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("Governorate");
 
                     b.Navigation("Merchant");
+
+                    b.Navigation("OrderStatus");
 
                     b.Navigation("PaymentMethod");
 

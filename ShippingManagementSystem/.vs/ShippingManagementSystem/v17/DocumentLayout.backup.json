@@ -3,36 +3,16 @@
   "WorkspaceRootPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\orderstatus\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\orderstatus\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\merchantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\merchantcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\controllers\\orderstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\controllers\\orderstatuscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.domain\\entities\\merchants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|solutionrelative:shippingsystem.domain\\entities\\merchants.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\order\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\order\\add.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\viewmodels\\ordervm\\addordervm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\viewmodels\\ordervm\\addordervm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\order\\_addproductform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\order\\_addproductform.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\order\\_getorderitemspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\order\\_getorderitemspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.domain\\entities\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{84537FBC-B929-450B-A3C8-6CCA038DD4B6}|ShippingSystem.Domain\\ShippingSystem.Domain.csproj|solutionrelative:shippingsystem.domain\\entities\\orders.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|d:\\data [yomna]\\software engineer\\shippingmanagementsystemmvc\\shippingmanagementsystem\\shippingsystem.presentation\\views\\orderstatus\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{6314BBFE-A4B2-436E-AC5E-131F0F356824}|ShippingSystem.Presentation\\ShippingSystem.Presentation.csproj|solutionrelative:shippingsystem.presentation\\views\\orderstatus\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,33 +22,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 197,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Orders.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\Entities\\Orders.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Domain\\Entities\\Orders.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\Entities\\Orders.cs",
-              "RelativeToolTip": "ShippingSystem.Domain\\Entities\\Orders.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAIA6wDIAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "OrderStatusController.cs",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\OrderStatusController.cs",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\OrderStatusController.cs",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\OrderStatusController.cs",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\OrderStatusController.cs",
+              "ViewState": "AgIAACgAAAAAAAAAAAAmwDMAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T01:52:25.113Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Add.cshtml",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\Add.cshtml",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Order\\Add.cshtml",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\Add.cshtml",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Order\\Add.cshtml",
-              "ViewState": "AgIAAEwAAAAAAAAAAAAwwFwAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-18T21:15:41.732Z",
+              "WhenOpened": "2025-09-24T15:29:53.091Z",
               "IsPinned": true,
               "EditorCaption": ""
             },
@@ -82,80 +48,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MerchantController.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\MerchantController.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\MerchantController.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\MerchantController.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\MerchantController.cs",
-              "ViewState": "AgIAAKEAAAAAAAAAAAAAALQAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T10:20:23.057Z",
+              "DocumentIndex": 0,
+              "Title": "Edit.cshtml",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\OrderStatus\\Edit.cshtml",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\OrderStatus\\Edit.cshtml",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\OrderStatus\\Edit.cshtml*",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\OrderStatus\\Edit.cshtml*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-25T13:31:41.492Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Merchants.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\Entities\\Merchants.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Domain\\Entities\\Merchants.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\Entities\\Merchants.cs",
-              "RelativeToolTip": "ShippingSystem.Domain\\Entities\\Merchants.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-20T10:19:56.021Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "_GetOrderItemsPartial.cshtml",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\_GetOrderItemsPartial.cshtml",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Order\\_GetOrderItemsPartial.cshtml",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\_GetOrderItemsPartial.cshtml",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Order\\_GetOrderItemsPartial.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACIAAAAAAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\OrderStatus\\Index.cshtml",
+              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\OrderStatus\\Index.cshtml",
+              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\OrderStatus\\Index.cshtml",
+              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\OrderStatus\\Index.cshtml",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAACTAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-20T03:24:40.184Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "_AddProductForm.cshtml",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\_AddProductForm.cshtml",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Views\\Order\\_AddProductForm.cshtml",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Views\\Order\\_AddProductForm.cshtml",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Views\\Order\\_AddProductForm.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAiwBYAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-09-20T03:16:25.456Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\Controllers\\OrderController.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\Controllers\\OrderController.cs*",
-              "RelativeToolTip": "ShippingSystem.Presentation\\Controllers\\OrderController.cs*",
-              "ViewState": "AgIAAJYAAAAAAAAAAAAAwKwAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-18T13:31:32.974Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "AddOrderVM.cs",
-              "DocumentMoniker": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ViewModels\\OrderVM\\AddOrderVM.cs",
-              "RelativeDocumentMoniker": "ShippingSystem.Presentation\\ViewModels\\OrderVM\\AddOrderVM.cs",
-              "ToolTip": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\ViewModels\\OrderVM\\AddOrderVM.cs",
-              "RelativeToolTip": "ShippingSystem.Presentation\\ViewModels\\OrderVM\\AddOrderVM.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAuwEIAAABZAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-19T01:49:42.379Z",
+              "WhenOpened": "2025-09-25T13:17:32.845Z",
               "EditorCaption": ""
             }
           ]
@@ -167,6 +81,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{0ad07096-bba9-4900-a651-0598d26f6d24}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

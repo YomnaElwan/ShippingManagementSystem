@@ -33,6 +33,7 @@ namespace ShippingSystem.Infrastructure.Data
         public DbSet<Regions> Region { get; set; }
         public DbSet<PermissionsModule> PermissionsModule { get; set; }
         public DbSet<RolePermissions> RolePermissions { get; set; }
+        public DbSet<OrderStatus> OrderStatus { get; set; }
       
 
         

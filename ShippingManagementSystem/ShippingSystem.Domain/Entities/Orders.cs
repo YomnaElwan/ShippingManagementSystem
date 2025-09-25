@@ -27,17 +27,15 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("Merchant")]
         public int MerchantId { get; set; }
         public Merchants Merchant { get; set; }
-        //public string MerchantPhoneNumber { get; set; }
-        //public string MerchantAddress { get; set; }
 
         [NotMapped]
-        public List<OrderItem> ?OrderItems { get; set; }
+        public List<OrderItem>? OrderItems { get; set; }
         [ForeignKey("Governorate")]
         public int GovernorateId { get; set; }
-        public Governorates ?Governorate { get; set; }
+        public Governorates? Governorate { get; set; }
         [ForeignKey("City")]
         public int CityId { get; set; }
-        public Cities ?City { get; set; }
+        public Cities? City { get; set; }
         [ForeignKey("Branch")]
         public int BranchId { get; set; }
         public Branches? Branch { get; set; }
@@ -51,9 +49,18 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("PaymentMethod")]
         public int PaymentMethodId { get; set; }
         public PaymentMethod? PaymentMethod { get; set; }
-        
+
         [ForeignKey("WeightSettings")]
         public int? WeightSettingsId { get; set; }
         public WeightSettings? WeightSettings { get; set; }
+
+        public DateTime CreateAt { get; set; } = DateTime.Now;
+        [ForeignKey("OrderStatus")]
+        public int OrderStatusId { get; set; }
+        public OrderStatus? OrderStatus { get; set; }
+
+
+
+
     }
 }

@@ -1,0 +1,30 @@
+﻿@using ShippingSystem.Domain.Entities
+@model List<OrderStatus>
+
+@{
+    ViewData["Title"] = "Order Status";
+}
+<h1>Index</h1>
+<a asp-action="Add" asp-controller="OrderStatus" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New</a>
+<table class="table table-bordered mt-3">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Status</th>
+            <th>Settings</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>
+                    <a asp-action="Edit" asp-controller="OrderStatus" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="OrderStatus" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
