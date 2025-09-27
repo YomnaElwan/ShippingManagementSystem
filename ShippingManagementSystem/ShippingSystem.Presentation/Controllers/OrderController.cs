@@ -47,6 +47,18 @@ namespace ShippingSystem.Presentation.Controllers
             this.orderStatusService = orderStatusService;
             this.customOrderService = customOrderService;
         }
+        //Get Merchant and Employee Home Page
+        [HttpGet]
+        public async Task<IActionResult> OrdersHome()
+        {
+            List<Orders> orderList = await orderService.GetAllAsync();
+            OrdersHomeVM mappedMerchantHome = new OrdersHomeVM()
+            {
+                OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order => order.Key, order => order.Count()),
+                OrderStatusList = await orderStatusService.GetAllAsync()
+            };
+            return View("OrdersHome", mappedMerchantHome);
+        }
         //Get Orders List
         [HttpGet]
         public async Task<IActionResult> Index()

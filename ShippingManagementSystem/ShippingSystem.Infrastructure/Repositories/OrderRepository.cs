@@ -32,5 +32,6 @@ namespace ShippingSystem.Infrastructure.Repositories
         {
             return context.Order.Include(c => c.City).Include(g => g.Governorate).Include(o=>o.OrderStatus).ToListAsync();
         }
+     
     }
 }

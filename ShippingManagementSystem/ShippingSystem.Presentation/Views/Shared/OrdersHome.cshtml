@@ -1,0 +1,21 @@
+﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
+@model OrdersHomeVM
+@{
+    ViewData["Title"] = "OrdersHome";
+}
+
+<h1>OrdersHome</h1>
+
+<div style="display:flex;flex-wrap:wrap;gap:15px">
+    @foreach (var item in Model.OrderStatusList)
+    {
+
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <i class="bi bi-bag-fill" style="font-size:24px;color:blueviolet"></i>
+                <h5 class="card-title">@item.Name</h5>
+                <a class="btn btn-primary">@(Model.OrderCountByStatus.ContainsKey(item.Id) ? Model.OrderCountByStatus[item.Id] : 0)</a>
+            </div>
+        </div>
+    }
+</div>

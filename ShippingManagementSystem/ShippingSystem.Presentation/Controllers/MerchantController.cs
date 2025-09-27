@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.MerchantVM;
+using ShippingSystem.Presentation.ViewModels.OrderVM;
 using System.Linq.Expressions;
 
 namespace ShippingSystem.Presentation.Controllers
@@ -16,13 +17,17 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IGenericService<Merchants> merchantService;
         private readonly IMerchantService _merService;
+        private readonly IGenericService<Orders> orderService;
+        private readonly IGenericService<OrderStatus> orderStsService;
         public MerchantController(IGenericService<Governorates> govService,
                                   IGenericService<Branches> branchService,
                                   ICityService cityService,
                                   UserManager<ApplicationUser> userService,
                                   SignInManager<ApplicationUser> signInManager,
                                   IGenericService<Merchants> merchantService,
-                                  IMerchantService _merService)
+                                  IMerchantService _merService,
+                                  IGenericService<Orders> orderService,
+                                  IGenericService<OrderStatus> orderStsService)
         {
             this.govService = govService;
             this.branchService = branchService;
@@ -31,6 +36,22 @@ namespace ShippingSystem.Presentation.Controllers
             this.signInManager = signInManager;
             this.merchantService = merchantService;
             this._merService = _merService;
+            this.orderService = orderService;
+            this.orderStsService = orderStsService;
+
+        }
+        [HttpGet]
+        public async Task<IActionResult> MerchantHome()
+        {
+            List<Orders> orderList = await orderService.GetAllAsync();
+
+            OrdersHomeVM mappedMerchantHome = new OrdersHomeVM()
+            {
+                OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order=>order.Key,order=>order.Count()),
+                OrderStatusList = await orderStsService.GetAllAsync()
+
+            };
+            return View("OrdersHome",mappedMerchantHome);
         }
         [HttpGet]
         public async Task<IActionResult> Index()

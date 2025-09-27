@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.EmployeeVM;
+using ShippingSystem.Presentation.ViewModels.OrderVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {
@@ -13,18 +14,34 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly SignInManager<ApplicationUser> signInManager;
         private readonly IGenericService<Employees> empService;
         private readonly IEmployeeService employeeService;
-
+        private readonly IGenericService<Orders> orderService;
+        private readonly IGenericService<OrderStatus> orderStsService;
         public EmployeeController(IGenericService<Branches> branchService,
                                   UserManager<ApplicationUser> userManager,
                                   SignInManager<ApplicationUser> signInManager,
                                   IGenericService<Employees> empService,
-                                  IEmployeeService employeeService)
+                                  IEmployeeService employeeService,
+                                  IGenericService<Orders> orderService,
+                                  IGenericService<OrderStatus> orderStsService)
         {
             this.branchService = branchService;
             this.userManager = userManager;
             this.signInManager = signInManager;
             this.empService = empService;
             this.employeeService = employeeService;
+            this.orderService = orderService;
+            this.orderStsService = orderStsService;
+        }
+        [HttpGet]
+        public async Task<IActionResult> EmployeeHome()
+        {
+            List<Orders> orderList = await orderService.GetAllAsync();
+            OrdersHomeVM mappedEmployeeeHome = new OrdersHomeVM()
+            {
+                OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order => order.Key, order => order.Count()),
+                OrderStatusList = await orderStsService.GetAllAsync()
+            };
+            return View("OrdersHome",mappedEmployeeeHome);
         }
         [HttpGet]
         public async Task<IActionResult> Index()
