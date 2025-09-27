@@ -152,8 +152,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/EditOrderSts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcRWRpdE9yZGVyU3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/IndexBasedOnSts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW5kZXhCYXNlZE9uU3RzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_AddProductForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcX0FkZFByb2R1Y3RGb3JtLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_GetOrderIndexTable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcX0dldE9yZGVySW5kZXhUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_GetOrderItemsPartial.cshtml]

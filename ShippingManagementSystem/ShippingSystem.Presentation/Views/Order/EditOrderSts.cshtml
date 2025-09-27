@@ -1,0 +1,19 @@
+﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
+@model EditOrderStsVM
+@{
+    ViewData["Title"] = "EditOrderSts";
+    SelectList orderStsList = new SelectList(Model.OrderStsList, "Id", "Name");
+}
+
+<h1>EditOrderSts</h1>
+<form asp-action="SaveEditOrderSts" asp-controller="Order" asp-route-id="@Model.Id" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div>
+        <label asp-for="OrderStsId"></label>
+        <select asp-for="OrderStsId" class="form form-control" asp-items="orderStsList"></select>
+    </div>
+    <div>
+        <input type="submit" value="SaveEdit" class="btn btn-success mt-3"/>
+    </div>
+</form>
+<a asp-action="Index" asp-controller="Order" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>

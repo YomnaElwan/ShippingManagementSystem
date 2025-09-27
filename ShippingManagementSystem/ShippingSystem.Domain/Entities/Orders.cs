@@ -27,7 +27,6 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("Merchant")]
         public int MerchantId { get; set; }
         public Merchants Merchant { get; set; }
-
         [NotMapped]
         public List<OrderItem>? OrderItems { get; set; }
         [ForeignKey("Governorate")]

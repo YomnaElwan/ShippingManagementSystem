@@ -502,8 +502,14 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("GovernorateId")
                         .HasColumnType("int");
 
+                    b.Property<string>("MerchantAddress")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("MerchantId")
                         .HasColumnType("int");
+
+                    b.Property<string>("MerchantPhoneNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");

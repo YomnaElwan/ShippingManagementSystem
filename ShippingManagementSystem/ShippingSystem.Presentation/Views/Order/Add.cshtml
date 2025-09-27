@@ -7,7 +7,7 @@
     SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
     SelectList paymentMethodList = new SelectList(Model.PaymentMethodList, "Id", "Name");
     SelectList shippingTypeList = new SelectList(Model.ShippingTypeList, "Id", "Name");
-    SelectList merchantList = new SelectList(Model.Merchants, "Id", "User.UserName");
+    SelectList orderStatusList = new SelectList(Model.OrderStatusList, "Id", "Name");
 }
 
 <h1>Add</h1>
@@ -70,7 +70,7 @@
     <div>
         <label asp-for="DeliveryTypeOption"></label>
         <select class="form form-control" asp-for="DeliveryTypeOption" asp-items="@Html.GetEnumSelectList<DeliveryMethod>()">
-            <option value="">--Select Delivery Type--</option>
+            <option value="0">--Select Delivery Type--</option>
         </select>
         <span asp-validation-for="DeliveryTypeOption" class="text-danger"></span>
     </div>
@@ -89,11 +89,13 @@
         <input asp-for="Notes" class="form form-control" />
         <span asp-validation-for="Notes" class="text-danger"></span>
     </div>
-  
-    @* <div> *@
-    @*     <label asp-for="MerchantId"></label> *@
-    @*     <select asp-for="MerchantId" asp-items="merchantList" class="form form-control"></select> *@
-    @* </div> *@
+    <div>
+        <label asp-for="OrderStatusId"></label>
+        <select class="form form-control" asp-for="OrderStatusId" asp-items="orderStatusList">
+            <option value="0">--Select Order Status--</option>
+        </select>
+        <span asp-validation-for="OrderStatusId" class="text-danger"></span>
+    </div>
 
     <div id="orderItemsContainer">
         @await Html.PartialAsync("_GetOrderItemsPartial", Model.OrderItems)
@@ -106,9 +108,16 @@
     </div>
 
     <div id="addProductSection"></div>
+    <h6 class="m-0">Merchant Data</h6>
 
-
-
+    <div>
+        <label asp-for="MerchantPhoneNum"></label>
+        <input readonly asp-for="MerchantPhoneNum" class="form form-control" />
+    </div>
+    <div>
+        <label asp-for="MerchantAddress"></label>
+        <input readonly asp-for="MerchantAddress" class="form form-control" />
+    </div>
     <div>
         <input class="btn btn-success mt-3" type="submit" value="Save" />
     </div>
