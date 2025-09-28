@@ -24,6 +24,7 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly IMerchantService merchantService;
         private readonly IGenericService<OrderStatus> orderStatusService;
         private readonly IOrderService customOrderService;
+        private readonly IWeightSettingsService weightSettService;
         public OrderController(IGenericService<Governorates> govService,
                                IGenericService<Branches> branchService,
                                IGenericService<ShippingType> shippingTypeService,
@@ -33,7 +34,8 @@ namespace ShippingSystem.Presentation.Controllers
                                IGenericService<OrderItem> orderItemsService,
                                IMerchantService merchantService,
                                IGenericService<OrderStatus> orderStatusService,
-                               IOrderService customOrderService
+                               IOrderService customOrderService,
+                               IWeightSettingsService weightSettService
                                )
         {
             this.govService = govService;
@@ -46,6 +48,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.merchantService = merchantService;
             this.orderStatusService = orderStatusService;
             this.customOrderService = customOrderService;
+            this.weightSettService = weightSettService;
         }
         //Get Merchant and Employee Home Page
         [HttpGet]
@@ -199,12 +202,43 @@ namespace ShippingSystem.Presentation.Controllers
                 PaymentMethodList = await paymentMethodService.GetAllAsync(),
                 CityList = new List<Cities>(),
                 OrderStatusList = await orderStatusService.GetAllAsync(),
-                MerchantPhoneNum=merchant?.User?.PhoneNumber??"null",
-                MerchantAddress=merchant?.User?.Address??"null",
+                MerchantPhoneNum = merchant?.User?.PhoneNumber ?? "null",
+                MerchantAddress = merchant?.User?.Address ?? "null",
             };
             return View("Add",addOrderVM);
         }
+        //Get City Costs Based On City Id
+        [HttpGet]
+        public async Task<IActionResult> GetCityById(int cityId)
+        {
+            Cities cityById = await cityService.GetByIdAsync(cityId);
+            if (cityById == null)
+            {
+                return NotFound();
+            }
+            return Json(new
+            {
+                deliveryCost=cityById.DeliveryCost,
+                pickupCost=cityById.PickupCost
 
+            });
+        }
+        //Get City Weight Settings Based On City Id
+        [HttpGet]
+        public async Task<IActionResult> GetWeightSettByCityId(int cityId)
+        {
+            WeightSettings weightSett = await weightSettService.GetWeightSettByCityId(cityId);
+            if (weightSett == null)
+            {
+                return NotFound();
+            }
+            return Json(new
+            {
+                baseWeightLimit=weightSett.BaseWeightLimit,
+                priceForExtraKGs=weightSett.PricePerKg,
+            });
+        }
+      
         //Save Order To Database
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -242,13 +276,36 @@ namespace ShippingSystem.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var orderItems = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems");
-
+                
                 decimal totalCost = orderItems.Sum(item => item.Price * item.Quantity);
                 decimal totalWeight = orderItems.Sum(item => item.Weight * item.Quantity);
+
+                Cities selectedCity = await cityService.GetByIdAsync(newOrderFromUser.CityId);
+                if (selectedCity != null)
+                {
+                    if (newOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
+                    {
+                        totalCost += selectedCity.DeliveryCost;
+                    }
+                    else if (newOrderFromUser.DeliveryTypeOption==DeliveryMethod.BranchPickup)
+                    {
+                        totalCost += selectedCity.PickupCost;
+                    }
+                }
+                WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(newOrderFromUser.CityId);
+                if (weightSettService != null)
+                {
+                    if (totalWeight > weightSettingsByCityId.BaseWeightLimit)
+                    {
+                        var extraCost = (totalWeight - newOrderFromUser.BaseWeightLimit) * weightSettingsByCityId.PricePerKg;
+                        totalCost += extraCost;
+                    }
+                }
 
                 var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var merchant = (await merchantService.GetAllAsync())
                 .FirstOrDefault(m => m.UserId == userId);
+
 
                 Orders newOrder = new Orders()
                 {
@@ -264,7 +321,7 @@ namespace ShippingSystem.Presentation.Controllers
                     ShippingTypeId = newOrderFromUser.ShippingTypeId,
                     PaymentMethodId = newOrderFromUser.PaymentMethodId,
                     TotalCost = totalCost,
-                    TotalWeight = totalWeight ,
+                    TotalWeight = totalWeight,
                     MerchantId = merchant.Id,
                     Notes = newOrderFromUser.Notes,
                     OrderStatusId=newOrderFromUser.OrderStatusId,
@@ -322,7 +379,7 @@ namespace ShippingSystem.Presentation.Controllers
             await orderItemsService.SaveAsync();
             await orderService.DeleteAsync(Id);
             await orderService.SaveAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("IndexBasedOnSts");
         }
 
     }

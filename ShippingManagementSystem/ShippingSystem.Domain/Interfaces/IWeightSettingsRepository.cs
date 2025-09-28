@@ -10,5 +10,6 @@ namespace ShippingSystem.Domain.Interfaces
     public interface IWeightSettingsRepository:IGenericRepository<WeightSettings>
     {
         Task<WeightSettings> GetById(int Id);
+        Task<WeightSettings> GetWeightSettByCityId(int cityId);
     }
 }

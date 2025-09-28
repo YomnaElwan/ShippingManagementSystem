@@ -22,5 +22,11 @@ namespace ShippingSystem.Infrastructure.Repositories
         {
             return await cxt.WeightSettings.Include(w => w.Cities).FirstOrDefaultAsync(w => w.Id == Id);
         }
+
+        public async Task<WeightSettings> GetWeightSettByCityId(int cityId)
+        {
+            return await cxt.WeightSettings.Include(w => w.Cities).FirstOrDefaultAsync(w => w.CityId == cityId);
+
+        }
     }
 }

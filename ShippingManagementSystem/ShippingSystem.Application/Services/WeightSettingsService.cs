@@ -21,5 +21,10 @@ namespace ShippingSystem.Application.Services
         {
             return await weightSettingsRepo.GetById(Id);
         }
+
+        public async Task<WeightSettings> GetWeightSettByCityId(int cityId)
+        {
+            return await weightSettingsRepo.GetWeightSettByCityId(cityId);
+        }
     }
 }

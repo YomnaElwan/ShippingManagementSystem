@@ -15,6 +15,7 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("Cities")]
         public int CityId { get; set; }
         public Cities Cities { get; set; }
+        [NotMapped]
         public List<Orders>? Orders { get; set; }
     }
 }

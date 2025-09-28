@@ -10,5 +10,7 @@ namespace ShippingSystem.Application.Interfaces
     public interface IWeightSettingsService:IGenericService<WeightSettings>
     {
         Task<WeightSettings> GetById(int Id);
+        Task<WeightSettings> GetWeightSettByCityId(int cityId);
+
     }
 }

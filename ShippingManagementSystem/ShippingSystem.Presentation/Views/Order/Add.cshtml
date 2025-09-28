@@ -108,7 +108,26 @@
     </div>
 
     <div id="addProductSection"></div>
-    <h6 class="m-0">Merchant Data</h6>
+    <h2 class="mt-5 mb-3">City Weight Settings</h2>
+    <div>
+        <label asp-for="BaseWeightLimit"></label> (KG)
+        <input readonly asp-for="BaseWeightLimit" class="form form-control" id="baseWeightLimit" />
+    </div>
+    <div>
+        <label asp-for="PricePerKg"></label> (EGP)
+        <input readonly asp-for="PricePerKg" class="form form-control" id="additionalWeightPrice"/>
+    </div>
+    <h3 class="mt-5 mb-3">City Delivery Cost</h3>
+    <div>
+        <label asp-for="DeliveryCost"></label> (EGP)
+        <input readonly asp-for="DeliveryCost" class="form form-control" id="deliveryCost"/>
+    </div>
+    <div>
+        <label asp-for="PickupCost"></label> (EGP)
+        <input readonly asp-for="PickupCost" class="form form-control" id="pickupCost"/>
+    </div>
+
+    <h4 class="mt-5 mb-3">Merchant Data</h4>
 
     <div>
         <label asp-for="MerchantPhoneNum"></label>
@@ -162,7 +181,12 @@
         });
 
         // حفظ المنتج
-        $(document).on("click", "#btnSaveProduct", function () {
+        $(document).on("click", "#btnSaveProduct", function (e) {
+            e.preventDefault();
+            var form=$("#productForm");
+            if(!form.valid()){
+                return false;  //Model State Client Side
+            }
             var product = {
                 ProductName: $("#ProductName").val(),
                 Quantity: $("#Quantity").val(),
@@ -189,6 +213,43 @@
 
     });
 
+</script>
+
+<script>
+    $("#cityId").change(function(){
+        var cityId=$(this).val();
+        if(cityId && cityId!=0){
+            $.ajax({
+                url:"/Order/GetCityById?cityId="+cityId,
+                type:"GET",
+                success:function(result){
+                    $("#deliveryCost").val(result.deliveryCost),
+                    $("#pickupCost").val(result.pickupCost)
+                },
+                error:function(){
+                    alert("Error Loading City Costs!")
+                }
+            });
+        }
+    });
+</script>
+<script>
+    $("#cityId").change(function(){
+        var cityId=$(this).val();
+        if(cityId && cityId!=0){
+            $.ajax({
+                url:"/Order/GetWeightSettByCityId?cityId="+cityId,
+                type:"GET",
+                success:function(result){
+                    $("#baseWeightLimit").val(result.baseWeightLimit),
+                    $("#additionalWeightPrice").val(result.priceForExtraKGs)
+                },
+                error:function(){
+                    alert("Error Loading City Weight Settings")
+                }
+            });
+        }
+    });
 </script>
 
 

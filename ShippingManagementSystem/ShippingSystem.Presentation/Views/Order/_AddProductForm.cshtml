@@ -1,22 +1,29 @@
 ﻿@model ShippingSystem.Presentation.ViewModels.OrderItemsVM.AddOrderItemsVM
 
-<div id="productForm">
+<form id="productForm">
     <div>
         <label asp-for="ProductName"></label>
         <input asp-for="ProductName" class="form form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
     </div>
     <div>
         <label asp-for="Quantity"></label>
         <input asp-for="Quantity" class="form form-control" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
     </div>
     <div>
-        <label asp-for="Weight"></label>
+        <label asp-for="Weight"></label> (KG)
         <input asp-for="Weight" class="form form-control" />
+        <span asp-validation-for="Weight" class="text-danger"></span>
     </div>
     <div>
-        <label asp-for="Price"></label>
+        <label asp-for="Price"></label> (EGP)
         <input asp-for="Price" class="form form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
     </div>
 
-    <button type="button" id="btnSaveProduct" class="btn btn-success mt-2">Save Product</button>
-</div>
+    <button type="submit" id="btnSaveProduct" class="btn btn-success mt-2">Save Product</button>
+</form>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

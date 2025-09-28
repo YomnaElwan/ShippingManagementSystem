@@ -67,11 +67,8 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public DeliveryMethod DeliveryTypeOption { get; set; }
         public List<GetOrderItemsVM>? OrderItems { get; set; }
 
-        //[DisplayName("Order Total Cost")]
-        //public decimal TotalCost { get; set; }  //will be calculated in the controller
-
-        //[DisplayName("Order Total Weight")]
-        //public decimal TotalWeight { get; set; } //will be calculated in the controller
+        public decimal TotalCost { get; set; }  //will be calculated in the controller
+        public decimal TotalWeight { get; set; } //will be calculated in the controller
 
         //[DisplayName("Merchant")] 
         //public int MerchantId { get; set; } //Get it from the logged in user
@@ -83,6 +80,16 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         [Required(ErrorMessage ="Select an Order Status!")]
         public int OrderStatusId { get; set; }
         public List<OrderStatus>? OrderStatusList { get; set; }
+        [DisplayName("Home Delivery Cost")]
+        public decimal DeliveryCost { get; set; } // Ordinary Delivery Cost  -- From City Table -- readonly
+        [DisplayName("Branch Pickup Cost")]
+        public decimal PickupCost { get; set; } // Pickup Service Cost -- From City Table -- readonly
+        public int WeightSettingsId { get; set; }
+        [DisplayName("Base Weight Limit")]
+        public decimal BaseWeightLimit { get; set; } //اقصى وزن هيحاسب عليه بقيمة الشحن العادية -- readonly
+        [DisplayName("Additional Weight Price Per one Extra KG")]
+        public decimal PricePerKg { get; set; } // additional price per kg above BaseWeightLimit -- readonly
+
 
 
     }
