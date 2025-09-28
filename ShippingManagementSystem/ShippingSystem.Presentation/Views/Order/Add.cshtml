@@ -146,6 +146,9 @@
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+
+//Get Cities Based On Governorate Id
 <script>
     function GetCityList(){
         var govId=$("#governorateId").val();
@@ -170,6 +173,7 @@
 
 </script>
 
+//Add Product To Order Items And Load The Partial View To Show All Order Items
 <script>
        $(document).ready(function () {
 
@@ -215,6 +219,7 @@
 
 </script>
 
+//Get City Costs Based On City Id
 <script>
     $("#cityId").change(function(){
         var cityId=$(this).val();
@@ -233,6 +238,9 @@
         }
     });
 </script>
+
+
+//Get City Weight Settings By City Id
 <script>
     $("#cityId").change(function(){
         var cityId=$(this).val();
@@ -249,6 +257,17 @@
                 }
             });
         }
+    });
+</script>
+
+//Load Partial View To Get All Order Items After Deleting One Item
+<script>
+    $(document).on("click",".btnDeleteProduct",function(e){
+        e.preventDefault();
+        var url=$(this).attr("href");
+        $.get(url,function(result){
+        $("#orderItemsContainer").html(result);
+        });
     });
 </script>
 

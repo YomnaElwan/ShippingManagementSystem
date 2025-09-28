@@ -381,6 +381,22 @@ namespace ShippingSystem.Presentation.Controllers
             await orderService.SaveAsync();
             return RedirectToAction("IndexBasedOnSts");
         }
+        //Delete From Order Items Table While Adding New Order
+
+        public IActionResult DeleteFromOrderItems(int Id) {
+            List<GetOrderItemsVM> items = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems") ?? new List<GetOrderItemsVM>();
+
+            var itemToRemove = items.FirstOrDefault(item => item.Id == Id);
+            if (itemToRemove!=null)
+            {
+                items.Remove(itemToRemove);
+            }
+            HttpContext.Session.SetObjectAsJson("OrderItems", items);
+            return PartialView("_GetOrderItemsPartial", items);
+
+        }
+
+
 
     }
 }
