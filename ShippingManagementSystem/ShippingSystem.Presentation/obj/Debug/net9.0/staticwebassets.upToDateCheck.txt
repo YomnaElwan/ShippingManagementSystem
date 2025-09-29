@@ -10,6 +10,7 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagement
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.min.js.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\css\site.css
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\js\scripts.js
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\jquery\dist\jquery.min.js
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\jquery\dist\jquery.min.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-utilities.min.css.map
@@ -22,6 +23,7 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagement
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css.map
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\css\styles.css
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.min.css.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\jquery-validation-unobtrusive\dist\jquery.validate.unobtrusive.js
@@ -35,6 +37,7 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagement
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\jquery-validation\dist\jquery.validate.js
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap.rtl.css
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\assets\favicon.ico
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\favicon.ico
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map
@@ -60,8 +63,14 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagement
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\js\bootstrap.esm.js
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Presentation\wwwroot\lib\jquery\dist\jquery.slim.min.map
+wwwroot\assets\favicon.ico
+wwwroot\assets\img\about.jpg
+wwwroot\assets\img\bg.png
+wwwroot\assets\img\intro.png
 wwwroot\css\site.css
+wwwroot\css\styles.css
 wwwroot\favicon.ico
+wwwroot\js\scripts.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

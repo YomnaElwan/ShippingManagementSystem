@@ -4,33 +4,53 @@
     ViewData["Title"] = "Register";
 }
 
-<h1>Register</h1>
-<form asp-action="Register" asp-controller="Account" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form form-control"/>
-        <span asp-validation-for="Name" class="text-danger"></span>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Join Us</span>
+                        <span class="section-heading-lower">Register</span>
+                    </h2>
+
+                    <form asp-action="Register" asp-controller="Account" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input asp-for="Name" class="form-control" placeholder="Enter your username" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="ConfirmPassword" class="form-label"></label>
+                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Confirm your password" />
+                            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Address" class="form-label"></label>
+                            <input asp-for="Address" class="form-control" placeholder="Enter your address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="Password"></label>
-        <input asp-for="Password" class="form form-control"/>
-        <span asp-validation-for="Password" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="ConfirmPassword"></label>
-        <input asp-for="ConfirmPassword" class="form form-control"/>
-        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form form-control"/>
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="Register" class="btn btn-success mt-3" />
-    </div>
-</form>
+</section>
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib//jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

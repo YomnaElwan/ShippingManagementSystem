@@ -1,25 +1,46 @@
 ﻿@using ShippingSystem.Domain.Entities
 @model Regions
 @{
-    ViewData["Title"] = "AddNew";
+    ViewData["Title"] = "Add New Region";
 }
 
-<h1>AddNew</h1>
-<form asp-action="SaveNew" asp-controller="Region" method="post"> 
-<div class="mb-3">
-    <label asp-for="Name"></label>
-    <input class="form form-control" asp-for="Name" />
-    <span asp-validation-for="Name" class="text-danger"></span>
-</div>
-<div class="mb-3">
-    <input type="submit" value="ADD" class="btn btn-success"/>
-</div>
-</form>
-<a asp-action="Index" asp-controller="Region" class="btn btn-dark">
-    <i class="bi bi-arrow-left"></i> Go Back
-</a>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Region Management</span>
+                        <span class="section-heading-lower">Add New Region</span>
+                    </h2>
+
+                    <form asp-action="SaveNew" asp-controller="Region" method="post">
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <label asp-for="Name" class="form-label"></label>
+                            <input class="form-control" asp-for="Name" placeholder="Enter region name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="bi bi-plus-circle"></i> Add
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Region" class="btn btn-dark">
+                            <i class="bi bi-arrow-left"></i> Go Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
-

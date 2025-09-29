@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ey4Vr8+lcMyKvE4IJYz4QylEGwjsxpf1sWvEqzFh7/4=",
+  "Hash": "fTm+T7mSPHGc1fY3PpqvCemKDSEW0O8TOBIWI+4ptnY=",
   "Source": "ShippingSystem.Presentation",
   "BasePath": "_content/ShippingSystem.Presentation",
   "Mode": "Default",
@@ -269,6 +269,27 @@
       "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5gt8pefvpx-jk633vpdhk.gz",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "js/scripts#[.{fingerprint=jk633vpdhk}]?.js.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "v5gm7xgxgf",
+      "Integrity": "U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js"
+    },
+    {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5tvb791d6m-o1o13a6vjx.gz",
       "SourceId": "ShippingSystem.Presentation",
       "SourceType": "Discovered",
@@ -519,6 +540,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.rtl.css.map"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\eh48al24xz-jyr0ebp9fo.gz",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "css/styles#[.{fingerprint=jyr0ebp9fo}]?.css.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "vu4pfkyayq",
+      "Integrity": "18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css"
     },
     {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\emkon6r8py-6cfz1n2cew.gz",
@@ -792,6 +834,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\lib\\bootstrap\\dist\\css\\bootstrap.min.css.map"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\ldb08288pt-devepoo3hg.gz",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "assets/favicon#[.{fingerprint=devepoo3hg}]?.ico.gz",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Alternative",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico",
+      "AssetTraitName": "Content-Encoding",
+      "AssetTraitValue": "gzip",
+      "Fingerprint": "j3fujmqth6",
+      "Integrity": "75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico"
     },
     {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\lj3lrcumay-61n19gt1b8.gz",
@@ -1403,6 +1466,90 @@
       "OriginalItemSpec": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\scopedcss\\projectbundle\\ShippingSystem.Presentation.bundle.scp.css"
     },
     {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "assets/favicon#[.{fingerprint}]?.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "devepoo3hg",
+      "Integrity": "ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\about.jpg",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "assets/img/about#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "tdsppdnhb8",
+      "Integrity": "D+eae6/O7Tut6W1vQwMKRSQHn3urz18b0eunWuPDwR8=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\about.jpg"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\bg.png",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "assets/img/bg#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "u8gs8us5um",
+      "Integrity": "wn78ANCuxwXBpaDaRrB9Mi799Ao+sAdlGQ+1B5q8UcI=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\bg.png"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\intro.png",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "assets/img/intro#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "sjnjto6608",
+      "Integrity": "CIVLnV91s9iUxqUzPqJhS/VVAuQO9cvFLTKUweC8Bbw=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\assets\\img\\intro.png"
+    },
+    {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\site.css",
       "SourceId": "ShippingSystem.Presentation",
       "SourceType": "Discovered",
@@ -1424,6 +1571,27 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "css/styles#[.{fingerprint}]?.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jyr0ebp9fo",
+      "Integrity": "izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\styles.css"
+    },
+    {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\favicon.ico",
       "SourceId": "ShippingSystem.Presentation",
       "SourceType": "Discovered",
@@ -1443,6 +1611,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js",
+      "SourceId": "ShippingSystem.Presentation",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\",
+      "BasePath": "_content/ShippingSystem.Presentation",
+      "RelativePath": "js/scripts#[.{fingerprint}]?.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "jk633vpdhk",
+      "Integrity": "/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\scripts.js"
     },
     {
       "Identity": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\site.js",
@@ -2728,6 +2917,550 @@
   ],
   "Endpoints": [
     {
+      "Route": "assets/favicon.devepoo3hg.ico",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\ldb08288pt-devepoo3hg.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000452284034"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2210"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "devepoo3hg"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/favicon.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps="
+        }
+      ]
+    },
+    {
+      "Route": "assets/favicon.devepoo3hg.ico",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23462"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "devepoo3hg"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/favicon.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps="
+        }
+      ]
+    },
+    {
+      "Route": "assets/favicon.devepoo3hg.ico.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\ldb08288pt-devepoo3hg.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2210"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "devepoo3hg"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/favicon.ico.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50="
+        }
+      ]
+    },
+    {
+      "Route": "assets/favicon.ico",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\ldb08288pt-devepoo3hg.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000452284034"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2210"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps="
+        }
+      ]
+    },
+    {
+      "Route": "assets/favicon.ico",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "23462"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-ixBg8ZN2jFW8SN7ei6jam+bJP45tyulG428aiVa3Jps="
+        }
+      ]
+    },
+    {
+      "Route": "assets/favicon.ico.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\ldb08288pt-devepoo3hg.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "2210"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-75JECphqLOYUqUSmszOMzYIQcdgDgtGzaeuEBWX8E50="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/about.jpg",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\about.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1055613"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"D+eae6/O7Tut6W1vQwMKRSQHn3urz18b0eunWuPDwR8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 18:54:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-D+eae6/O7Tut6W1vQwMKRSQHn3urz18b0eunWuPDwR8="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/about.tdsppdnhb8.jpg",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\about.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1055613"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"D+eae6/O7Tut6W1vQwMKRSQHn3urz18b0eunWuPDwR8=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 18:54:22 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "tdsppdnhb8"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/img/about.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-D+eae6/O7Tut6W1vQwMKRSQHn3urz18b0eunWuPDwR8="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/bg.png",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\bg.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1338131"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wn78ANCuxwXBpaDaRrB9Mi799Ao+sAdlGQ+1B5q8UcI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 16:45:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wn78ANCuxwXBpaDaRrB9Mi799Ao+sAdlGQ+1B5q8UcI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/bg.u8gs8us5um.png",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\bg.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1338131"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wn78ANCuxwXBpaDaRrB9Mi799Ao+sAdlGQ+1B5q8UcI=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 16:45:23 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "u8gs8us5um"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/img/bg.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wn78ANCuxwXBpaDaRrB9Mi799Ao+sAdlGQ+1B5q8UcI="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/intro.png",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\intro.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1355503"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CIVLnV91s9iUxqUzPqJhS/VVAuQO9cvFLTKUweC8Bbw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 17:06:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-CIVLnV91s9iUxqUzPqJhS/VVAuQO9cvFLTKUweC8Bbw="
+        }
+      ]
+    },
+    {
+      "Route": "assets/img/intro.sjnjto6608.png",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\intro.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "1355503"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"CIVLnV91s9iUxqUzPqJhS/VVAuQO9cvFLTKUweC8Bbw=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 28 Sep 2025 17:06:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "sjnjto6608"
+        },
+        {
+          "Name": "label",
+          "Value": "assets/img/intro.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-CIVLnV91s9iUxqUzPqJhS/VVAuQO9cvFLTKUweC8Bbw="
+        }
+      ]
+    },
+    {
       "Route": "css/site.b9sayid5wm.css",
       "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\56tn8dcbz9-b9sayid5wm.gz",
       "Selectors": [
@@ -3026,6 +3759,304 @@
       ]
     },
     {
+      "Route": "css/styles.css",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\eh48al24xz-jyr0ebp9fo.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000032024595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31225"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.css",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "241604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.css.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\eh48al24xz-jyr0ebp9fo.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31225"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.jyr0ebp9fo.css",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\eh48al24xz-jyr0ebp9fo.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.000032024595"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31225"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jyr0ebp9fo"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.jyr0ebp9fo.css",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "241604"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jyr0ebp9fo"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-izeUD50xgLFOE6WPuQM9Ch41r0OLG6FlGGV9hs7psFs="
+        }
+      ]
+    },
+    {
+      "Route": "css/styles.jyr0ebp9fo.css.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\eh48al24xz-jyr0ebp9fo.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "31225"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Mon, 29 Sep 2025 13:21:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jyr0ebp9fo"
+        },
+        {
+          "Name": "label",
+          "Value": "css/styles.css.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-18PfOhgPdOQ0odeasL53ji4GyZc3Bn49ZTVnHDFfmUg="
+        }
+      ]
+    },
+    {
       "Route": "favicon.61n19gt1b8.ico",
       "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\lj3lrcumay-61n19gt1b8.gz",
       "Selectors": [
@@ -3320,6 +4351,304 @@
         {
           "Name": "integrity",
           "Value": "sha256-jcY0RXFOlcp4VNTCcYQtWVZZBlr+ZY+AOv6/0S5dnF8="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.jk633vpdhk.js",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5gt8pefvpx-jk633vpdhk.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002976190476"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jk633vpdhk"
+        },
+        {
+          "Name": "label",
+          "Value": "js/scripts.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.jk633vpdhk.js",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "491"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jk633vpdhk"
+        },
+        {
+          "Name": "label",
+          "Value": "js/scripts.js"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.jk633vpdhk.js.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5gt8pefvpx-jk633vpdhk.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "jk633vpdhk"
+        },
+        {
+          "Name": "label",
+          "Value": "js/scripts.js.gz"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.js",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5gt8pefvpx-jk633vpdhk.gz",
+      "Selectors": [
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip",
+          "Quality": "0.002976190476"
+        }
+      ],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "W/\"/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs=\""
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.js",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "491"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-/Swkz1kYDRfNuO4zbp2PgRGRUTs2iI1ELYF/n7MCojs="
+        }
+      ]
+    },
+    {
+      "Route": "js/scripts.js.gz",
+      "AssetFile": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\obj\\Debug\\net9.0\\compressed\\5gt8pefvpx-jk633vpdhk.gz",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "335"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/javascript"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Fri, 24 Mar 2023 22:36:33 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Encoding",
+          "Value": "gzip"
+        },
+        {
+          "Name": "Vary",
+          "Value": "Content-Encoding"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-U8ZVwqKXFg490+LORqdWyGFO5wo2iXdrTvFDaCWX5j4="
         }
       ]
     },

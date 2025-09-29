@@ -5,12 +5,36 @@
       "PackagePath": "staticwebassets\\ShippingSystem.Presentation.rtbfowtb9t.bundle.scp.css"
     },
     {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\favicon.ico",
+      "PackagePath": "staticwebassets\\assets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\about.jpg",
+      "PackagePath": "staticwebassets\\assets\\img\\about.jpg"
+    },
+    {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\bg.png",
+      "PackagePath": "staticwebassets\\assets\\img\\bg.png"
+    },
+    {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\assets\\img\\intro.png",
+      "PackagePath": "staticwebassets\\assets\\img\\intro.png"
+    },
+    {
       "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\css\\styles.css",
+      "PackagePath": "staticwebassets\\css\\styles.css"
+    },
+    {
       "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\scripts.js",
+      "PackagePath": "staticwebassets\\js\\scripts.js"
     },
     {
       "Id": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Presentation\\wwwroot\\js\\site.js",

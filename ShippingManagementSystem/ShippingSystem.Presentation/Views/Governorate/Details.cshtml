@@ -1,38 +1,31 @@
-﻿@using ShippingSystem.Domain.Entities
+﻿﻿@using ShippingSystem.Domain.Entities
 @model Governorates
 @{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Name</td>
-            <td>Region</td>
-            <td>Cities</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@Model?.Name</td>
-            <td>@Model?.Region.Name</td>
-            <td>
-               
-                @if(Model?.Cities!=null && Model.Cities.Any()){
-                    <ul>
-                        @foreach(var item in Model.Cities){
-                            <li>@item.Name</li>
-                        }
-                    </ul>
-                }
-                else{
-                    <span>This Governorate doesnt have any city!</span>
-                }
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div class="card shadow-sm rounded bg-light bg-opacity-75 mb-4">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name</h5>
+        <hr />
+        <h6 class="card-subtitle mb-3 text-muted">Cities:</h6>
+        <div>
+            @if (Model.Cities != null && Model.Cities.Any())
+            {
+                <ul class="list-group list-group-flush">
+                    @foreach (var item in Model.Cities)
+                    {
+                        <li class="list-group-item">@item.Name</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <div class="alert alert-warning mb-0">There are no governorates</div>
+            }
+        </div>
+    </div>
+</div>
+
 <a asp-action="Index" asp-controller="Governorate" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back to List</a>
-
