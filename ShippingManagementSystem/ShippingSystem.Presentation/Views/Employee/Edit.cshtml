@@ -5,41 +5,56 @@
     SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
 }
 
-<h1>Edit</h1>
-<form method="post" asp-action="SaveEdit" asp-controller="Employee" asp-route-id="@Model.Id">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <input type="hidden" asp-for="@Model.Id" />
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Employees Management</span>
+                        <span class="section-heading-lower">Edit Employee</span>
+                    </h2>
+                    <form method="post" asp-action="SaveEdit" asp-controller="Employee" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <input type="hidden" asp-for="@Model.Id" />
+                        </div>
+                        <div>
+                            <label asp-for="EmployeeName"></label>
+                            <input asp-for="EmployeeName" class="form form-control" />
+                            <span asp-validation-for="EmployeeName" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="EmployeeEmail"></label>
+                            <input asp-for="EmployeeEmail" class="form form-control" />
+                            <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="EmployeePhone"></label>
+                            <input asp-for="EmployeePhone" class="form form-control" />
+                            <span asp-validation-for="EmployeePhone" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="EmployeeAddress"></label>
+                            <input asp-for="EmployeeAddress" class="form form-control" />
+                            <span asp-validation-for="EmployeeAddress" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="BranchId"></label>
+                            <select asp-for="BranchId" asp-items="branchList" class="form form-control"></select>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Employee" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="EmployeeName"></label>
-        <input asp-for="EmployeeName" class="form form-control"/>
-        <span asp-validation-for="EmployeeName" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="EmployeeEmail"></label>
-        <input asp-for="EmployeeEmail" class="form form-control"/>
-        <span asp-validation-for="EmployeeEmail" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="EmployeePhone"></label>
-        <input asp-for="EmployeePhone" class="form form-control"/>
-        <span asp-validation-for="EmployeePhone" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="EmployeeAddress"></label>
-        <input asp-for="EmployeeAddress" class="form form-control" />
-        <span asp-validation-for="EmployeeAddress" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="BranchId"></label>
-        <select asp-for="BranchId" asp-items="branchList" class="form form-control"></select>
-    </div>
-    <div>
-        <input class="btn btn-success mt-3" type="submit" value="Save Edit" />
-    </div>
-</form>
-<a asp-action="Index" asp-controller="Employee" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+</section>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

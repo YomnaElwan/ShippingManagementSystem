@@ -5,36 +5,50 @@
     SelectList govList = new SelectList(Model.GovernoratesList, "Id", "Name");
 }
 
-<h1>Edit</h1>
-<form asp-action="SaveEdit" asp-controller="City" method="post" asp-route-id="@Model.Id">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="Name"></label>
-        <input class="form form-control" asp-for="Name"/>
-        <span asp-validation-for="Name" class="text-danger"></span>
+<div class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">City Management</span>
+                        <span class="section-heading-lower">Edit City</span>
+                    </h2>
+                    <form asp-action="SaveEdit" asp-controller="City" method="post" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="Name"></label>
+                            <input class="form form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="DeliveryCost"></label>
+                            <input asp-for="DeliveryCost" class="form form-control" />
+                            <span asp-validation-for="DeliveryCost" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="PickupCost"></label>
+                            <input asp-for="PickupCost" class="form form-control" />
+                            <span asp-validation-for="PickupCost" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="GovernorateId"></label>
+                            <select asp-for="GovernorateId" class="form form-control" asp-items="govList"></select>
+                            <span asp-validation-for="GovernorateId" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-success btn-lg mt-3"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="City" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="DeliveryCost"></label>
-        <input asp-for="DeliveryCost" class="form form-control"/>
-        <span asp-validation-for="DeliveryCost" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="PickupCost"></label>
-        <input asp-for="PickupCost" class="form form-control"/>
-        <span asp-validation-for="PickupCost" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="GovernorateId"></label>
-        <select asp-for="GovernorateId" class="form form-control" asp-items="govList"></select>
-        <span asp-validation-for="GovernorateId" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="Save Edit" class="btn btn-success mt-3"/>
-    </div>
-</form>
-<div>
-    <a asp-action="Index" asp-controller="City" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
 </div>
+
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

@@ -3,21 +3,34 @@
 @{
     ViewData["Title"] = "Add";
 }
-
-<h1>Add</h1>
-<form asp-action="SaveAdd" asp-controller="PaymentMethod">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Payment Method Management</span>
+                        <span class="section-heading-lower">Add New Payment Method</span>
+                    </h2>
+                    <form asp-action="SaveAdd" asp-controller="PaymentMethod">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-plus-circle"></i> Add</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="PaymentMethod" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="submit" value="Save" class="btn btn-success mt-3"/>
-    </div>
-</form>
-<a asp-action="Index" asp-controller="PaymentMethod" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
-
+</section>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

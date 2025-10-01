@@ -3,10 +3,14 @@
 @{
     ViewData["Title"] = "Details";
 }
-
-<h1>Details</h1>
-<table class="table table-striped">
-    <thead>
+<div class="card shadow-sm rounded bg-light bg-opacity-75 mb-3 mt-3">
+    <div class="card-body">
+        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name</h5>
+    </div>
+</div>
+<div class="table-responsive"></div>
+<table class="table table-hover table-bordered align-middle text-center bg-light bg-opacity-75 shadow-sm rounded">
+    <thead class="table-primary">
         <tr>
             <td>Name</td>
             <td>Delivery Cost</td>

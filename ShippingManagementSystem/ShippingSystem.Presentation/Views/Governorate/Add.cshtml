@@ -4,27 +4,44 @@
     ViewData["Title"] = "Add";
     SelectList regionList = new SelectList(Model.RegionList, "Id", "Name");
 }
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Governorate Management</span>
+                        <span class="section-heading-lower">Add New Governorate</span>
+                    </h2>
 
-<h1>Add</h1>
-<form asp-action="SaveNew" asp-controller="Governorate" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+                    <form asp-action="SaveNew" asp-controller="Governorate" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" class="form form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="RegionId"></label>
+                            <select asp-for="RegionId" class="form form-control" asp-items="regionList">
+                                <option value="0">--Select Region--</option>
+                            </select>
+                            <span asp-validation-for="RegionId" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-plus-circle"></i> Add</button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a class="btn btn-dark" asp-action="Index" asp-controller="Governorate"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="RegionId"></label>
-        <select asp-for="RegionId" class="form form-control" asp-items="regionList">
-            <option value="0">--Select Region--</option>
-        </select>
-        <span asp-validation-for="RegionId" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="Add" class="btn btn-success mt-3"/>
-    </div>
-</form>
-<a class="btn btn-dark mt-3" asp-action="Index" asp-controller="Governorate"><i class="bi bi-left-arrow"></i>Back To List</a>
+</section>
+
+
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

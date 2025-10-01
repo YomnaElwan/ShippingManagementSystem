@@ -4,32 +4,45 @@
     ViewData["Title"] = "Edit";
     SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
 }
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Weight Settings Management</span>
+                        <span class="section-heading-lower">Edit Weight Settings</span>
+                    </h2>
+                    <form asp-action="SaveEdit" asp-controller="WeightSettings" asp-route-id="@Model.Id" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="BaseWeightLimit"></label>(Kg)
+                            <input asp-for="BaseWeightLimit" class="form form-control" />
+                            <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="PricePerKg"></label>(EGP)
+                            <input asp-for="PricePerKg" class="form form-control" />
+                            <span asp-validation-for="PricePerKg"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CityId"></label>
+                            <select asp-for="CityId" class="form form-control" asp-items="cityList"></select>
+                            <span asp-validation-for="CityId" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a asp-action="Index" asp-controller="WeightSettings" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
 
-<h1>Edit</h1>
-<form asp-action="SaveEdit" asp-controller="WeightSettings" asp-route-id="@Model.Id" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="BaseWeightLimit"></label>(Kg)
-        <input asp-for="BaseWeightLimit" class="form form-control"/>
-        <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="PricePerKg"></label>(EGP)
-        <input asp-for="PricePerKg" class="form form-control"/>
-        <span asp-validation-for="PricePerKg"></span>
-    </div>
-    <div>
-        <label asp-for="CityId"></label>
-        <select asp-for="CityId" class="form form-control" asp-items="cityList"></select>
-        <span asp-validation-for="CityId" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="SaveEdit" class="btn btn-success mt-3" />
-    </div>
-</form>
-<div>
-    <a asp-action="Index" asp-controller="WeightSettings" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
-</div>
+</section>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

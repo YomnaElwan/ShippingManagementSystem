@@ -7,58 +7,72 @@
     SelectList govList = new SelectList(Model.GovernorateList, "Id", "Name");
 }
 
-<h1>Edit</h1>
-<form method="post" asp-action="SaveEdit" asp-controller="Courier" asp-route-id="@Model.Id">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <input type="hidden" asp-for="@Model.Id" />
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Couriers Management</span>
+                        <span class="section-heading-lower">Edit Courier</span>
+                    </h2>
+                    <form method="post" asp-action="SaveEdit" asp-controller="Courier" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <input type="hidden" asp-for="@Model.Id" />
+                        </div>
+                        <div>
+                            <label asp-for="CourierName"></label>
+                            <input asp-for="CourierName" class="form form-control" />
+                            <span asp-validation-for="CourierName" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CourierEmail"></label>
+                            <input asp-for="CourierEmail" class="form form-control" />
+                            <span asp-validation-for="CourierEmail" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CourierPhone"></label>
+                            <input asp-for="CourierPhone" class="form form-control" />
+                            <span asp-validation-for="CourierPhone" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CourierAddress"></label>
+                            <input asp-for="CourierAddress" class="form form-control" />
+                            <span asp-validation-for="CourierAddress" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="BranchId"></label>
+                            <select asp-for="BranchId" asp-items="branchList" class="form form-control"></select>
+                            <span asp-validation-for="BranchId" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="GovernorateId"></label>
+                            <select asp-for="GovernorateId" asp-items="govList" class="form form-control"></select>
+                            <span asp-validation-for="GovernorateId" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="DiscountTypeOptions"></label>
+                            <select asp-for="DiscountTypeOptions" asp-items="Html.GetEnumSelectList<DiscountType>()" class="form form-control"></select>
+                            <span asp-validation-for="DiscountTypeOptions" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CompanyDiscountValue"></label>
+                            <input asp-for="CompanyDiscountValue" class="form form-control" />
+                            <span asp-validation-for="CompanyDiscountValue" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-success btn-lg"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a asp-action="Index" asp-controller="Courier" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="CourierName"></label>
-        <input asp-for="CourierName" class="form form-control" />
-        <span asp-validation-for="CourierName" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CourierEmail"></label>
-        <input asp-for="CourierEmail" class="form form-control" />
-        <span asp-validation-for="CourierEmail" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CourierPhone"></label>
-        <input asp-for="CourierPhone" class="form form-control" />
-        <span asp-validation-for="CourierPhone" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CourierAddress"></label>
-        <input asp-for="CourierAddress" class="form form-control" />
-        <span asp-validation-for="CourierAddress" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="BranchId"></label>
-        <select asp-for="BranchId" asp-items="branchList" class="form form-control"></select>
-        <span asp-validation-for="BranchId" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="GovernorateId"></label>
-        <select asp-for="GovernorateId" asp-items="govList" class="form form-control"></select>
-        <span asp-validation-for="GovernorateId" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="DiscountTypeOptions"></label>
-        <select asp-for="DiscountTypeOptions" asp-items="Html.GetEnumSelectList<DiscountType>()" class="form form-control"></select>
-        <span asp-validation-for="DiscountTypeOptions" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CompanyDiscountValue"></label>
-        <input asp-for="CompanyDiscountValue" class="form form-control"/>
-        <span asp-validation-for="CompanyDiscountValue" class="text-danger"></span>
-    </div>
-    <div>
-        <input class="btn btn-success mt-3" type="submit" value="Save Edit" />
-    </div>
-</form>
-<a asp-action="Index" asp-controller="Courier" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
-
+</section>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>

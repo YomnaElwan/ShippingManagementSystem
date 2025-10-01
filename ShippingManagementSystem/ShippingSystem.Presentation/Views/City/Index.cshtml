@@ -4,11 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-<a asp-action="Add" asp-controller="City" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add New City</a>
-
-<table class="table table-striped">
-    <thead>
+<a asp-action="Add" asp-controller="City" class="btn btn-primary mt-3 mb-3"><i class="bi bi-plus-circle"></i> Add New </a>
+<div class="table-responsive"></div>
+<table class="table table-hover table-bordered align-middle text-center bg-light bg-opacity-75 shadow-sm rounded">
+    <thead class="table-primary">
         <tr>
             <td>Id</td>
             <td>Name</td>
@@ -22,9 +21,9 @@
                 <td>@item.Id</td>
                 <td>@item.Name</td>
                 <td>
-                    <a asp-action="Details" asp-controller="City" asp-route-id="@item.Id" class="btn btn-info"><i class="bi bi-info-circle"></i></a>
-                    <a asp-action="Edit" asp-controller="City" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a>
-                    <a asp-action="Delete" asp-controller="City" asp-route-Id="@item.Id" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+                    <a asp-action="Details" asp-controller="City" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white"><i class="bi bi-info-circle"></i></a>
+                    <a asp-action="Edit" asp-controller="City" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
+                    <a asp-action="Delete" asp-controller="City" asp-route-Id="@item.Id" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a>
                 </td>
             </tr>
         }

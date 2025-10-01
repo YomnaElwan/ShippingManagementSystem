@@ -5,31 +5,47 @@
     SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
 }
 
-<h1>New</h1>
-<form asp-action="SaveNew" asp-controller="WeightSettings" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="BaseWeightLimit"></label>(Kg)
-        <input asp-for="BaseWeightLimit" class="form form-control" />
-        <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Weight Settings Management</span>
+                        <span class="section-heading-lower">Add New Weight Settings</span>
+                    </h2>
+                    <form asp-action="SaveNew" asp-controller="WeightSettings" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="BaseWeightLimit"></label>(Kg)
+                            <input asp-for="BaseWeightLimit" class="form form-control" />
+                            <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="PricePerKg"></label>(EGP)
+                            <input asp-for="PricePerKg" class="form form-control" />
+                            <span asp-validation-for="PricePerKg" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CityId"></label>
+                            <select asp-for="CityId" asp-items="cityList" class="form form-control">
+                                <option value="0">--Select City--</option>
+                            </select>
+                            <span asp-validation-for="CityId" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-plus-circle"></i> Add</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="WeightSettings" class="btn btn-dark"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <label asp-for="PricePerKg"></label>(EGP)
-        <input asp-for="PricePerKg" class="form form-control"/>
-        <span asp-validation-for="PricePerKg" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CityId"></label>
-        <select asp-for="CityId" asp-items="cityList" class="form form-control">
-            <option value="0">--Select City--</option>
-        </select>
-        <span asp-validation-for="CityId" class="text-danger"></span>
-    </div>
-    <div>
-        <input type="submit" value="Add" class="btn btn-success mt-3" />
-    </div>
-</form>
-<a asp-action="Index" asp-controller="WeightSettings" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+</section>
+
 
 
 <script src="~/lib/jquery/dist/jquery.js"></script>

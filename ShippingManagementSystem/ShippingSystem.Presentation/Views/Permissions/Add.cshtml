@@ -4,44 +4,63 @@
     ViewData["Title"] = "Add";
     SelectList rolesList = new SelectList(Model.Roles,"Id","Name");
 }
-
-<form asp-action="SaveAdd" asp-controller="Permissions" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="RoleId"></label>
-        <select class="form form-control" asp-items="rolesList" asp-for="RoleId">
-            <option value="">--Select Role--</option>
-        </select>
-        <span asp-validation-for="RoleId" class="text-danger"></span>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Permissions Management</span>
+                        <span class="section-heading-lower">Add New Permissions</span>
+                    </h2>
+                    <form asp-action="SaveAdd" asp-controller="Permissions" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="RoleId"></label>
+                            <select class="form form-control" asp-items="rolesList" asp-for="RoleId">
+                                <option value="">--Select Role--</option>
+                            </select>
+                            <span asp-validation-for="RoleId" class="text-danger"></span>
+                        </div>
+                        <div class="table-responsive mt-3"></div>
+                        <table class="table table-hover table-bordered align-middle text-center bg-light bg-opacity-75 shadow-sm rounded">
+                            <thead class="table-primary">
+                                <tr>
+                                    <td>Module/Groups</td>
+                                    <td>View</td>
+                                    <td>Details</td>
+                                    <td>Add</td>
+                                    <td>Edit</td>
+                                    <td>Delete</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Modules.Count; i++)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Model.Modules[i].Name
+                                            <input type="hidden" asp-for="ModulePerms[@i].ModuleId" value="@Model.Modules[i].Id" />
+                                        </td>
+                                        <td><input asp-for="ModulePerms[@i].CanView" /></td>
+                                        <td><input asp-for="ModulePerms[@i].CanViewDetails" /></td>
+                                        <td><input asp-for="ModulePerms[@i].CanAdd" /></td>
+                                        <td><input asp-for="ModulePerms[@i].CanEdit" /></td>
+                                        <td><input asp-for="ModulePerms[i].CanDelete" /></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="mt-3 d-grid">
+                            <button type="submit" class="btn btn-success btn-lg"><i class="bi bi-plus-circle"></i> Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <td>Module/Groups</td>
-                <td>View</td>
-                <td>Details</td>
-                <td>Add</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
-        </thead>
-        <tbody>
-            @for(int i=0;i<Model.Modules.Count;i++){
-             <tr>
-                 <td>@Model.Modules[i].Name
-                 <input type="hidden" asp-for="ModulePerms[@i].ModuleId" value="@Model.Modules[i].Id"/>
-                 </td>
-                 <td><input asp-for="ModulePerms[@i].CanView"/></td>
-                 <td><input asp-for="ModulePerms[@i].CanViewDetails"/></td>
-                 <td><input asp-for="ModulePerms[@i].CanAdd"/></td>
-                 <td><input asp-for="ModulePerms[@i].CanEdit"/></td>
-                 <td><input asp-for="ModulePerms[i].CanDelete"/></td>
-             </tr>
-            }
-        </tbody>
-    </table>
-    <input type="submit" value="Save" class="btn btn-success" />
-</form>
+</section>
+
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>

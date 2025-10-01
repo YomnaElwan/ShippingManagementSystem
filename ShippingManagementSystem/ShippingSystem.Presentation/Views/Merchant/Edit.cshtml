@@ -7,65 +7,80 @@
     SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
 }
 
-<h1>Edit</h1>
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Merchants Management</span>
+                        <span class="section-heading-lower">Edit Merchant</span>
+                    </h2>
+                    <form asp-action="SaveEdit" asp-controller="Merchant" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="MerchantName"></label>
+                            <input asp-for="MerchantName" class="form form-control" />
+                            <span asp-validation-for="MerchantName" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="MerchantEmail"></label>
+                            <input asp-for="MerchantEmail" class="form form-control" />
+                            <span asp-validation-for="MerchantEmail" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="MerchantPhoneNumber"></label>
+                            <input asp-for="MerchantPhoneNumber" class="form form-control" />
+                            <span asp-validation-for="MerchantPhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="MerchantAddress"></label>
+                            <input asp-for="MerchantAddress" class="form form-control" />
+                            <span asp-validation-for="MerchantAddress" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="BranchId"></label>
+                            <select asp-for="BranchId" class="form form-control" asp-items="branchList"></select>
+                            <span asp-validation-for="BranchId" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CityId"></label>
+                            <select asp-for="CityId" class="form form-control" id="cityId" asp-items="cityList"></select>
+                            <span asp-validation-for="CityId" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="GovernorateId"></label>
+                            <select asp-for="GovernorateId" class="form form-control" asp-items="govList" id="govId" onclick="GetCityList()"></select>
+                            <span asp-validation-for="GovernorateId" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CompanyName"></label>
+                            <input asp-for="CompanyName" class="form form-control" />
+                            <span asp-validation-for="CompanyName" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="SpecialPackUpCost"></label>
+                            <input asp-for="SpecialPackUpCost" class="form form-control" />
+                            <span asp-validation-for="SpecialPackUpCost" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="RejOrderCostPercent"></label>
+                            <input asp-for="RejOrderCostPercent" class="form form-control" />
+                            <span asp-validation-for="RejOrderCostPercent" class="text-danger"></span>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-4">
+                        <a asp-action="Index" asp-controller="Merchant" class="btn btn-dark"><i class="bi bi-arrow-left mt-3"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<form asp-action="SaveEdit" asp-controller="Merchant" asp-route-id="@Model.Id">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="MerchantName"></label>
-        <input asp-for="MerchantName" class="form form-control"/>
-        <span asp-validation-for="MerchantName" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="MerchantEmail"></label>
-        <input asp-for="MerchantEmail" class="form form-control" />
-        <span asp-validation-for="MerchantEmail" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="MerchantPhoneNumber"></label>
-        <input asp-for="MerchantPhoneNumber" class="form form-control" />
-        <span asp-validation-for="MerchantPhoneNumber" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="MerchantAddress"></label>
-        <input asp-for="MerchantAddress" class="form form-control" />
-        <span asp-validation-for="MerchantAddress" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="BranchId"></label>
-        <select asp-for="BranchId" class="form form-control" asp-items="branchList"></select>
-        <span asp-validation-for="BranchId" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CityId"></label>
-        <select asp-for="CityId" class="form form-control" id="cityId" asp-items="cityList"></select>
-        <span asp-validation-for="CityId" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="GovernorateId"></label>
-        <select asp-for="GovernorateId" class="form form-control" asp-items="govList" id="govId" onclick="GetCityList()"></select>
-        <span asp-validation-for="GovernorateId" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="CompanyName"></label>
-        <input asp-for="CompanyName" class="form form-control" />
-        <span asp-validation-for="CompanyName" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="SpecialPackUpCost"></label>
-        <input asp-for="SpecialPackUpCost" class="form form-control" />
-        <span asp-validation-for="SpecialPackUpCost" class="text-danger"></span>
-    </div>
-    <div>
-        <label asp-for="RejOrderCostPercent"></label>
-        <input asp-for="RejOrderCostPercent" class="form form-control" />
-        <span asp-validation-for="RejOrderCostPercent" class="text-danger"></span>
-    </div>
-    <div>
-        <input class="btn btn-success mt-3" value="Save Edit" type="submit"/>
-    </div>
-</form>
-<a asp-action="Index" asp-controller="Merchant" class="btn btn-dark mt-3"><i class="bi bi-arrow-left mt-3"></i> Back To List</a>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
