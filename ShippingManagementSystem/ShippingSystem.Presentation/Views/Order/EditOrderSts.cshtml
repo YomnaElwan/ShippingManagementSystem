@@ -4,16 +4,30 @@
     ViewData["Title"] = "EditOrderSts";
     SelectList orderStsList = new SelectList(Model.OrderStsList, "Id", "Name");
 }
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-lower">Edit Order Status</span>
+                    </h2>
+                    <form asp-action="SaveEditOrderSts" asp-controller="Order" asp-route-id="@Model.Id" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="OrderStsId"></label>
+                            <select asp-for="OrderStsId" class="form form-control" asp-items="orderStsList"></select>
+                        </div>
+                        <div class="d-grid mt-3">
+                            <button class="btn btn-success btn-lg" type="submit"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
+                    </form>
+                    <div class="mt-4 text-center">
+                        <a asp-action="IndexBasedOnSts" asp-controller="Order" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
-<h1>EditOrderSts</h1>
-<form asp-action="SaveEditOrderSts" asp-controller="Order" asp-route-id="@Model.Id" method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div>
-        <label asp-for="OrderStsId"></label>
-        <select asp-for="OrderStsId" class="form form-control" asp-items="orderStsList"></select>
-    </div>
-    <div>
-        <input type="submit" value="SaveEdit" class="btn btn-success mt-3"/>
-    </div>
-</form>
-<a asp-action="Index" asp-controller="Order" class="btn btn-dark mt-3"><i class="bi bi-arrow-left"></i> Back To List</a>

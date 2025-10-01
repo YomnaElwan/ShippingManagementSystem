@@ -1,34 +1,23 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
 @model List<GetOrdersVM>
-<table class="table table-striped mt-3">
-    <thead>
-        <tr>
-            <th>Order Id</th>
-            <th>Order Date</th>
-            <th>Customer Info</th>
-            <th>Governorate</th>
-            <th>City</th>
-            <th>Total Cost</th>
-            <th>Edit Order</th>
-            <th>Order Status</th>
-            <th>Change Status</th>
-            <th>Remove</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach(var item in Model){ 
-             <tr> 
-                 <td>@item.OrderId</td> 
-                 <td>@item.CreateAt</td> 
-                 <td>@item.CustomerName<hr />@item.PhoneNumber1</td>
-                 <td>@item.GovernorateName</td> 
-                 <td>@item.CityName</td> 
-                 <td>@item.TotalCost</td> 
-                 <td><a asp-action="Edit" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-warning"><i class="bi bi-pencil-square"></i></a></td> 
-                 <td>@item.StatusName</td>
-                 <td><a asp-action="EditOrderSts" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a></td> 
-                 <td><a asp-action="Delete" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-danger"><i class="bi bi-trash"></i></a></td> 
-             </tr>
-         }
-    </tbody>
-</table>
+
+   
+  
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.OrderId</td>
+                    <td>@item.CreateAt</td>
+                    <td>@item.CustomerName<hr />@item.PhoneNumber1</td>
+                    <td>@item.GovernorateName</td>
+                    <td>@item.CityName</td>
+                    <td>@item.TotalCost</td>
+                    <td><a asp-action="Edit" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a></td>
+                    <td>@item.StatusName</td>
+                    <td><a asp-action="EditOrderSts" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a></td>
+                    <td><a asp-action="Delete" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></a></td>
+                </tr>
+            }
+       
+    
+
