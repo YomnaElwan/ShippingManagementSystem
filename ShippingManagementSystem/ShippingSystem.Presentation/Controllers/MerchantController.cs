@@ -113,7 +113,7 @@ namespace ShippingSystem.Presentation.Controllers
                 if (result.Succeeded)
                 {
                     await userService.AddToRoleAsync(newUser,"Merchant");
-                    await signInManager.SignInAsync(newUser, false);
+                    //await signInManager.SignInAsync(newUser, false);
                     Merchants newMerchant = new Merchants()
                     {
                         User = newUser,

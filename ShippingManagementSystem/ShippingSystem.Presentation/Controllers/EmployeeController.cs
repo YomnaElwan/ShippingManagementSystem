@@ -33,6 +33,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.orderStsService = orderStsService;
         }
         [HttpGet]
+        
         public async Task<IActionResult> EmployeeHome()
         {
             List<Orders> orderList = await orderService.GetAllAsync();
@@ -91,7 +92,7 @@ namespace ShippingSystem.Presentation.Controllers
                 if (result.Succeeded)
                 {
                     await userManager.AddToRoleAsync(newUser, "Employee");
-                    await signInManager.SignInAsync(newUser, false);
+                    //await signInManager.SignInAsync(newUser, false);
                     Employees newEmp = new Employees()
                     {
                         BranchId = newEmpFromUser.BranchId,

@@ -29,25 +29,35 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-action="Index" asp-controller="Home" >Home</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-action="Index" asp-controller="Home">Home</a></li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-action="About" asp-controller="Home">About</a></li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-action="Store" asp-controller="Home">Store</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Region" asp-action="Index">Regions</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Governorate" asp-action="Index">Governorates</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="City" asp-action="Index">Cities</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Branch" asp-action="Index">Branches</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="WeightSettings" asp-action="Index">Weight Settings</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="ShippingType" asp-action="Index">Shipping Type</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="PaymentMethod" asp-action="Index">Payment Method</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="OrderStatus" asp-action="Index">Order Status</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Role" asp-action="Index">Roles</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="PermissionsModule" asp-action="Index">Permissions Module</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Permissions" asp-action="Add">Permissions</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Employee" asp-action="EmployeeHome">Employees</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Merchant" asp-action="MerchantHome">Merchants</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Courier" asp-action="Index">Couriers</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Order" asp-action="IndexBasedOnSts">Orders</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Account" asp-action="Logout">Logout</a></li>
+
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Region" asp-action="Index">Regions</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Governorate" asp-action="Index">Governorates</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="City" asp-action="Index">Cities</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Branch" asp-action="Index">Branches</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="WeightSettings" asp-action="Index">Weight Settings</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="ShippingType" asp-action="Index">Shipping Type</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="PaymentMethod" asp-action="Index">Payment Method</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="OrderStatus" asp-action="Index">Order Status</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Role" asp-action="Index">Roles</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="PermissionsModule" asp-action="Index">Permissions Module</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Permissions" asp-action="Add">Permissions</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Employee" asp-action="EmployeeHome">Employees</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Merchant" asp-action="MerchantHome">Merchants</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Courier" asp-action="Index">Couriers</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Order" asp-action="IndexBasedOnSts">Orders</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Account" asp-action="Logout">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" asp-controller="Account" asp-action="Login">Login</a></li>
+
+                    }
+
                 </ul>
             </div>
         </div>
