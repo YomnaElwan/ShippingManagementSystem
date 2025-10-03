@@ -1,0 +1,135 @@
+﻿@using ShippingSystem.Domain.Entities
+@using ShippingSystem.Presentation.ViewModels.OrderVM
+@model EditOrderVM
+@{
+    ViewData["Title"] = "Edit";
+    SelectList branchList = new SelectList(Model.BranchList, "Id", "Name");
+    SelectList govList = new SelectList(Model.GovList, "Id", "Name");
+    SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
+    SelectList shippingTypeList = new SelectList(Model.ShippingTypeList, "Id","Name");
+    SelectList paymentMethodList = new SelectList(Model.PaymentMethodList, "Id", "Name");
+    SelectList orderStatusList = new SelectList(Model.OrderStatusList,"Id","Name");
+}
+
+<section class="page-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-7 col-lg-6">
+                <div class="bg-faded rounded p-5 shadow">
+                    <h2 class="section-heading text-center mb-4">
+                        <span class="section-heading-upper">Order Management</span>
+                        <span class="section-heading-lower">Edit Order</span>
+                    </h2>
+                    <form asp-action="SaveEdit" asp-controller="Order" asp-route-id="@Model.Id">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div>
+                            <label asp-for="CustomerName"></label>
+                            <input asp-for="CustomerName" class="form form-control" />
+                            <span asp-validation-for="CustomerName" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="PhoneNumber1"></label>
+                            <input asp-for="PhoneNumber1" class="form form-control" />
+                            <span asp-validation-for="PhoneNumber1" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="PhoneNumber2"></label>
+                            <input asp-for="PhoneNumber2" class="form form-control" />
+                            <span asp-validation-for="PhoneNumber2" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="CustomerEmail"></label>
+                            <input asp-for="CustomerEmail" class="form form-control" />
+                            <span asp-validation-for="CustomerEmail" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="Address"></label>
+                            <input asp-for="Address" class="form form-control" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="VillageDelivery" />@Html.DisplayNameFor(m => m.VillageDelivery)
+                            </label>
+                        </div>
+                        <div>
+                            <label asp-for="Notes"></label>
+                            <input asp-for="Notes" class="form form-control" />
+                            <span asp-validation-for="Notes" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label asp-for="BranchId"></label>
+                            <select asp-for="BranchId" class="form form-control" asp-items="branchList"></select>
+                        </div>
+                        <div>
+                            <label asp-for="GovernorateId"></label>
+                            <select asp-for="GovernorateId" class="form form-control" asp-items="govList" id="govId" onchange="GetCityList()"></select>
+                        </div>
+                        <div>
+                            <label asp-for="CityId"></label>
+                            <select asp-for="CityId" class="form form-control" id="cityId" asp-items="cityList"></select>
+                        </div>
+                        <div>
+                            <label asp-for="ShippingTypeId"></label>
+                            <select asp-for="ShippingTypeId" class="form form-control" asp-items="shippingTypeList"></select>
+                        </div>
+                        <div>
+                            <label asp-for="PaymentMethodId"></label>
+                            <select asp-for="PaymentMethodId" class="form form-control" asp-items="paymentMethodList"></select>
+                        </div>
+                        <div>
+                            <label asp-for="DeliveryTypeOption"></label>
+                            <select asp-for="DeliveryTypeOption" asp-items="@Html.GetEnumSelectList<DeliveryMethod>()"></select>
+                        </div>
+                        <div>
+                            <label asp-for="OrderStatusId"></label>
+                            <select asp-for="OrderStatusId" class="form form-control" asp-items="orderStatusList"></select>
+                        </div>
+                        <h3 class="mt-3">Merchant Data</h3>
+                        <div class="mt-2">
+                            <label asp-for="MerchantAddress"></label>
+                            <input readonly class="form form-control" asp-for="MerchantAddress"/>
+                        </div>
+                        <div>
+                            <label asp-for="MerchantPhoneNum"></label>
+                            <input readonly class="form form-control" asp-for="MerchantPhoneNum" />
+                        </div>
+                        <h4 class="mt-3"></h4>
+                        
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+
+@* Get Cities Based On Governorate Id *@
+<script>
+    function GetCityList(){
+        var governorateId=$("#govId").val();
+        if(governorateId&&governorateId!=0){
+            $.ajax({
+                url:"/Order/GetCityList?govId="+governorateId,
+                type:"GET",
+                success:function(result){
+                var cityDropdown = $("#cityId");
+                cityDropdown.empty();
+                $.each(result, function(index, city){
+                    cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
+                });
+                },
+                error:function(){
+                    alert("Error Loading Cities!")
+                }
+            });
+        }
+    }
+
+</script>

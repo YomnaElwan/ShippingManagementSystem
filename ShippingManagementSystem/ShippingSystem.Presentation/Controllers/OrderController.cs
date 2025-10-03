@@ -365,6 +365,47 @@ namespace ShippingSystem.Presentation.Controllers
 
             return View("Add", newOrderFromUser);
         }
+        //Edit Order
+        [HttpGet]
+        public async Task<IActionResult> Edit(int Id)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+
+            Orders orderFromDB = await customOrderService.GetByIdAsync(Id);
+            if (orderFromDB == null)
+            {
+                return NotFound();
+            }
+            EditOrderVM mappedEditOrder = new EditOrderVM()
+            {
+                Id = orderFromDB.Id,
+                CustomerName = orderFromDB.CustomerName,
+                PhoneNumber1 = orderFromDB.PhoneNumber1,
+                PhoneNumber2 = orderFromDB.PhoneNumber2,
+                CustomerEmail = orderFromDB.CustomerEmail,
+                Address = orderFromDB.Address,
+                Notes = orderFromDB.Notes,
+                VillageDelivery = orderFromDB.VillageDelivery,
+                GovernorateId = orderFromDB.GovernorateId,
+                CityId = orderFromDB.CityId,
+                BranchId = orderFromDB.BranchId,
+                ShippingTypeId = orderFromDB.ShippingTypeId,
+                PaymentMethodId = orderFromDB.PaymentMethodId,
+                DeliveryTypeOption = orderFromDB.DeliveryTypeOption,
+                OrderStatusId = orderFromDB.OrderStatusId,
+                MerchantAddress = merchant?.User.Address ?? "null",
+                MerchantPhoneNum = merchant?.User.PhoneNumber ?? "null",
+                BranchList = await branchService.GetAllAsync(),
+                GovList = await govService.GetAllAsync(),
+                CityList = await cityService.cityListByGov(orderFromDB.GovernorateId),
+                ShippingTypeList = await shippingTypeService.GetAllAsync(),
+                PaymentMethodList=await paymentMethodService.GetAllAsync(),
+                OrderStatusList= await orderStatusService.GetAllAsync(),
+
+            };
+            return View("Edit",mappedEditOrder);
+        }
        
 
         //Delete Order From Database
@@ -381,10 +422,9 @@ namespace ShippingSystem.Presentation.Controllers
             await orderService.SaveAsync();
             return RedirectToAction("IndexBasedOnSts");
         }
-        //Edit Order Item
+ 
         
         //Delete From Order Items Table While Adding New Order
-
         public IActionResult DeleteFromOrderItems(int Id) {
             List<GetOrderItemsVM> items = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems") ?? new List<GetOrderItemsVM>();
 

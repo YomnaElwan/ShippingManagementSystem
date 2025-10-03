@@ -23,7 +23,6 @@
                         <td>@item.Weight</td>
                         <td>@item.Price</td>
                         <td>
-                            <a asp-action="Edit" asp-controller="Order" asp-route-id="@item.Id" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a>
                             <a asp-action="DeleteFromOrderItems" asp-controller="Order" asp-route-id="@item.Id" class="btn btn-danger btnDeleteProduct btn-sm"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
