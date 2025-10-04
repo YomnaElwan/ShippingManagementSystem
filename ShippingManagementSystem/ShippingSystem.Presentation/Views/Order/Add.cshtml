@@ -235,46 +235,29 @@
 
 </script>
 
-@* Get City Costs Based On City Id *@
+@* Get City Costs & WeightSettings Based On City Id *@
 <script>
     $("#cityId").change(function(){
         var cityId=$(this).val();
         if(cityId && cityId!=0){
             $.ajax({
-                url:"/Order/GetCityById?cityId="+cityId,
+                url:"/Order/GetCityCostsAndWeightSettById?cityId="+cityId,
                 type:"GET",
                 success:function(result){
                     $("#deliveryCost").val(result.deliveryCost),
-                    $("#pickupCost").val(result.pickupCost)
-                },
-                error:function(){
-                    alert("Error Loading City Costs!")
-                }
-            });
-        }
-    });
-</script>
-
-
-@*Get City Weight Settings By City Id *@
-<script>
-    $("#cityId").change(function(){
-        var cityId=$(this).val();
-        if(cityId && cityId!=0){
-            $.ajax({
-                url:"/Order/GetWeightSettByCityId?cityId="+cityId,
-                type:"GET",
-                success:function(result){
+                    $("#pickupCost").val(result.pickupCost),
                     $("#baseWeightLimit").val(result.baseWeightLimit),
                     $("#additionalWeightPrice").val(result.priceForExtraKGs)
                 },
                 error:function(){
-                    alert("Error Loading City Weight Settings")
+                    alert("Error Loading City Data!")
                 }
             });
         }
     });
 </script>
+
+
 
 @* Load Partial View To Get All Order Items After Deleting One Item *@
 <script>

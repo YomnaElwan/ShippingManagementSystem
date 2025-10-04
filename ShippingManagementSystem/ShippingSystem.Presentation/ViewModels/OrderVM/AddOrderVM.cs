@@ -84,7 +84,6 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public decimal DeliveryCost { get; set; } // Ordinary Delivery Cost  -- From City Table -- readonly
         [DisplayName("Branch Pickup Cost")]
         public decimal PickupCost { get; set; } // Pickup Service Cost -- From City Table -- readonly
-        public int WeightSettingsId { get; set; }
         [DisplayName("Base Weight Limit")]
         public decimal BaseWeightLimit { get; set; } //اقصى وزن هيحاسب عليه بقيمة الشحن العادية -- readonly
         [DisplayName("Additional Weight Price Per one Extra KG")]

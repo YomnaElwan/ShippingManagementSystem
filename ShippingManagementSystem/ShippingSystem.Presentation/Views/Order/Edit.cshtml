@@ -68,6 +68,7 @@
                         <div>
                             <label asp-for="CityId"></label>
                             <select asp-for="CityId" class="form form-control" id="cityId" asp-items="cityList"></select>
+                            <span asp-validation-for="CityId" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="ShippingTypeId"></label>
@@ -79,13 +80,45 @@
                         </div>
                         <div>
                             <label asp-for="DeliveryTypeOption"></label>
-                            <select asp-for="DeliveryTypeOption" asp-items="@Html.GetEnumSelectList<DeliveryMethod>()"></select>
+                            <select class="form form-control" asp-for="DeliveryTypeOption" asp-items="@Html.GetEnumSelectList<DeliveryMethod>()"></select>
                         </div>
                         <div>
                             <label asp-for="OrderStatusId"></label>
                             <select asp-for="OrderStatusId" class="form form-control" asp-items="orderStatusList"></select>
                         </div>
-                        <h3 class="mt-3">Merchant Data</h3>
+                        <div>
+                            <label asp-for="CreateAt"></label>
+                            <input asp-for="CreateAt" type="datetime-local" class="form form-control"
+                               value="@Model.CreateAt.ToString("yyyy-MM-ddTHH:mm")"/>
+                        </div>
+                        <h2 class="mt-3">City Delivery Cost</h2>
+                        <div>
+                            <label asp-for="DeliveryCost"></label> (EGP)
+                            <input readonly asp-for="DeliveryCost" class="form form-control" id="deliveryCost" />
+                        </div>
+                        <div>
+                            <label asp-for="PickupCost"></label> (EGP)
+                            <input readonly asp-for="PickupCost" class="form form-control" id="pickupCost" />
+                        </div>
+                        <h3 class="mt-3">City Weight Settings</h3>
+                        <div>
+                            <label asp-for="BaseWeightLimit"></label> (KG)
+                            <input readonly asp-for="BaseWeightLimit" class="form form-control" id="baseWeightLimit" />
+                        </div>
+                        <div>
+                            <label asp-for="PricePerKg"></label> (EGP)
+                            <input readonly asp-for="PricePerKg" class="form form-control" id="additionalWeightPrice" />
+                        </div>
+                        
+                        <div id="orderItemsContainer">
+                            @await Html.PartialAsync("_GetOrderItemsPartial",Model.OrderItems)
+                        </div>
+                        <div>
+                            <button type="button" class="btn btn-primary" id="btnAddProduct"><i class="bi bi-plus-circle"></i> Add Product</button>
+                        </div>
+                        <div id="addProductForm">
+                        </div>
+                        <h4 class="mt-3">Merchant Data</h4>
                         <div class="mt-2">
                             <label asp-for="MerchantAddress"></label>
                             <input readonly class="form form-control" asp-for="MerchantAddress"/>
@@ -94,10 +127,10 @@
                             <label asp-for="MerchantPhoneNum"></label>
                             <input readonly class="form form-control" asp-for="MerchantPhoneNum" />
                         </div>
-                        <h4 class="mt-3"></h4>
-                        
+                        <div class="d-grid mt-4">
+                            <button class="btn btn-success"><i class="bi bi-save"></i> Save Changes</button>
+                        </div>
                     </form>
-
                 </div>
             </div>
         </div>
@@ -121,6 +154,7 @@
                 success:function(result){
                 var cityDropdown = $("#cityId");
                 cityDropdown.empty();
+                cityDropdown.append('<option value="0">--Select City--</option>');
                 $.each(result, function(index, city){
                     cityDropdown.append('<option value="' + city.id + '">' + city.name + '</option>');
                 });
@@ -131,5 +165,75 @@
             });
         }
     }
+</script>
 
+
+@*Get City Costs & Weight Settings By City Id *@
+<script>
+    $("#cityId").change(function(){
+        var cityId=$(this).val();
+        if(cityId && cityId!=0){
+            $.ajax({
+                url:"/Order/GetCityCostsAndWeightSettById?cityId="+cityId,
+                type:"GET",
+                success:function(result){
+                    $("#deliveryCost").val(result.deliveryCost),
+                    $("#pickupCost").val(result.pickupCost),
+                    $("#baseWeightLimit").val(result.baseWeightLimit),
+                    $("#additionalWeightPrice").val(result.priceForExtraKGs)
+                },
+                error:function(){
+                    alert("Error Loading City Data!")
+                }
+            });
+        }
+    });
+</script>
+
+@* Load Partial View To Get All Order Items After Deleting One Item *@
+<script>
+    $(document).on("click",".btnDeleteProduct",function(e){
+        e.preventDefault();
+        var url=$(this).attr("href");
+        $.get(url,function(result){
+        $("#orderItemsContainer").html(result);
+        });
+    });
+</script>
+
+<script>
+    //First, Load Add Product Form
+    $(document).ready(function(){
+        $("#btnAddProduct").click(function(){
+            $.get("/Order/AddProductForm",function(data){
+                $("#addProductForm").html(data);
+            });
+        });
+        //Second, Save Product
+        $(document).on("click","#btnSaveProduct",function(e){
+        e.preventDefault();
+        var form=$("#productForm");
+        if(!form.valid()){
+            return false;
+        }
+        var product={
+            ProductName:$("#ProductName").val(),
+            Quantity:$("#Quantity").val(),
+            Weight:$("#Weight").val(),
+            Price:$("#Price").val()
+        };
+        $.ajax({
+            url:"/Order/AddProductToOrder",
+            type:"POST",
+            data:product,
+            success:function(result){
+                $("#orderItemsContainer").html(result);
+                $("#addProductForm").html("");
+            },
+            error:function(){
+                alert("Error Adding Product!");
+            }
+        });
+        });
+    });
 </script>

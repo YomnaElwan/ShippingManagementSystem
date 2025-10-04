@@ -39,17 +39,14 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public bool VillageDelivery { get; set; }
 
         [DisplayName("Governorate")]
-        [Required(ErrorMessage = "Enter a Governorate!")]
         public int GovernorateId { get; set; }
         public List<Governorates>? GovList { get; set; }
 
         [DisplayName("City")]
-        [Required(ErrorMessage = "Select a City!")]
         public int CityId { get; set; }
         public List<Cities>? CityList { get; set; }
 
         [DisplayName("Branch")]
-        [Required(ErrorMessage = "Select a Branch!")]
         public int BranchId { get; set; }
         public List<Branches>? BranchList { get; set; }
 
@@ -83,10 +80,13 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public decimal DeliveryCost { get; set; } // Ordinary Delivery Cost  -- From City Table -- readonly
         [DisplayName("Branch Pickup Cost")]
         public decimal PickupCost { get; set; } // Pickup Service Cost -- From City Table -- readonly
-        public int WeightSettingsId { get; set; }
         [DisplayName("Base Weight Limit")]
         public decimal BaseWeightLimit { get; set; } //اقصى وزن هيحاسب عليه بقيمة الشحن العادية -- readonly
         [DisplayName("Additional Weight Price Per one Extra KG")]
         public decimal PricePerKg { get; set; } // additional price per kg above BaseWeightLimit -- readonly
+        [DisplayName("Create At")]
+        public DateTime CreateAt { get; set; }
+
+
     }
 }

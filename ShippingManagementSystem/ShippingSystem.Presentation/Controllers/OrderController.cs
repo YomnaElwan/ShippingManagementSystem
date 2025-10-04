@@ -25,6 +25,7 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly IGenericService<OrderStatus> orderStatusService;
         private readonly IOrderService customOrderService;
         private readonly IWeightSettingsService weightSettService;
+        private readonly IOrderItemService specialOrderItemsService;
         public OrderController(IGenericService<Governorates> govService,
                                IGenericService<Branches> branchService,
                                IGenericService<ShippingType> shippingTypeService,
@@ -35,7 +36,8 @@ namespace ShippingSystem.Presentation.Controllers
                                IMerchantService merchantService,
                                IGenericService<OrderStatus> orderStatusService,
                                IOrderService customOrderService,
-                               IWeightSettingsService weightSettService
+                               IWeightSettingsService weightSettService,
+                               IOrderItemService specialOrderItemsService
                                )
         {
             this.govService = govService;
@@ -49,6 +51,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.orderStatusService = orderStatusService;
             this.customOrderService = customOrderService;
             this.weightSettService = weightSettService;
+            this.specialOrderItemsService = specialOrderItemsService;
         }
         //Get Merchant and Employee Home Page
         [HttpGet]
@@ -207,38 +210,23 @@ namespace ShippingSystem.Presentation.Controllers
             };
             return View("Add",addOrderVM);
         }
-        //Get City Costs Based On City Id
+        //Get City Costs & WeightSettings Based On City Id
         [HttpGet]
-        public async Task<IActionResult> GetCityById(int cityId)
+        public async Task<IActionResult> GetCityCostsAndWeightSettById(int cityId)
         {
             Cities cityById = await cityService.GetByIdAsync(cityId);
-            if (cityById == null)
-            {
-                return NotFound();
-            }
+            WeightSettings weightSett = await weightSettService.GetWeightSettByCityId(cityId);
+
             return Json(new
             {
-                deliveryCost=cityById.DeliveryCost,
-                pickupCost=cityById.PickupCost
+                deliveryCost=cityById?.DeliveryCost??0,
+                pickupCost=cityById?.PickupCost??0,
+                baseWeightLimit = weightSett?.BaseWeightLimit??0,
+                priceForExtraKGs = weightSett?.PricePerKg??0,
 
             });
         }
-        //Get City Weight Settings Based On City Id
-        [HttpGet]
-        public async Task<IActionResult> GetWeightSettByCityId(int cityId)
-        {
-            WeightSettings weightSett = await weightSettService.GetWeightSettByCityId(cityId);
-            if (weightSett == null)
-            {
-                return NotFound();
-            }
-            return Json(new
-            {
-                baseWeightLimit=weightSett.BaseWeightLimit,
-                priceForExtraKGs=weightSett.PricePerKg,
-            });
-        }
-      
+        
         //Save Order To Database
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -371,12 +359,24 @@ namespace ShippingSystem.Presentation.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
-
+            
             Orders orderFromDB = await customOrderService.GetByIdAsync(Id);
             if (orderFromDB == null)
             {
                 return NotFound();
             }
+            Cities cityById = await cityService.GetByIdAsync(orderFromDB.CityId);
+            WeightSettings weightSettByCityId = await weightSettService.GetWeightSettByCityId(orderFromDB.CityId);
+            List<OrderItem> orderItemsByOrderId = await specialOrderItemsService.GetOrderItemsByOrderId(orderFromDB.Id);
+            List<GetOrderItemsVM> mappedOrderItems = orderItemsByOrderId.Select(orderItem => new GetOrderItemsVM
+            {
+               Id=orderItem.Id,
+               Price=orderItem.Price,
+               Quantity=orderItem.Quantity,
+               ProductName=orderItem.ProductName,
+               Weight=orderItem.Weight
+            }).ToList();
+            HttpContext.Session.SetObjectAsJson("OrderItems",mappedOrderItems);
             EditOrderVM mappedEditOrder = new EditOrderVM()
             {
                 Id = orderFromDB.Id,
@@ -386,6 +386,7 @@ namespace ShippingSystem.Presentation.Controllers
                 CustomerEmail = orderFromDB.CustomerEmail,
                 Address = orderFromDB.Address,
                 Notes = orderFromDB.Notes,
+                CreateAt=orderFromDB.CreateAt,
                 VillageDelivery = orderFromDB.VillageDelivery,
                 GovernorateId = orderFromDB.GovernorateId,
                 CityId = orderFromDB.CityId,
@@ -402,12 +403,92 @@ namespace ShippingSystem.Presentation.Controllers
                 ShippingTypeList = await shippingTypeService.GetAllAsync(),
                 PaymentMethodList=await paymentMethodService.GetAllAsync(),
                 OrderStatusList= await orderStatusService.GetAllAsync(),
-
+                DeliveryCost=cityById.DeliveryCost,
+                PickupCost=cityById.PickupCost,
+                BaseWeightLimit=weightSettByCityId?.BaseWeightLimit??0,
+                PricePerKg=weightSettByCityId?.PricePerKg??0,
+                OrderItems=mappedOrderItems
             };
             return View("Edit",mappedEditOrder);
         }
-       
+        [HttpPost]
+        public async Task<IActionResult> SaveEdit(EditOrderVM editOrderFromUser) {
+            List<GetOrderItemsVM> orderItemsFromSession = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems");
+            decimal totalCost = orderItemsFromSession.Sum(item => item.Quantity * item.Price);
+            decimal totalWeight = orderItemsFromSession.Sum(item => item.Quantity * item.Weight);
 
+            Cities selectedCity =  await cityService.GetByIdAsync(editOrderFromUser.CityId);
+            if (selectedCity != null)
+            {
+                if (editOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
+                {
+                    totalCost += selectedCity.DeliveryCost;
+                }
+                else if (editOrderFromUser.DeliveryTypeOption == DeliveryMethod.BranchPickup)
+                {
+                    totalCost += selectedCity.PickupCost;
+                }
+            }
+            WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(editOrderFromUser.CityId);
+            if (totalWeight > weightSettingsByCityId.BaseWeightLimit)
+            {
+                decimal extraWeight = totalWeight-weightSettingsByCityId.BaseWeightLimit;
+                decimal extraPrice = extraWeight * weightSettingsByCityId.PricePerKg;
+                totalCost += extraPrice;
+            }
+
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.GetAllAsync()).FirstOrDefault(m => m.UserId == userId);
+            if (editOrderFromUser.CityId == 0)
+            {
+                ModelState.AddModelError("CityId", "Select a City!");
+            }
+            Orders orderFromDB = await customOrderService.GetByIdAsync(editOrderFromUser.Id);
+            if (ModelState.IsValid)
+            {
+                orderFromDB.Id = editOrderFromUser.Id;
+                orderFromDB.CustomerName = editOrderFromUser.CustomerName;
+                orderFromDB.PhoneNumber1 = editOrderFromUser.PhoneNumber1;
+                orderFromDB.PhoneNumber2 = editOrderFromUser.PhoneNumber2;
+                orderFromDB.CustomerEmail = editOrderFromUser.CustomerEmail;
+                orderFromDB.Address = editOrderFromUser.Address;
+                orderFromDB.Notes = editOrderFromUser.Notes;
+                orderFromDB.VillageDelivery = editOrderFromUser.VillageDelivery;
+                orderFromDB.GovernorateId = editOrderFromUser.GovernorateId;
+                orderFromDB.BranchId = editOrderFromUser.BranchId;
+                orderFromDB.DeliveryTypeOption = editOrderFromUser.DeliveryTypeOption;
+                orderFromDB.ShippingTypeId = editOrderFromUser.ShippingTypeId;
+                orderFromDB.PaymentMethodId = editOrderFromUser.PaymentMethodId;
+                orderFromDB.CityId = editOrderFromUser.CityId;
+                orderFromDB.CreateAt = editOrderFromUser.CreateAt;
+                orderFromDB.OrderStatusId = editOrderFromUser.OrderStatusId;
+                orderFromDB.TotalCost = totalCost;
+                orderFromDB.TotalWeight = totalWeight;
+                orderFromDB.MerchantId = merchant.Id;
+                await orderService.UpdateAsync(orderFromDB);
+                await orderService.SaveAsync();
+                
+                if(orderItemsFromSession!=null && orderItemsFromSession.Any())
+                {
+                    foreach(var item in orderItemsFromSession)
+                    {
+                        OrderItem orderItem = new OrderItem() {
+                            ProductName = item.ProductName,
+                            Quantity = item.Quantity,
+                            Weight = item.Weight,
+                            OrderId = editOrderFromUser.Id,
+                            Price = item.Price,
+                        };
+                        await orderItemsService.UpdateAsync(orderItem);
+                    }
+                    await orderItemsService.SaveAsync();
+                }
+                HttpContext.Session.Remove("OrderItems");
+                return RedirectToAction("IndexBasedOnSts");
+            }
+            return View("Edit", editOrderFromUser);
+        }
+       
         //Delete Order From Database
         public async Task<IActionResult> Delete(int Id)
         {
@@ -435,10 +516,6 @@ namespace ShippingSystem.Presentation.Controllers
             }
             HttpContext.Session.SetObjectAsJson("OrderItems", items);
             return PartialView("_GetOrderItemsPartial", items);
-
         }
-
-
-
     }
 }

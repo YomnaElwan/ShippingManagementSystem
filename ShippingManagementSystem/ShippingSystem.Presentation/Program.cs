@@ -48,6 +48,8 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<IRolePermissionsService, RolePermissionsService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            builder.Services.AddScoped<IOrderItemService, OrderItemsService>();
+            builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 
      
 
