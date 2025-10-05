@@ -16,13 +16,15 @@
             {
                 foreach (var item in Model)
                 {
-                    <tr>
+                    <tr data-id="@item.Id">
                         <td>@item.Id</td>
-                        <td>@item.ProductName</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Weight</td>
-                        <td>@item.Price</td>
-                        <td>
+                        <td><input class="form form-control" value="@item.ProductName" disabled/></td>
+                        <td><input class="form form-control" value="@item.Quantity" disabled /></td>
+                        <td><input class="form form-control" value="@item.Weight" disabled /></td>
+                        <td><input class="form form-control" value="@item.Price" disabled /></td>
+                        <td class="d-flex align-items-center gap-1">
+                            <button type="button" class="btn btn-warning btn-sm btnEditItem"><i class="bi bi-pencil-square"></i></button>
+                            <button type="button" class="btn btn-success btn-sm btnSaveItem d-none"><i class="bi bi-check-circle"></i></button>
                             <a asp-action="DeleteFromOrderItems" asp-controller="Order" asp-route-id="@item.Id" class="btn btn-danger btnDeleteProduct btn-sm"><i class="bi bi-trash"></i></a>
                         </td>
                     </tr>
@@ -38,3 +40,46 @@
     </table>
 
 </div>
+
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    @*Make Inputs editable*@
+    $(document).on("click",".btnEditItem",function(){
+        let row=$(this).closest("tr");
+        row.find("input").prop("disabled",false);
+        row.find(".btnEditItem").addClass("d-none");
+        row.find(".btnSaveItem").removeClass("d-none");
+    });
+    $(document).on("click",".btnSaveItem",function(){
+        let row=$(this).closest("tr");
+        let updatedItem={
+            Id:row.data("id"),
+            ProductName:row.find("input:eq(0)").val(),
+            Quantity:parseFloat(row.find("input:eq(1)").val()),
+            Weight:parseFloat(row.find("input:eq(2)").val()),
+            Price:parseFloat(row.find("input:eq(3)").val()),
+            
+        };
+        $.ajax({
+        url:"/Order/SaveEditOrderItems",
+        type:"POST",
+        data:JSON.stringify(updatedItem),
+        contentType:"application/json",
+        success:function(){
+            alert('Item Updated in session Successfully');
+            row.find("input").prop("disabled",true);
+            row.find(".btnEditItem").removeClass("d-none");
+            row.find(".btnSaveItem").addClass("d-none");
+        },
+        error:function(){
+            alert('Error Updating item in session!')
+        }
+        });
+    
+    });
+</script>
+

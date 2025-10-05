@@ -468,6 +468,12 @@ namespace ShippingSystem.Presentation.Controllers
                 await orderService.UpdateAsync(orderFromDB);
                 await orderService.SaveAsync();
                 
+                List<OrderItem> existingOrderItems = await specialOrderItemsService.GetOrderItemsByOrderId(editOrderFromUser.Id);
+                foreach(var oldItem in existingOrderItems)
+                {
+                    await orderItemsService.DeleteAsync(oldItem.Id);
+                }
+                await orderItemsService.SaveAsync();
                 if(orderItemsFromSession!=null && orderItemsFromSession.Any())
                 {
                     foreach(var item in orderItemsFromSession)
@@ -479,7 +485,7 @@ namespace ShippingSystem.Presentation.Controllers
                             OrderId = editOrderFromUser.Id,
                             Price = item.Price,
                         };
-                        await orderItemsService.UpdateAsync(orderItem);
+                        await orderItemsService.AddAsync(orderItem);
                     }
                     await orderItemsService.SaveAsync();
                 }
@@ -516,6 +522,29 @@ namespace ShippingSystem.Presentation.Controllers
             }
             HttpContext.Session.SetObjectAsJson("OrderItems", items);
             return PartialView("_GetOrderItemsPartial", items);
+        }
+        //Edit OrderItems
+        [HttpPost]
+        public IActionResult SaveEditOrderItems([FromBody] GetOrderItemsVM updatedOrderItems)
+        {
+            if (updatedOrderItems == null)
+            {
+                return BadRequest("Invalid Updated Order Item");
+            }
+            List<GetOrderItemsVM> getOrderItemsFromSession = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems");
+            if (getOrderItemsFromSession == null)
+                getOrderItemsFromSession = new List<GetOrderItemsVM>();
+
+            var existingOrderItem = getOrderItemsFromSession.FirstOrDefault(item => item.Id == updatedOrderItems.Id);
+            if (existingOrderItem != null)
+            {
+                existingOrderItem.ProductName = updatedOrderItems.ProductName;
+                existingOrderItem.Weight = updatedOrderItems.Weight;
+                existingOrderItem.Price = updatedOrderItems.Price;
+                existingOrderItem.Quantity = updatedOrderItems.Quantity;
+            }
+            HttpContext.Session.SetObjectAsJson("OrderItems", getOrderItemsFromSession);
+            return Ok();
         }
     }
 }
