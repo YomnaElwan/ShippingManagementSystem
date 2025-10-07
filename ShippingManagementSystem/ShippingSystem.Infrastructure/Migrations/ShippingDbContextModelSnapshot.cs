@@ -485,6 +485,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CourierId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("datetime2");
 
@@ -521,6 +524,15 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<string>("PhoneNumber2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("ReceivedAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ReceivedDeliveryCost")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("ShippingTotalCost")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ShippingTypeId")
                         .HasColumnType("int");
 
@@ -539,6 +551,8 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.HasIndex("CityId");
 
+                    b.HasIndex("CourierId");
+
                     b.HasIndex("GovernorateId");
 
                     b.HasIndex("MerchantId");
@@ -552,7 +566,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.ToTable("Order");
                 });
 
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.PaymentMethod", b =>
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.PaymentMethods", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -637,7 +651,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.ShippingType", b =>
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.ShippingTypes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -848,6 +862,12 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ShippingSystem.Domain.Entities.Couriers", "Courier")
+                        .WithMany("Orders")
+                        .HasForeignKey("CourierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ShippingSystem.Domain.Entities.Governorates", "Governorate")
                         .WithMany("Orders")
                         .HasForeignKey("GovernorateId")
@@ -866,13 +886,13 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShippingSystem.Domain.Entities.PaymentMethod", "PaymentMethod")
+                    b.HasOne("ShippingSystem.Domain.Entities.PaymentMethods", "PaymentMethod")
                         .WithMany()
                         .HasForeignKey("PaymentMethodId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ShippingSystem.Domain.Entities.ShippingType", "ShippingType")
+                    b.HasOne("ShippingSystem.Domain.Entities.ShippingTypes", "ShippingType")
                         .WithMany()
                         .HasForeignKey("ShippingTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -881,6 +901,8 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("Branch");
 
                     b.Navigation("City");
+
+                    b.Navigation("Courier");
 
                     b.Navigation("Governorate");
 
@@ -926,6 +948,11 @@ namespace ShippingSystem.Infrastructure.Migrations
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Cities", b =>
                 {
                     b.Navigation("WeightSettings");
+                });
+
+            modelBuilder.Entity("ShippingSystem.Domain.Entities.Couriers", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Governorates", b =>

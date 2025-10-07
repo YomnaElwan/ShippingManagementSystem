@@ -99,7 +99,7 @@ namespace ShippingSystem.Presentation.Controllers
                 if (result.Succeeded)
                 {
                   await userManager.AddToRoleAsync(newUser, "Courier");
-                  await signInManager.SignInAsync(newUser, false);
+                  //await signInManager.SignInAsync(newUser, false);
                   Couriers newCourier = new Couriers()
                   {
                         BranchId = newCourierFromUser.BranchId,

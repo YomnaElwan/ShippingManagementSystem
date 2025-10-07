@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ShippingSystem.Domain.Entities
 {
     //  Normal,Express24h, Economy15Days
-    public class ShippingType
+    public class ShippingTypes
     {
        public int Id { get; set; }
        [Required(ErrorMessage ="Enter Shipping Type Name")]

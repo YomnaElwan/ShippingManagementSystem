@@ -20,15 +20,15 @@ namespace ShippingSystem.Infrastructure.Data
             
         }
         public DbSet<Branches> Branch { get; set; }
-        public DbSet<Cities> City { get; set; }
+        public DbSet<Cities> City{ get; set; }
         public DbSet<Couriers> Courier { get; set; }
         public DbSet<Employees> Employee { get; set; }
         public DbSet<Governorates> Governorate { get; set; }
         public DbSet<Merchants> Merchant { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<Orders> Order { get; set; }
-        public DbSet<PaymentMethod> PaymentMethod { get; set; }
-        public DbSet<ShippingType> ShippingType { get; set; }
+        public DbSet<PaymentMethods> PaymentMethod { get; set; }
+        public DbSet<ShippingTypes> ShippingType { get; set; }
         public DbSet<WeightSettings> WeightSettings { get; set; }
         public DbSet<Regions> Region { get; set; }
         public DbSet<PermissionsModule> PermissionsModule { get; set; }

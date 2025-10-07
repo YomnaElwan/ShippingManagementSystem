@@ -55,12 +55,12 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         [DisplayName("Shipping Type")]
         [Required(ErrorMessage = "Select a Shipping Type!")]
         public int ShippingTypeId { get; set; }
-        public List<ShippingType>? ShippingTypeList { get; set; }
+        public List<ShippingTypes>? ShippingTypeList { get; set; }
 
         [DisplayName("Payment Method")]
         [Required(ErrorMessage ="Select Payment Method!")]
         public int PaymentMethodId { get; set; }
-        public List<PaymentMethod>? PaymentMethodList { get; set; }
+        public List<PaymentMethods>? PaymentMethodList { get; set; }
 
         [DisplayName("Delivery Method")]
         [Required(ErrorMessage ="Select a Delivery Method")]
@@ -88,6 +88,18 @@ namespace ShippingSystem.Presentation.ViewModels.OrderVM
         public decimal BaseWeightLimit { get; set; } //اقصى وزن هيحاسب عليه بقيمة الشحن العادية -- readonly
         [DisplayName("Additional Weight Price Per one Extra KG")]
         public decimal PricePerKg { get; set; } // additional price per kg above BaseWeightLimit -- readonly
+
+        // Real Received Cost From Customer
+        [DisplayName("Received Cost From Customer")]
+        public decimal ReceivedAmount { get; set; }
+
+        // Total Delivery Cost (City Cost + Over Weight Cost if exist) -- calculate in the controller
+        public decimal ShippingTotalCost { get; set; }
+
+        // Real Received Delivery Cost From Customer
+        [DisplayName("Received Delivery Cost From Customer")]
+        public decimal ReceivedDeliveryCost { get; set; }
+
 
 
 

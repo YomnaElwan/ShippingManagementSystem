@@ -30,7 +30,7 @@ namespace ShippingSystem.Infrastructure.Repositories
 
         public Task<List<Orders>> GetSpecialOrderList()
         {
-            return context.Order.Include(c => c.City).Include(g => g.Governorate).Include(o=>o.OrderStatus).ToListAsync();
+            return context.Order.Include(c => c.City).Include(g => g.Governorate).Include(o=>o.OrderStatus).Include(cr=>cr.Courier).ToListAsync();
         }
      
     }

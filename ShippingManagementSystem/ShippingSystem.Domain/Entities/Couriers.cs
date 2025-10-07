@@ -24,8 +24,8 @@ namespace ShippingSystem.Domain.Entities
         public Branches Branch { get; set; }
         [ForeignKey("Governorate")]
         public int GovernorateId { get; set; }
-        
         public Governorates Governorate { get; set; }
+        public List<Orders>? Orders { get; set; }
         
 
     }

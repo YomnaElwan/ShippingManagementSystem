@@ -6,15 +6,15 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class ShippingTypeController : Controller
     {
-        private readonly IGenericService<ShippingType> _shippingTypeService;
-        public ShippingTypeController(IGenericService<ShippingType> _shippingTypeService)
+        private readonly IGenericService<ShippingTypes> _shippingTypeService;
+        public ShippingTypeController(IGenericService<ShippingTypes> _shippingTypeService)
         {
             this._shippingTypeService = _shippingTypeService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<ShippingType> shippingTypeList = await _shippingTypeService.GetAllAsync();
+            List<ShippingTypes> shippingTypeList = await _shippingTypeService.GetAllAsync();
             return View("Index",shippingTypeList);
         }
         [HttpGet]
@@ -24,7 +24,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAdd(ShippingType newType)
+        public async Task<IActionResult> SaveAdd(ShippingTypes newType)
         {
             if (ModelState.IsValid)
             {
@@ -43,7 +43,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveEdit(ShippingType editedShippingType)
+        public async Task<IActionResult> SaveEdit(ShippingTypes editedShippingType)
         {
             if (ModelState.IsValid)
             {

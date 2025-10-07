@@ -44,14 +44,26 @@ namespace ShippingSystem.Domain.Entities
         public DeliveryMethod DeliveryTypeOption { get; set; }
         [ForeignKey("ShippingType")]
         public int ShippingTypeId { get; set; }
-        public ShippingType? ShippingType { get; set; }
+        public ShippingTypes? ShippingType { get; set; }
         [ForeignKey("PaymentMethod")]
         public int PaymentMethodId { get; set; }
-        public PaymentMethod? PaymentMethod { get; set; }
+        public PaymentMethods? PaymentMethod { get; set; }
         public DateTime CreateAt { get; set; } = DateTime.Now;
         [ForeignKey("OrderStatus")]
         public int OrderStatusId { get; set; }
         public OrderStatus? OrderStatus { get; set; }
+        // Real Received Cost From Customer
+        public decimal ReceivedAmount { get; set; }
+        // Total Delivery Cost (City Cost + Over Weight Cost if exist)
+        public decimal ShippingTotalCost { get; set; }
+        // Real Received Delivery Cost From Customer
+        public decimal ReceivedDeliveryCost { get; set; }
+
+        [ForeignKey("Courier")]
+        public int? CourierId { get; set; }
+        public Couriers? Courier { get; set; }
+        
+
 
 
 

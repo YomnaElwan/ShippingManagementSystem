@@ -67,6 +67,12 @@ namespace ShippingSystem.Presentation
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            //Add Redis Server
+            builder.Services.AddStackExchangeRedisCache(options =>
+            {
+                options.Configuration = "localhost:6379";
+                options.InstanceName = "ShippingManagementSystem";
+            });
 
 
             var app = builder.Build();

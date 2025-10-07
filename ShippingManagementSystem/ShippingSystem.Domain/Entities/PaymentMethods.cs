@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShippingSystem.Domain.Entities
 {
-    public class PaymentMethod
+    public class PaymentMethods
     {
         //CashOnDelivery, Prepaid, ExchangePackage
         public int Id { get; set; }

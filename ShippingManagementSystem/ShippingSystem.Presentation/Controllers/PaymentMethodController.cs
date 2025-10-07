@@ -8,15 +8,15 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class PaymentMethodController : Controller
     {
-        private readonly IGenericService<PaymentMethod> paymentMethodService;
-        public PaymentMethodController(IGenericService<PaymentMethod> paymentMethodService)
+        private readonly IGenericService<PaymentMethods> paymentMethodService;
+        public PaymentMethodController(IGenericService<PaymentMethods> paymentMethodService)
         {
             this.paymentMethodService = paymentMethodService;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<PaymentMethod> paymentMethodList = await paymentMethodService.GetAllAsync();
+            List<PaymentMethods> paymentMethodList = await paymentMethodService.GetAllAsync();
             return View("Index",paymentMethodList);
         }
         [HttpGet]
@@ -26,7 +26,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAdd(PaymentMethod newPaymentMethod)
+        public async Task<IActionResult> SaveAdd(PaymentMethods newPaymentMethod)
         {
             if (ModelState.IsValid)
             {
@@ -39,12 +39,12 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int Id)
         {
-            PaymentMethod paymentMethodFromDB = await paymentMethodService.GetByIdAsync(Id);
+            PaymentMethods paymentMethodFromDB = await paymentMethodService.GetByIdAsync(Id);
             return View("Edit",paymentMethodFromDB);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveEdit(PaymentMethod editedPaymentMethod)
+        public async Task<IActionResult> SaveEdit(PaymentMethods editedPaymentMethod)
         {
             if (ModelState.IsValid)
             {

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Caching.Distributed;
 using Mono.TextTemplating;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Application.Services;
@@ -9,15 +10,18 @@ using ShippingSystem.Presentation.SessionExtensions;
 using ShippingSystem.Presentation.ViewModels.OrderItemsVM;
 using ShippingSystem.Presentation.ViewModels.OrderVM;
 using System.Security.Claims;
+using System.Text.Json;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class OrderController : Controller
     {
+        //Add Cache
+        private readonly IDistributedCache cache;
         private readonly IGenericService<Governorates> govService;
         private readonly IGenericService<Branches> branchService;
-        private readonly IGenericService<ShippingType> shippingTypeService;
-        private readonly IGenericService<PaymentMethod> paymentMethodService;
+        private readonly IGenericService<ShippingTypes> shippingTypeService;
+        private readonly IGenericService<PaymentMethods> paymentMethodService;
         private readonly ICityService cityService;
         private readonly IGenericService<Orders> orderService;
         private readonly IGenericService<OrderItem> orderItemsService;
@@ -28,8 +32,8 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly IOrderItemService specialOrderItemsService;
         public OrderController(IGenericService<Governorates> govService,
                                IGenericService<Branches> branchService,
-                               IGenericService<ShippingType> shippingTypeService,
-                               IGenericService<PaymentMethod> paymentMethodService,
+                               IGenericService<ShippingTypes> shippingTypeService,
+                               IGenericService<PaymentMethods> paymentMethodService,
                                ICityService cityService,
                                IGenericService<Orders> orderService,
                                IGenericService<OrderItem> orderItemsService,
@@ -37,7 +41,8 @@ namespace ShippingSystem.Presentation.Controllers
                                IGenericService<OrderStatus> orderStatusService,
                                IOrderService customOrderService,
                                IWeightSettingsService weightSettService,
-                               IOrderItemService specialOrderItemsService
+                               IOrderItemService specialOrderItemsService,
+                               IDistributedCache cache
                                )
         {
             this.govService = govService;
@@ -52,6 +57,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.customOrderService = customOrderService;
             this.weightSettService = weightSettService;
             this.specialOrderItemsService = specialOrderItemsService;
+            this.cache = cache;
         }
         //Get Merchant and Employee Home Page
         [HttpGet]
@@ -267,6 +273,7 @@ namespace ShippingSystem.Presentation.Controllers
                 
                 decimal totalCost = orderItems.Sum(item => item.Price * item.Quantity);
                 decimal totalWeight = orderItems.Sum(item => item.Weight * item.Quantity);
+                decimal totalShippingCost=0;
 
                 Cities selectedCity = await cityService.GetByIdAsync(newOrderFromUser.CityId);
                 if (selectedCity != null)
@@ -274,10 +281,13 @@ namespace ShippingSystem.Presentation.Controllers
                     if (newOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
                     {
                         totalCost += selectedCity.DeliveryCost;
+                        totalShippingCost = selectedCity.DeliveryCost;
                     }
                     else if (newOrderFromUser.DeliveryTypeOption==DeliveryMethod.BranchPickup)
                     {
                         totalCost += selectedCity.PickupCost;
+                        totalShippingCost = selectedCity.PickupCost;
+                        
                     }
                 }
                 WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(newOrderFromUser.CityId);
@@ -287,6 +297,7 @@ namespace ShippingSystem.Presentation.Controllers
                     {
                         var extraCost = (totalWeight - newOrderFromUser.BaseWeightLimit) * weightSettingsByCityId.PricePerKg;
                         totalCost += extraCost;
+                        totalShippingCost += extraCost;
                     }
                 }
 
@@ -313,6 +324,9 @@ namespace ShippingSystem.Presentation.Controllers
                     MerchantId = merchant.Id,
                     Notes = newOrderFromUser.Notes,
                     OrderStatusId=newOrderFromUser.OrderStatusId,
+                    ReceivedAmount=newOrderFromUser.ReceivedAmount,
+                    ReceivedDeliveryCost=newOrderFromUser.ReceivedDeliveryCost,
+                    ShippingTotalCost=totalShippingCost,
                 };
 
                 await orderService.AddAsync(newOrder);
@@ -407,7 +421,9 @@ namespace ShippingSystem.Presentation.Controllers
                 PickupCost=cityById.PickupCost,
                 BaseWeightLimit=weightSettByCityId?.BaseWeightLimit??0,
                 PricePerKg=weightSettByCityId?.PricePerKg??0,
-                OrderItems=mappedOrderItems
+                OrderItems=mappedOrderItems,
+                ReceivedAmount=orderFromDB.ReceivedAmount,
+                ReceivedDeliveryCost=orderFromDB.ReceivedDeliveryCost,
             };
             return View("Edit",mappedEditOrder);
         }
@@ -416,6 +432,7 @@ namespace ShippingSystem.Presentation.Controllers
             List<GetOrderItemsVM> orderItemsFromSession = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems");
             decimal totalCost = orderItemsFromSession.Sum(item => item.Quantity * item.Price);
             decimal totalWeight = orderItemsFromSession.Sum(item => item.Quantity * item.Weight);
+            decimal totalShippingCost = 0;
 
             Cities selectedCity =  await cityService.GetByIdAsync(editOrderFromUser.CityId);
             if (selectedCity != null)
@@ -423,10 +440,12 @@ namespace ShippingSystem.Presentation.Controllers
                 if (editOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
                 {
                     totalCost += selectedCity.DeliveryCost;
+                    totalShippingCost = selectedCity.DeliveryCost;
                 }
                 else if (editOrderFromUser.DeliveryTypeOption == DeliveryMethod.BranchPickup)
                 {
                     totalCost += selectedCity.PickupCost;
+                    totalShippingCost = selectedCity.PickupCost;
                 }
             }
             WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(editOrderFromUser.CityId);
@@ -435,6 +454,7 @@ namespace ShippingSystem.Presentation.Controllers
                 decimal extraWeight = totalWeight-weightSettingsByCityId.BaseWeightLimit;
                 decimal extraPrice = extraWeight * weightSettingsByCityId.PricePerKg;
                 totalCost += extraPrice;
+                totalShippingCost += extraPrice;
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -465,6 +485,9 @@ namespace ShippingSystem.Presentation.Controllers
                 orderFromDB.TotalCost = totalCost;
                 orderFromDB.TotalWeight = totalWeight;
                 orderFromDB.MerchantId = merchant.Id;
+                orderFromDB.ReceivedAmount = editOrderFromUser.ReceivedAmount;
+                orderFromDB.ReceivedDeliveryCost = editOrderFromUser.ReceivedDeliveryCost;
+                orderFromDB.ShippingTotalCost = totalShippingCost;
                 await orderService.UpdateAsync(orderFromDB);
                 await orderService.SaveAsync();
                 
@@ -545,6 +568,45 @@ namespace ShippingSystem.Presentation.Controllers
             }
             HttpContext.Session.SetObjectAsJson("OrderItems", getOrderItemsFromSession);
             return Ok();
+        }
+        public async Task<IActionResult> OrderReport() {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.GetAllAsync()).FirstOrDefault(m => m.UserId == userId);
+            var cacheKey = "OrderDataReport";
+            var cachedData = await cache.GetStringAsync(cacheKey);
+            List<OrderReportVM> orderReportData;
+            if (cachedData != null)
+            {
+               orderReportData = JsonSerializer.Deserialize<List<OrderReportVM>>(cachedData);
+            }
+            else
+            {
+                List<Orders> orderListFromDB = await customOrderService.GetSpecialOrderList();
+                orderReportData = orderListFromDB.Select(orderReport => new OrderReportVM
+                {
+                    OrderId=orderReport.Id,
+                    StatusName=orderReport?.OrderStatus?.Name,
+                    MerchantName=merchant?.User.UserName,
+                    CustomerName=orderReport?.CustomerName,
+                    CustomerPhoneNum=orderReport?.PhoneNumber1,
+                    GovName=orderReport?.Governorate?.Name,
+                    CityName=orderReport?.City?.Name,
+                    OrderTotalCost=orderReport?.TotalCost??0,
+                    ReceivedAmount=orderReport?.ReceivedAmount??0,
+                    ShippingTotalCost=orderReport?.ShippingTotalCost??0,
+                    ReceivedDeliveryCost=orderReport?.ReceivedDeliveryCost??0,
+                    CompanyPercent=orderReport?.Courier.DiscountValue??0,
+                    CreateAt=orderReport.CreateAt
+
+
+                }).ToList();
+                await cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(orderReportData),
+                    new DistributedCacheEntryOptions { 
+                        AbsoluteExpirationRelativeToNow=TimeSpan.FromMinutes(10)
+                    });
+                
+            }
+            return View("OrderReport",orderReportData);
         }
     }
 }
