@@ -172,6 +172,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcSW5kZXhCYXNlZE9uU3RzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/OrderReport.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcT3JkZXJSZXBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_AddProductForm.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcX0FkZFByb2R1Y3RGb3JtLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -182,6 +186,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_GetOrderItemsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcX0dldE9yZGVySXRlbXNQYXJ0aWFsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/Order/_OrderReportForAll.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcT3JkZXJcX09yZGVyUmVwb3J0Rm9yQWxsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Data \[Yomna\]/Software Engineer/ShippingManagementSystemMVC/ShippingManagementSystem/ShippingSystem.Presentation/Views/PaymentMethod/Add.cshtml]

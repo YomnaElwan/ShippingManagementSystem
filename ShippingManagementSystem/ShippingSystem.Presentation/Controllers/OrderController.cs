@@ -75,18 +75,19 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
             List<Orders> orderList = await customOrderService.GetSpecialOrderList();
             List<GetOrdersVM> mappedOrderList = orderList.Select(order => new GetOrdersVM
             {
                 OrderId = order.Id,
-                CreateAt = order.CreateAt,
-                CustomerName = order.CustomerName,
-                PhoneNumber1 = order.PhoneNumber1,
-                GovernorateName = order.Governorate?.Name,
-                CityName = order.City?.Name,
-                TotalCost = order.TotalCost,
-                StatusName = order.OrderStatus?.Name,
-
+                StatusName = order.OrderStatus?.Name??"N/A",
+                CustomerName = order?.CustomerName??"N/A",
+                CustomerPhoneNum = order?.PhoneNumber1??"N/A",
+                GovName = order?.Governorate?.Name??"N/A",
+                CityName = order?.City?.Name??"N/A",
+                OrderTotalCost = order?.TotalCost??0,
+                CreateAt = order?.CreateAt??DateTime.MinValue,
             }).ToList();
             return PartialView("_GetOrderIndexTable", mappedOrderList);
         }
@@ -101,10 +102,10 @@ namespace ShippingSystem.Presentation.Controllers
                 OrderId=order.Id,
                 CreateAt=order.CreateAt,
                 CustomerName=order.CustomerName,
-                PhoneNumber1=order.PhoneNumber1,
-                GovernorateName=order.Governorate?.Name,
+                CustomerPhoneNum=order.PhoneNumber1,
+                GovName=order.Governorate?.Name,
                 CityName=order.City?.Name,
-                TotalCost=order.TotalCost,
+                OrderTotalCost=order.TotalCost,
                 StatusName=order.OrderStatus?.Name,
             }).ToList();
             return PartialView("_GetOrderIndexTable",mappedOrderList);
@@ -159,11 +160,11 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpPost]
         public IActionResult AddProductToOrder(AddOrderItemsVM product)
         {
-            // استرجاع المنتجات من السيشن أو إنشاء List جديدة
+            // Get OrderItems From Session or Create new one
             List<GetOrderItemsVM> items = HttpContext.Session.GetObjectFromJson<List<GetOrderItemsVM>>("OrderItems")
                                          ?? new List<GetOrderItemsVM>();
 
-            // إضافة المنتج الجديد
+            // Add New Product
             items.Add(new GetOrderItemsVM
             {
                 Id = items.Count + 1,
@@ -173,10 +174,10 @@ namespace ShippingSystem.Presentation.Controllers
                 Price = product.Price
             });
 
-            // تحديث السيشن
+            // Update Session
             HttpContext.Session.SetObjectAsJson("OrderItems", items);
 
-            // إرجاع Partial جديد بالجدول
+            // return Partial View With OrderItems
             return PartialView("_GetOrderItemsPartial", items);
         }
 
@@ -332,8 +333,7 @@ namespace ShippingSystem.Presentation.Controllers
                 await orderService.AddAsync(newOrder);
                 await orderService.SaveAsync();
 
-                // ✅ هنا بنسحب الـ Items من السيشن
-
+                //Get OrderItems From Session
                 if (orderItems != null && orderItems.Any())
                 {
                     foreach (var item in orderItems)
@@ -352,7 +352,7 @@ namespace ShippingSystem.Presentation.Controllers
                     await orderItemsService.SaveAsync();
                 }
 
-                // بعد الحفظ، امسحي السيشن
+                // After Saving OrderItems To Database, Remove Session
                 HttpContext.Session.Remove("OrderItems");
                 return RedirectToAction("IndexBasedOnSts");
 
@@ -515,6 +515,7 @@ namespace ShippingSystem.Presentation.Controllers
                 HttpContext.Session.Remove("OrderItems");
                 return RedirectToAction("IndexBasedOnSts");
             }
+        
             return View("Edit", editOrderFromUser);
         }
        
@@ -569,44 +570,95 @@ namespace ShippingSystem.Presentation.Controllers
             HttpContext.Session.SetObjectAsJson("OrderItems", getOrderItemsFromSession);
             return Ok();
         }
-        public async Task<IActionResult> OrderReport() {
+        //Order Report
+        [HttpGet]
+        public async Task<IActionResult> OrderReport()
+        {
+            List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
+            return View("OrderReport",orderStatusList);
+        }
+        [HttpGet]
+        public async Task<IActionResult> OrderReportForAll()
+        {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.GetAllAsync()).FirstOrDefault(m => m.UserId == userId);
-            var cacheKey = "OrderDataReport";
+            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+            var cacheKey = "OrderReportForAll";
             var cachedData = await cache.GetStringAsync(cacheKey);
-            List<OrderReportVM> orderReportData;
+            List<GetOrdersVM> orderReportData;
             if (cachedData != null)
             {
-               orderReportData = JsonSerializer.Deserialize<List<OrderReportVM>>(cachedData);
+                orderReportData = JsonSerializer.Deserialize<List<GetOrdersVM>>(cachedData);
             }
             else
             {
-                List<Orders> orderListFromDB = await customOrderService.GetSpecialOrderList();
-                orderReportData = orderListFromDB.Select(orderReport => new OrderReportVM
+                List<Orders> GetOrdersFromDB = await customOrderService.GetSpecialOrderList();
+                orderReportData = GetOrdersFromDB.Select(order => new GetOrdersVM
                 {
-                    OrderId=orderReport.Id,
-                    StatusName=orderReport?.OrderStatus?.Name,
-                    MerchantName=merchant?.User.UserName,
-                    CustomerName=orderReport?.CustomerName,
-                    CustomerPhoneNum=orderReport?.PhoneNumber1,
-                    GovName=orderReport?.Governorate?.Name,
-                    CityName=orderReport?.City?.Name,
-                    OrderTotalCost=orderReport?.TotalCost??0,
-                    ReceivedAmount=orderReport?.ReceivedAmount??0,
-                    ShippingTotalCost=orderReport?.ShippingTotalCost??0,
-                    ReceivedDeliveryCost=orderReport?.ReceivedDeliveryCost??0,
-                    CompanyPercent=orderReport?.Courier.DiscountValue??0,
-                    CreateAt=orderReport.CreateAt
-
-
+                    OrderId=order.Id,
+                    StatusName=order?.OrderStatus?.Name ?? "N/A",
+                    MerchantName=merchant?.User?.UserName??"N/A",
+                    CustomerName=order?.CustomerName??"N.A",
+                    CustomerPhoneNum=order?.PhoneNumber1??"N/A",
+                    GovName=order?.Governorate?.Name??"N/A",
+                    CityName=order?.City?.Name??"N/A",
+                    OrderTotalCost=order?.TotalCost??0,
+                    ReceivedAmount=order?.ReceivedAmount??0,
+                    ShippingTotalCost=order?.ShippingTotalCost??0,
+                    ReceivedDeliveryCost=order?.ReceivedDeliveryCost??0,
+                    CompanyPercent=order?.Courier?.DiscountValue??0,
+                    CreateAt=order?.CreateAt??DateTime.MinValue,
+                    OrderStatusId=order?.OrderStatusId??0,
                 }).ToList();
                 await cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(orderReportData),
-                    new DistributedCacheEntryOptions { 
-                        AbsoluteExpirationRelativeToNow=TimeSpan.FromMinutes(10)
+                    new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
                     });
-                
             }
-            return View("OrderReport",orderReportData);
+
+            return PartialView("_OrderReportForAll",orderReportData);
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetOrdersByStsId(int orderStsId)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(merchant => merchant.UserId == userId);
+            List<GetOrdersVM> orderReportData;
+            var cacheKey = $"OrdersByStatus_{orderStsId}";
+            var cachedData = await cache.GetStringAsync(cacheKey);
+            List<Orders> ordersFromDBByOrderSts = await customOrderService.GetOrdersByOrderStsId(orderStsId);
+            if (cachedData != null)
+            {
+                orderReportData = JsonSerializer.Deserialize<List<GetOrdersVM>>(cachedData);
+            }
+            else
+            {
+                orderReportData = ordersFromDBByOrderSts.Select(o => new GetOrdersVM
+                {
+                    OrderId=o.Id,
+                    StatusName=o?.OrderStatus?.Name??"N/A",
+                    MerchantName=merchant?.User?.UserName??"N/A",
+                    CustomerName=o?.CustomerName??"N/A",
+                    CustomerPhoneNum=o?.PhoneNumber1??"N/A",
+                    GovName=o?.Governorate?.Name??"N/A",
+                    CityName=o?.City?.Name??"N/A",
+                    OrderTotalCost=o?.TotalCost??0,
+                    ReceivedAmount=o?.ReceivedAmount??0,
+                    ShippingTotalCost=o?.ShippingTotalCost??0,
+                    ReceivedDeliveryCost=o?.ReceivedDeliveryCost??0,
+                    CompanyPercent=o?.Courier?.DiscountValue??0,
+                    CreateAt=o?.CreateAt??DateTime.MinValue,
+                    OrderStatusId=o?.OrderStatusId??0,
+                }).ToList();
+                await cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(orderReportData),
+                    new DistributedCacheEntryOptions
+                    {
+                        AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                    });
+            }
+            return PartialView("_OrderReportForAll",orderReportData);
+            
         }
     }
+
 }

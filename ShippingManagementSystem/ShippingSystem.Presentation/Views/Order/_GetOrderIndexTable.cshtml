@@ -8,10 +8,10 @@
                 <tr>
                     <td>@item.OrderId</td>
                     <td>@item.CreateAt.ToString("yyyy-MM-dd HH:mm")</td>
-                    <td>@item.CustomerName<hr />@item.PhoneNumber1</td>
-                    <td>@item.GovernorateName</td>
+                    <td>@item.CustomerName<hr />@item.CustomerPhoneNum</td>
+                    <td>@item.GovName</td>
                     <td>@item.CityName</td>
-                    <td>@item.TotalCost</td>
+                    <td>@item.OrderTotalCost</td>
                     <td><a asp-action="Edit" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-warning btn-sm"><i class="bi bi-pencil-square"></i></a></td>
                     <td>@item.StatusName</td>
                     <td><a asp-action="EditOrderSts" asp-controller="Order" asp-route-id="@item.OrderId" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square"></i></a></td>

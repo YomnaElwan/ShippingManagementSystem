@@ -1,0 +1,20 @@
+﻿@using ShippingSystem.Presentation.ViewModels.OrderVM
+@model List<GetOrdersVM>
+
+@foreach(var order in Model){
+    <tr>
+        <td>@order.OrderId</td>
+        <td>@order.StatusName</td>
+        <td>@order.MerchantName</td>
+        <td>@order.CustomerName</td>
+        <td>@order.CustomerPhoneNum</td>
+        <td>@order.GovName</td>
+        <td>@order.CityName</td>
+        <td>@order.OrderTotalCost</td>
+        <td>@order.ReceivedAmount</td>
+        <td>@order.ShippingTotalCost</td>
+        <td>@order.ReceivedDeliveryCost</td>
+        <td>@order.CompanyPercent</td>
+        <td>@order.CreateAt.ToString("yyyy-MM-dd hh:mm")</td>
+    </tr>
+}

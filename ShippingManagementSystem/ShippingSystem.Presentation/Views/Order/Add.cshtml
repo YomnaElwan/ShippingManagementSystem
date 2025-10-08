@@ -201,14 +201,14 @@
 <script>
        $(document).ready(function () {
 
-        // تحميل الفورم
+        // Load Form
         $("#btnAddProduct").click(function () {
             $.get("/Order/AddProductForm", function (data) {
                 $("#addProductSection").html(data);
             });
         });
 
-        // حفظ المنتج
+        // Save Order Item
         $(document).on("click", "#btnSaveProduct", function (e) {
             e.preventDefault();
             var form=$("#productForm");
@@ -227,10 +227,10 @@
                 type: 'POST',
                 data: product,
                 success: function (result) {
-                    // تحديث الجدول
+                    // Update Table
                     $("#orderItemsContainer").html(result);
 
-                    // تفريغ الفورم
+                    // Clear Form
                     $("#addProductSection").html("");
                 },
                 error: function () {

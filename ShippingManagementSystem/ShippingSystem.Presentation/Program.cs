@@ -71,7 +71,7 @@ namespace ShippingSystem.Presentation
             builder.Services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";
-                options.InstanceName = "ShippingManagementSystem";
+                options.InstanceName = "ShippingManagementSystem_";
             });
 
 
