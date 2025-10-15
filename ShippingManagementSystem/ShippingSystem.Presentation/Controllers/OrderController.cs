@@ -659,6 +659,44 @@ namespace ShippingSystem.Presentation.Controllers
             return PartialView("_OrderReportForAll",orderReportData);
             
         }
+        //Get Orders Based On Date 
+        public async Task<IActionResult> OrdersBasedOnDate(DateTime FromDate,DateTime ToDate)
+        {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+            List<GetOrdersVM> OrdersMapped;
+            List<Orders> OrdersBasedOnDateFromDB = await customOrderService.GetOrdersByDate(FromDate, ToDate);
+            var cacheKey = $"Orders From {FromDate} To {ToDate}";
+            var cachedData = await cache.GetStringAsync(cacheKey);
+            if (cachedData != null)
+            {
+                OrdersMapped = JsonSerializer.Deserialize<List<GetOrdersVM>>(cacheKey);
+            }
+            else
+            {
+                OrdersMapped = OrdersBasedOnDateFromDB.Select(order => new GetOrdersVM
+                {
+                    OrderId=order.Id,
+                    StatusName=order?.OrderStatus?.Name??"N/A",
+                    MerchantName=merchant?.User?.UserName??"N/A",
+                    CustomerName=order?.CustomerName??"N/A",
+                    CustomerPhoneNum=order?.PhoneNumber1??"N/A",
+                    GovName=order?.Governorate?.Name??"N/A",
+                    CityName=order?.City?.Name??"N/A",
+                    OrderTotalCost=order?.TotalCost??0,
+                    ReceivedAmount=order?.ReceivedAmount??0,
+                    ShippingTotalCost=order?.ShippingTotalCost??0,
+                    ReceivedDeliveryCost=order?.ReceivedDeliveryCost??0,
+                    CompanyPercent=order?.Courier.DiscountValue??0,
+                    CreateAt=order?.CreateAt?? DateTime.MinValue,
+                }).ToList();
+                await cache.SetStringAsync(cacheKey, JsonSerializer.Serialize(OrdersMapped), new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+                });
+            }
+            return PartialView("_OrderReportForAll", OrdersMapped);
+        }
     }
 
 }

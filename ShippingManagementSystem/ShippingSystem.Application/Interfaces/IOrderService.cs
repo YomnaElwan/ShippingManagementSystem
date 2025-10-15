@@ -12,6 +12,7 @@ namespace ShippingSystem.Application.Interfaces
         public Task<List<Orders>> GetSpecialOrderList();
         public Task<Orders> GetOrderById(int Id);
         public Task<List<Orders>> GetOrdersByOrderStsId(int orderStsId);
+        public Task<List<Orders>> GetOrdersByDate(DateTime FromDate, DateTime ToDate);
 
 
 

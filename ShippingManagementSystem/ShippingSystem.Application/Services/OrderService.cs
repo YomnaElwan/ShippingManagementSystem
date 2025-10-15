@@ -22,6 +22,11 @@ namespace ShippingSystem.Application.Services
             return orderRepo.GetOrderById(Id);
         }
 
+        public Task<List<Orders>> GetOrdersByDate(DateTime FromDate, DateTime ToDate)
+        {
+            return orderRepo.GetOrdersByDate(FromDate, ToDate);
+        }
+
         public Task<List<Orders>> GetOrdersByOrderStsId(int orderStsId)
         {
             return orderRepo.GetOrdersByOrderStsId(orderStsId);

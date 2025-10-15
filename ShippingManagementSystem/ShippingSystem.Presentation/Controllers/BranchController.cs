@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.BranchVM;
+using System.Security;
 
 namespace ShippingSystem.Presentation.Controllers
 {
@@ -17,6 +19,7 @@ namespace ShippingSystem.Presentation.Controllers
           
         }
         [HttpGet]
+        [Authorize(Policy = "ViewBranches")]
         public async Task<IActionResult> Index()
         {
             List<Branches> branchList = await branchService.GetAllAsync();
@@ -24,6 +27,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Index",model);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewBranch")]
         public async Task<IActionResult> Add()
         {
             return View("Add");
@@ -42,11 +46,13 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add", newBranchVM);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewBranchDetails")]
         public async Task<IActionResult> Details(int Id) {
 
             var branch = await branchService.GetByIdAsync(Id);
             return View("Details", branch);
         }
+        [Authorize(Policy = "DeleteBranch")]
         public async Task<IActionResult> Delete(int Id)
         {
             await branchService.DeleteAsync(Id);
@@ -54,6 +60,7 @@ namespace ShippingSystem.Presentation.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Policy = "EditBranch")]
         public async Task<IActionResult> Edit(int Id)
         {
             var existingBranch = await branchService.GetByIdAsync(Id);

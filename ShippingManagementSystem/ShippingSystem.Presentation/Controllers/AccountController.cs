@@ -10,15 +10,13 @@ namespace ShippingSystem.Presentation.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IRolePermissionsService rolePermsService;
        
         public AccountController(UserManager<ApplicationUser> userManager,
-                                 SignInManager<ApplicationUser> signInManager,
-                                 IRolePermissionsService rolePermsService)
+                                 SignInManager<ApplicationUser> signInManager
+                                 )
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.rolePermsService = rolePermsService;
         }
         [HttpGet]
         public IActionResult Register()
@@ -76,6 +74,11 @@ namespace ShippingSystem.Presentation.Controllers
                     {
 
                         await signInManager.SignInAsync(userFromDB, loginUser.RememberMe);
+                        var claims = await userManager.GetClaimsAsync(userFromDB);
+                        foreach (var claim in claims)
+                        {
+                            Console.WriteLine($"{claim.Type} - {claim.Value}");
+                        }
                         return RedirectToAction("Index", "City");
                     }
                 }

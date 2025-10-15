@@ -23,6 +23,11 @@ namespace ShippingSystem.Infrastructure.Repositories
             return context.Order.Include(g=>g.Governorate).Include(c=>c.City).Include(s => s.OrderStatus).FirstOrDefault(o => o.Id == Id);
         }
 
+        public Task<List<Orders>> GetOrdersByDate(DateTime FromDate, DateTime ToDate)
+        {
+            return context.Order.Where(order => order.CreateAt >= FromDate && order.CreateAt <= ToDate).Include(g=>g.Governorate).Include(c=>c.City).Include(m=>m.Merchant).Include(c=>c.Courier).ToListAsync();
+        }
+
         public Task<List<Orders>> GetOrdersByOrderStsId(int orderStsId)
         {
             return context.Order.Where(order => order.OrderStatusId == orderStsId).Include(c => c.City).Include(g => g.Governorate).Include(o => o.OrderStatus).Include(m=>m.Merchant).Include(c=>c.Courier).ToListAsync();

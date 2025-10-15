@@ -485,7 +485,7 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Property<int>("CityId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CourierId")
+                    b.Property<int?>("CourierId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreateAt")
@@ -583,26 +583,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.ToTable("PaymentMethod");
                 });
 
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.PermissionsModule", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreateAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("PermissionsModule");
-                });
-
             modelBuilder.Entity("ShippingSystem.Domain.Entities.Regions", b =>
                 {
                     b.Property<int>("Id")
@@ -619,36 +599,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Region");
-                });
-
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.RolePermissions", b =>
-                {
-                    b.Property<string>("RoleId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("PermissionsModuleId")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("CanAdd")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CanDelete")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CanEdit")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CanView")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("CanViewDetails")
-                        .HasColumnType("bit");
-
-                    b.HasKey("RoleId", "PermissionsModuleId");
-
-                    b.HasIndex("PermissionsModuleId");
-
-                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.ShippingTypes", b =>
@@ -864,9 +814,7 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.HasOne("ShippingSystem.Domain.Entities.Couriers", "Courier")
                         .WithMany("Orders")
-                        .HasForeignKey("CourierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CourierId");
 
                     b.HasOne("ShippingSystem.Domain.Entities.Governorates", "Governorate")
                         .WithMany("Orders")
@@ -913,25 +861,6 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.Navigation("PaymentMethod");
 
                     b.Navigation("ShippingType");
-                });
-
-            modelBuilder.Entity("ShippingSystem.Domain.Entities.RolePermissions", b =>
-                {
-                    b.HasOne("ShippingSystem.Domain.Entities.PermissionsModule", "PermissionsModule")
-                        .WithMany()
-                        .HasForeignKey("PermissionsModuleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("PermissionsModule");
-
-                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("ShippingSystem.Domain.Entities.WeightSettings", b =>

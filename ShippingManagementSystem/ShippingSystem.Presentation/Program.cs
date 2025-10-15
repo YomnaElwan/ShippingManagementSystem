@@ -5,6 +5,7 @@ using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
+using ShippingSystem.Infrastructure.Auth;
 using ShippingSystem.Infrastructure.Data;
 using ShippingSystem.Infrastructure.Repositories;
 using System.Reflection;
@@ -28,7 +29,10 @@ namespace ShippingSystem.Presentation
                 Options.Password.RequiredLength = 8;
                 Options.Password.RequireNonAlphanumeric = false;
                 Options.Password.RequireDigit = true;
-            }).AddEntityFrameworkStores<ShippingDbContext>();
+            })
+            .AddEntityFrameworkStores<ShippingDbContext>()
+            .AddDefaultTokenProviders();
+            builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
 
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
@@ -44,13 +48,20 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<ICourierService, CourierService>();
             builder.Services.AddScoped<IMerchantService, MerchantService>();
             builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
-            builder.Services.AddScoped<IRolePermissionsRepository, RolePermissionRepository>();
-            builder.Services.AddScoped<IRolePermissionsService, RolePermissionsService>();
             builder.Services.AddScoped<IOrderService, OrderService>();
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IOrderItemService, OrderItemsService>();
             builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 
+            //Add Permissions
+            builder.Services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ViewBranches", policy => policy.RequireClaim("Permission", "ViewBranches"));
+                options.AddPolicy("ViewBranchDetails", policy => policy.RequireClaim("Permission", "ViewBranchDetails"));
+                options.AddPolicy("AddNewBranch", policy => policy.RequireClaim("Permission","AddNewBranch"));
+                options.AddPolicy("EditBranch", policy => policy.RequireClaim("Permission", "EditBranch"));
+                options.AddPolicy("DeleteBranch", policy => policy.RequireClaim("Permission", "DeleteBranch"));
+            });
      
 
             //Auto Mapper
