@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
@@ -14,12 +15,14 @@ namespace ShippingSystem.Presentation.Controllers
             this.paymentMethodService = paymentMethodService;
         }
         [HttpGet]
+        [Authorize(Policy= "ViewPaymentMethods")]
         public async Task<IActionResult> Index()
         {
             List<PaymentMethods> paymentMethodList = await paymentMethodService.GetAllAsync();
             return View("Index",paymentMethodList);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewPaymentMethod")]
         public IActionResult Add()
         {
             return View("Add");
@@ -37,6 +40,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",newPaymentMethod);
         }
         [HttpGet]
+        [Authorize(Policy = "EditPaymentMethod")]
         public async Task<IActionResult> Edit(int Id)
         {
             PaymentMethods paymentMethodFromDB = await paymentMethodService.GetByIdAsync(Id);
@@ -54,6 +58,7 @@ namespace ShippingSystem.Presentation.Controllers
             }
             return View("Edit",editedPaymentMethod);
         }
+        [Authorize(Policy = "DeletePaymentMethod")]
         public async Task<IActionResult> Delete(int Id)
         {
             await paymentMethodService.DeleteAsync(Id);

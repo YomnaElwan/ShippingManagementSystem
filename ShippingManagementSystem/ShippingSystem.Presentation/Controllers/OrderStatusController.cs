@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.OrderItemsVM;
@@ -14,12 +15,14 @@ namespace ShippingSystem.Presentation.Controllers
             this.orderStatusService = orderStatusService;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewAllOrderStatus")]
         public async Task<IActionResult> Index()
         {
             List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
             return View("Index",orderStatusList);
         }
         [HttpGet]
+        [Authorize(Policy = "AddOrderStatus")]
         public IActionResult Add()
         {
             return View("Add");
@@ -41,6 +44,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",newStatus);
         }
         [HttpGet]
+        [Authorize(Policy = "EditOrderStatus")]
         public async Task<IActionResult> Edit(int Id)
         {
             OrderStatus orderStatusFromDB = await orderStatusService.GetByIdAsync(Id);
@@ -64,6 +68,7 @@ namespace ShippingSystem.Presentation.Controllers
             }
             return View("Edit",editFromUser);
         }
+        [Authorize(Policy = "DeleteOrderStatus")]
         public async Task<IActionResult>Delete(int Id)
         {
             await orderStatusService.DeleteAsync(Id);

@@ -1,37 +1,61 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.PermissionsVM
 @model RoleClaimsVM
 
-<h3>Manage Claims for Role: <span class="text-primary">@Model.RoleName</span></h3>
+<div class="page-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-7">
+                <div class="bg-faded rounded-4 shadow p-5">
+                    <h3 class="section-heading text-center mb-4 fw-bold text-secondary">
+                        Manage Claims for Role:
+                        <span class="text-primary">@Model.RoleName</span>
+                    </h3>
 
-<div class="row mt-3">
-    <div class="col-md-5">
-        <h5>Current Permissions</h5>
-        <ul class="list-group">
-            @foreach (var claim in Model.RoleClaims)
-            {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    @claim.ClaimValue
-                    <form asp-action="DeleteClaim" method="post">
-                        <input type="hidden" name="roleId" value="@Model.RoleId" />
-                        <input type="hidden" name="permission" value="@claim.ClaimValue" />
-                        <button class="btn btn-danger btn-sm">Remove</button>
-                    </form>
-                </li>
-            }
-        </ul>
-    </div>
+                    <div class="row mt-4 g-4">
+                        <div class="col-md-6">
+                            <h5 class="text-center text-dark mb-3">
+                                <i class="bi bi-shield-lock-fill me-2 text-primary"></i>Current Permissions
+                            </h5>
+                            <ul class="list-group shadow-sm">
+                                @foreach (var claim in Model.RoleClaims)
+                                {
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="fw-semibold">@claim.ClaimValue</span>
+                                        <form asp-action="DeleteClaim" method="post" class="m-0">
+                                            <input type="hidden" name="roleId" value="@Model.RoleId" />
+                                            <input type="hidden" name="permission" value="@claim.ClaimValue" />
+                                            <button class="btn btn-outline-danger btn-sm rounded-pill">
+                                                <i class="bi bi-trash3-fill"></i> Remove
+                                            </button>
+                                        </form>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
 
-    <div class="col-md-5 offset-md-1">
-        <h5>Add New Permission</h5>
-        <form asp-action="AddClaim" method="post">
-            <input type="hidden" name="roleId" value="@Model.RoleId" />
-            <select name="permission" class="form-select mb-3">
-                @foreach (var perm in Model.AllPermissions)
-                {
-                    <option value="@perm">@perm</option>
-                }
-            </select>
-            <button type="submit" class="btn btn-success">Add</button>
-        </form>
+                        <div class="col-md-6">
+                            <h5 class="text-center text-dark mb-3">
+                                <i class="bi bi-plus-circle-fill me-2 text-success"></i>Add New Permission
+                            </h5>
+                            <form asp-action="AddClaim" method="post" class="text-center">
+                                <input type="hidden" name="roleId" value="@Model.RoleId" />
+
+                                <select name="permission" class="form-select mb-4 shadow-sm">
+                                    @foreach (var perm in Model.AllPermissions)
+                                    {
+                                        <option value="@perm">@perm</option>
+                                    }
+                                </select>
+
+                                <button type="submit" class="btn btn-success rounded-pill px-4 shadow-sm">
+                                    <i class="bi bi-plus-circle me-2"></i>Add
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>

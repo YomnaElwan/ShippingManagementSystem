@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Application.Services;
@@ -30,6 +31,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.serviceCourier = serviceCourier;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewCouriers")]
         public async Task <IActionResult> Index()
         {
             List<Couriers> courierList = await serviceCourier.CourierList();
@@ -46,6 +48,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Index",courierListMapped);
         }
         [HttpGet]
+        [Authorize(Policy= "ViewCourierDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Couriers courierFromDB = await serviceCourier.CourierWithDataById(Id);
@@ -65,6 +68,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Details",mappedCourier);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewCourier")]
         public async Task<IActionResult> Add()
         {
             CourierAddViewModel viewModel = new CourierAddViewModel()
@@ -128,6 +132,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",newCourierFromUser);
         }
         [HttpGet]
+        [Authorize(Policy = "EditCourier")]
         public async Task<IActionResult> Edit(int Id)
         {
             Couriers courierFromDB = await serviceCourier.CourierWithDataById(Id);
@@ -170,6 +175,7 @@ namespace ShippingSystem.Presentation.Controllers
             editedModel.GovernorateList = await govService.GetAllAsync();
             return View("Edit",editedModel);
         }
+        [Authorize(Policy = "DeleteCourier")]
         public async Task<IActionResult> Delete(int Id)
         {
             await courierService.DeleteAsync(Id);

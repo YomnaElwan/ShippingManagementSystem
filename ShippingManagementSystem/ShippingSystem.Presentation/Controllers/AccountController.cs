@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
@@ -19,6 +20,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.signInManager = signInManager;
         }
         [HttpGet]
+        [Authorize(Policy = "Register")]
         public IActionResult Register()
         {
             return View("Register");

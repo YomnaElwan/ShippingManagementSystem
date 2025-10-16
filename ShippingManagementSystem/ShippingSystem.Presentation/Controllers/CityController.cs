@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
@@ -35,12 +36,14 @@ namespace ShippingSystem.Presentation.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Policy = "ViewCities")]
         public async Task<IActionResult> Index()
         {
             List<Cities> cityList = await cityService.GetAllAsync();
             return View("Index",cityList);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewCityDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Cities cityDetails = await citiesService.cityHasGov(Id);
@@ -48,6 +51,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "AddNewCity")]
         public async Task<IActionResult> Add()
         {
             List<Governorates> govList = await governoratesService.GetAllAsync();
@@ -75,7 +79,7 @@ namespace ShippingSystem.Presentation.Controllers
             cityVM.GovernoratesList = await governoratesService.GetAllAsync();
             return View("Add",cityVM);
         }
-
+        [Authorize(Policy = "DeleteCity")]
         public async Task<IActionResult> Delete(int Id)
         {
            await citiesService.DeleteAsync(Id);
@@ -83,6 +87,7 @@ namespace ShippingSystem.Presentation.Controllers
            return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Policy = "EditCity")]
         public async Task<IActionResult> Edit(int Id)
         {
             List<Governorates> govList = await governoratesService.GetAllAsync();

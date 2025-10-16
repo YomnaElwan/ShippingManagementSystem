@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
@@ -33,7 +34,7 @@ namespace ShippingSystem.Presentation.Controllers
             this.orderStsService = orderStsService;
         }
         [HttpGet]
-        
+        [Authorize(Policy = "ViewEmployeeHome")]
         public async Task<IActionResult> EmployeeHome()
         {
             List<Orders> orderList = await orderService.GetAllAsync();
@@ -45,6 +46,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("OrdersHome",mappedEmployeeeHome);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewEmployees")]
         public async Task<IActionResult> Index()
         {
             List<Employees> empList = await employeeService.EmpListWithBranch();
@@ -62,6 +64,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Index",empListMapped);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewEmployee")]
         public async Task<IActionResult> Add()
         {
             List<Branches> branches = await branchService.GetAllAsync();
@@ -116,6 +119,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add",newEmpFromUser);
         }
         [HttpGet]
+        [Authorize(Policy = "EditEmployee")]
         public async Task<IActionResult> Edit(int Id)
         {
             Employees empById = await employeeService.EmpWithUserById(Id);
@@ -150,6 +154,7 @@ namespace ShippingSystem.Presentation.Controllers
             }
             return View("Edit",editModelFromUser);
         }
+        [Authorize(Policy = "DeleteEmployee")]
 
         public async Task<IActionResult> Delete(int Id)
         {

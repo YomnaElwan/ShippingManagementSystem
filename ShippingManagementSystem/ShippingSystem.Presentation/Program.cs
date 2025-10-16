@@ -8,6 +8,7 @@ using ShippingSystem.Domain.Interfaces;
 using ShippingSystem.Infrastructure.Auth;
 using ShippingSystem.Infrastructure.Data;
 using ShippingSystem.Infrastructure.Repositories;
+using ShippingSystem.Presentation.Extensions;
 using System.Reflection;
 
 namespace ShippingSystem.Presentation
@@ -54,16 +55,8 @@ namespace ShippingSystem.Presentation
             builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 
             //Add Permissions
-            builder.Services.AddAuthorization(options =>
-            {
-                options.AddPolicy("ViewBranches", policy => policy.RequireClaim("Permission", "ViewBranches"));
-                options.AddPolicy("ViewBranchDetails", policy => policy.RequireClaim("Permission", "ViewBranchDetails"));
-                options.AddPolicy("AddNewBranch", policy => policy.RequireClaim("Permission","AddNewBranch"));
-                options.AddPolicy("EditBranch", policy => policy.RequireClaim("Permission", "EditBranch"));
-                options.AddPolicy("DeleteBranch", policy => policy.RequireClaim("Permission", "DeleteBranch"));
-            });
-     
-
+            builder.Services.AddPermissionPolicies();
+ 
             //Auto Mapper
             builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             //Sessions

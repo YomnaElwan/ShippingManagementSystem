@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 
@@ -12,12 +13,14 @@ namespace ShippingSystem.Presentation.Controllers
             this._shippingTypeService = _shippingTypeService;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewShippingTypes")]
         public async Task<IActionResult> Index()
         {
             List<ShippingTypes> shippingTypeList = await _shippingTypeService.GetAllAsync();
             return View("Index",shippingTypeList);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewShippingType")]
         public IActionResult Add()
         {
             return View("Add");
@@ -36,6 +39,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "EditShippingType")]
         public async Task<IActionResult> Edit(int Id)
         {
             var shippingTypeFromDB = await _shippingTypeService.GetByIdAsync(Id);
@@ -53,6 +57,7 @@ namespace ShippingSystem.Presentation.Controllers
             }
             return View("Edit",editedShippingType);
         }
+        [Authorize(Policy = "DeleteShippingType")]
         public async Task<IActionResult> Delete(int Id)
         {
             await _shippingTypeService.DeleteAsync(Id);

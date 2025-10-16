@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
@@ -41,6 +42,7 @@ namespace ShippingSystem.Presentation.Controllers
 
         }
         [HttpGet]
+        [Authorize(Policy = "ViewMerchantHome")]
         public async Task<IActionResult> MerchantHome()
         {
             List<Orders> orderList = await orderService.GetAllAsync();
@@ -54,12 +56,14 @@ namespace ShippingSystem.Presentation.Controllers
             return View("OrdersHome",mappedMerchantHome);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewMerchants")]
         public async Task<IActionResult> Index()
         {
             List<Merchants> merchantList =await _merService.SpecialMerchantsList();
             return View("Index",merchantList);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewMerchantDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Merchants merchantDetails = await _merService.GetMerchantById(Id);
@@ -72,6 +76,7 @@ namespace ShippingSystem.Presentation.Controllers
             return Json(cityList);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewMerchant")]
         public async Task <IActionResult> Add()
         {
             List<Branches> branchList = await branchService.GetAllAsync();
@@ -142,6 +147,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Add", newMerchantFromUser);
         }
         [HttpGet]
+        [Authorize(Policy = "EditMerchant")]
         public async Task<IActionResult> Edit(int Id)
         {
             var existMerchant = await _merService.GetMerchantById(Id);
@@ -190,6 +196,7 @@ namespace ShippingSystem.Presentation.Controllers
             editedMerchant.GovList = await govService.GetAllAsync();
             return View("Edit",editedMerchant);
         }
+        [Authorize(Policy = "DeleteMerchant")]
         public async Task<IActionResult> Delete(int Id)
         {
             await merchantService.DeleteAsync(Id);

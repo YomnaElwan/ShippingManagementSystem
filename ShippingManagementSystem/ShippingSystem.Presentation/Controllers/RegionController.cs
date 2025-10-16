@@ -18,6 +18,7 @@ namespace ShippingSystem.Presentation.Controllers
             this._govsService = _govsService;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewRegions")]
         public async Task<IActionResult> Index()
         {
             List<Regions> regionsList = await _regionService.GetAllAsync();
@@ -25,6 +26,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "AddNewRegion")]
         public IActionResult AddNew()
         {
             return View("AddNew");
@@ -42,6 +44,8 @@ namespace ShippingSystem.Presentation.Controllers
             }
             return View("AddNew", newRegion);
         }
+        [HttpGet]
+        [Authorize(Policy = "ViewRegionDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Regions region = await _regionService.GetByIdAsync(Id);
@@ -49,7 +53,7 @@ namespace ShippingSystem.Presentation.Controllers
             region.Governorates = govsinRegionList;
             return View("Details", region);
         }
-
+        [Authorize(Policy = "DeleteRegion")]
         public async Task<IActionResult> Delete(int Id)
         {
             await _regionService.DeleteAsync(Id);
@@ -57,6 +61,7 @@ namespace ShippingSystem.Presentation.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
+        [Authorize(Policy = "EditRegion")]
         public async Task<IActionResult> Edit(int Id)
         {
             Regions region = await _regionService.GetByIdAsync(Id);

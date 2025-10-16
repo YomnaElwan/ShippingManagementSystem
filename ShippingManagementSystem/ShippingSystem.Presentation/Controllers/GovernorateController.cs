@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
@@ -27,12 +28,14 @@ namespace ShippingSystem.Presentation.Controllers
             this.regionService = regionService;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewGovernorates")]
         public async Task<IActionResult> Index()
         {
             List<Governorates> govList = await govService.GetAllAsync();
             return View("Index",govList);
         }
         [HttpGet]
+        [Authorize(Policy = "ViewGovernorateDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Governorates gov =await governService.govByIdIncludeRegion(Id);
@@ -43,6 +46,7 @@ namespace ShippingSystem.Presentation.Controllers
             return View("Details",gov);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewGovernorate")]
         public async Task<IActionResult> Add()
         {
             List<Regions> regionList = await regionService.GetAllAsync();
@@ -72,7 +76,7 @@ namespace ShippingSystem.Presentation.Controllers
             govRegModel.RegionList = await regionService.GetAllAsync();
             return View("Add",govRegModel);
         }
-
+        [Authorize(Policy = "DeleteGovernorate")]
         public async Task<IActionResult> Delete (int Id)
         {
             await governService.DeleteAsync(Id);
@@ -81,6 +85,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "EditGovernorate")]
         public async Task<IActionResult> Edit(int Id)
         {
             List<Regions> regionList = await regionService.GetAllAsync();

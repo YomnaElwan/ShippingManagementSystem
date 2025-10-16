@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Caching.Distributed;
 using Mono.TextTemplating;
@@ -61,6 +62,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         //Get Merchant and Employee Home Page
         [HttpGet]
+        [Authorize(Policy = "OrdersHome")]
         public async Task<IActionResult> OrdersHome()
         {
             List<Orders> orderList = await orderService.GetAllAsync();
@@ -111,6 +113,7 @@ namespace ShippingSystem.Presentation.Controllers
             return PartialView("_GetOrderIndexTable",mappedOrderList);
         }
         [HttpGet]
+        [Authorize(Policy = "AllOrders")]
         public async Task<IActionResult> IndexBasedOnSts()
         {
             List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
@@ -119,6 +122,7 @@ namespace ShippingSystem.Presentation.Controllers
         
         //Edit Order Status
         [HttpGet]
+        [Authorize(Policy = "EditOrderStatus")]
         public async Task<IActionResult> EditOrderSts(int Id)
         {
             Orders orderFromDB = await customOrderService.GetOrderById(Id);
@@ -198,6 +202,7 @@ namespace ShippingSystem.Presentation.Controllers
 
         //Add New Order
         [HttpGet]
+        [Authorize(Policy = "AddNewOrder")]
         public async Task<IActionResult> Add()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -369,6 +374,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         //Edit Order
         [HttpGet]
+        [Authorize(Policy = "EditOrder")]
         public async Task<IActionResult> Edit(int Id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -518,8 +524,9 @@ namespace ShippingSystem.Presentation.Controllers
         
             return View("Edit", editOrderFromUser);
         }
-       
+
         //Delete Order From Database
+        [Authorize(Policy = "DeleteOrder")]
         public async Task<IActionResult> Delete(int Id)
         {
             List<OrderItem> orderItemsList = await orderItemsService.GetAllAsync();
@@ -572,6 +579,7 @@ namespace ShippingSystem.Presentation.Controllers
         }
         //Order Report
         [HttpGet]
+        [Authorize(Policy = "OrderReport")]
         public async Task<IActionResult> OrderReport()
         {
             List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();

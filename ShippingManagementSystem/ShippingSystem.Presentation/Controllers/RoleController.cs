@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ShippingSystem.Presentation.ViewModels.PermissionsVM;
@@ -15,12 +16,14 @@ namespace ShippingSystem.Presentation.Controllers
             this._roleManager = _roleManager;
         }
         [HttpGet]
+        [Authorize(Policy = "ViewRoles")]
         public async Task<IActionResult> Index()
         {
             List<IdentityRole> roleList = await _roleManager.Roles.ToListAsync();
             return View("Index",roleList);
         }
         [HttpGet]
+        [Authorize(Policy = "AddNewRole")]
         public IActionResult Add()
         {
             return View("Add");
@@ -53,6 +56,7 @@ namespace ShippingSystem.Presentation.Controllers
            
         }
         //Manage Claims
+        [Authorize(Policy = "ManageRole")]
         public async Task<IActionResult> Manage(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -71,6 +75,8 @@ namespace ShippingSystem.Presentation.Controllers
                 }).ToList(),
                 AllPermissions = new List<string>
                 {
+                    //Account
+                    "Register",
                     //Branches
                     "ViewBranches","ViewBranchDetails","AddNewBranch","EditBranch","DeleteBranch",
                     //City
@@ -80,26 +86,31 @@ namespace ShippingSystem.Presentation.Controllers
                     //Region
                     "ViewRegions","ViewRegionDetails","AddNewRegion","EditRegion","DeleteRegion",
                     //Role
-                    "ViewRoles","AddNewRole","ManageRole","AddClaim","DeleteClaim",
+                    "ViewRoles","AddNewRole","ManageRole","AddClaim","DeleteClaim","DeleteRole",
                     //ShippingType
                     "ViewShippingTypes","AddNewShippingType","EditShippingType","DeleteShippingType",
+                    //PaymentMethod
+                    "ViewPaymentMethods","AddNewPaymentMethod","EditPaymentMethod","DeletePaymentMethod",
                     //WeightSettings
                     "ViewWeightSettings","ViewWeightSettingsDetails","AddNewWeightSetting","EditWeightSetting","DeleteWeightSetting",                    
                     //OrderStatus
                     "ViewAllOrderStatus","AddOrderStatus","EditOrderStatus","DeleteOrderStatus",
                     //Courier
-                    "ViewCouriers","AddNewCourier","EditCourier","DeleteCourier",
+                    "ViewCouriers","ViewCourierDetails","AddNewCourier","EditCourier","DeleteCourier",
                     //Employee
-                    "ViewEmployee","ViewEmployees","AddNewEmployee","EditEmployee","DeleteEmployee",
+                    "ViewEmployeeHome","ViewEmployees","AddNewEmployee","EditEmployee","DeleteEmployee",
                     //Merchant
-                    "ViewMerchantHome","ViewMerchants","AddNewMerchant","EditMerchant","DeleteMerchant"
-                  
+                    "ViewMerchantHome","ViewMerchants","ViewMerchantDetails","AddNewMerchant","EditMerchant","DeleteMerchant",
+                    //Order
+                    "OrdersHome","AllOrders","AddNewOrder","EditOrderStatus","EditOrder","DeleteOrder","OrderReport",    
                 }
             };
             return View(model);
         }
         //Add Claims
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Policy = "AddClaim")]
         public async Task<IActionResult> AddClaim(string roleId, string permission)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -110,6 +121,8 @@ namespace ShippingSystem.Presentation.Controllers
         }
         //Delete Claims
         [HttpPost]
+        [Authorize(Policy = "DeleteClaim")]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteClaim(string roleId, string permission)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
@@ -121,6 +134,15 @@ namespace ShippingSystem.Presentation.Controllers
                 await _roleManager.RemoveClaimAsync(role, claim);
             return RedirectToAction("Manage", new { roleId });
         }
-
+        //Delete Role
+        [Authorize(Policy= "DeleteRole")]
+        public async Task<IActionResult> Delete(string roleId)
+        {
+            var role = await _roleManager.FindByIdAsync(roleId);
+            if (role == null)
+                return NotFound();
+            await _roleManager.DeleteAsync(role);
+            return RedirectToAction("Index");
+        }
     }
 }

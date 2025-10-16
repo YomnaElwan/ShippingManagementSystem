@@ -19,7 +19,11 @@
             {
                 <tr>
                     <td>@role.Name</td>
-                    <td><a asp-action="Manage" asp-controller="Role" asp-route-roleId="@role.Id" class="btn btn-primary mt-3">Manage</a></td>
+                    <td>
+                        <a asp-action="Manage" asp-controller="Role" asp-route-roleId="@role.Id" class="btn btn-primary mt-3 btn-sm"><i class="bi bi-gear-fill"></i></a>
+                        <a asp-action="Delete" asp-controller="Role" asp-route-roleId="@role.Id" class="btn btn-danger mt-3 btn-sm"><i class="bi bi-trash"></i></a>
+                    </td>
+                   
                 </tr>
             }
         </tbody>
