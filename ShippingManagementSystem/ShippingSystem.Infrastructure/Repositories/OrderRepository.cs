@@ -25,17 +25,17 @@ namespace ShippingSystem.Infrastructure.Repositories
 
         public Task<List<Orders>> GetOrdersByDate(DateTime FromDate, DateTime ToDate)
         {
-            return context.Order.Where(order => order.CreateAt >= FromDate && order.CreateAt <= ToDate).Include(g=>g.Governorate).Include(c=>c.City).Include(m=>m.Merchant).Include(c=>c.Courier).ToListAsync();
+            return context.Order.Where(order => order.CreateAt >= FromDate && order.CreateAt <= ToDate).Include(g => g.Governorate).Include(c => c.City).Include(m => m.Merchant).ThenInclude(u=>u.User).Include(c=>c.Courier).ToListAsync();
         }
 
         public Task<List<Orders>> GetOrdersByOrderStsId(int orderStsId)
         {
-            return context.Order.Where(order => order.OrderStatusId == orderStsId).Include(c => c.City).Include(g => g.Governorate).Include(o => o.OrderStatus).Include(m=>m.Merchant).Include(c=>c.Courier).ToListAsync();
+            return context.Order.Where(order => order.OrderStatusId == orderStsId).Include(c => c.City).Include(g => g.Governorate).Include(o => o.OrderStatus).Include(m=>m.Merchant).ThenInclude(u=>u.User).Include(c=>c.Courier).ToListAsync();
         }
 
         public Task<List<Orders>> GetSpecialOrderList()
         {
-            return context.Order.Include(c => c.City).Include(g => g.Governorate).Include(o=>o.OrderStatus).Include(cr=>cr.Courier).Include(u=>u.Merchant).ToListAsync();
+            return context.Order.Include(c => c.City).Include(g => g.Governorate).Include(o=>o.OrderStatus).Include(cr=>cr.Courier).Include(m=>m.Merchant).ThenInclude(u=>u.User).ToListAsync();
         }
      
     }

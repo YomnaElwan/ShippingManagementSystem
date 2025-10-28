@@ -29,10 +29,14 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpGet]
         [Authorize(Policy = "ViewGovernorates")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
             List<Governorates> govList = await govService.GetAllAsync();
-            return View("Index",govList);
+            int totalItems = govList.Count;
+            var allGovs = govList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            return View("Index",allGovs);
         }
         [HttpGet]
         [Authorize(Policy = "ViewGovernorateDetails")]

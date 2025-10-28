@@ -16,10 +16,14 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpGet]
         [Authorize(Policy = "ViewAllOrderStatus")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
             List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
-            return View("Index",orderStatusList);
+            var totalItems = orderStatusList.Count();
+            var allOrderSts = orderStatusList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = Math.Ceiling((double)totalItems / pageSize);
+            return View("Index",allOrderSts);
         }
         [HttpGet]
         [Authorize(Policy = "AddOrderStatus")]

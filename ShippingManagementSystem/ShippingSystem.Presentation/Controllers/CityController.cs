@@ -37,10 +37,14 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpGet]
         [Authorize(Policy = "ViewCities")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
             List<Cities> cityList = await cityService.GetAllAsync();
-            return View("Index",cityList);
+            int totalItems = cityList.Count();
+            var allCities = cityList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            return View("Index",allCities);
         }
         [HttpGet]
         [Authorize(Policy = "ViewCityDetails")]

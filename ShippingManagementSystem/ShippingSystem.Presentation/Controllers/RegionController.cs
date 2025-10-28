@@ -19,10 +19,14 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpGet]
         [Authorize(Policy = "ViewRegions")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber=1, int pageSize=5)
         {
             List<Regions> regionsList = await _regionService.GetAllAsync();
-            return View("Index", regionsList);
+            var totalItems = regionsList.Count();
+            var totalRegions = regionsList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = Math.Ceiling((double)totalItems / pageSize);
+            return View("Index", totalRegions);
         }
 
         [HttpGet]

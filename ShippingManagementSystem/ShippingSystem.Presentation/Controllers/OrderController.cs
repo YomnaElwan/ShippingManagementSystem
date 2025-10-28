@@ -588,8 +588,6 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderReportForAll()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
             var cacheKey = "OrderReportForAll";
             var cachedData = await cache.GetStringAsync(cacheKey);
             List<GetOrdersVM> orderReportData;
@@ -604,7 +602,7 @@ namespace ShippingSystem.Presentation.Controllers
                 {
                     OrderId=order.Id,
                     StatusName=order?.OrderStatus?.Name ?? "N/A",
-                    MerchantName=merchant?.User?.UserName??"N/A",
+                    MerchantName=order?.Merchant?.User?.UserName??"N/A",
                     CustomerName=order?.CustomerName??"N.A",
                     CustomerPhoneNum=order?.PhoneNumber1??"N/A",
                     GovName=order?.Governorate?.Name??"N/A",
@@ -629,8 +627,8 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrdersByStsId(int orderStsId)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(merchant => merchant.UserId == userId);
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(merchant => merchant.UserId == userId);
             List<GetOrdersVM> orderReportData;
             var cacheKey = $"OrdersByStatus_{orderStsId}";
             var cachedData = await cache.GetStringAsync(cacheKey);
@@ -645,7 +643,7 @@ namespace ShippingSystem.Presentation.Controllers
                 {
                     OrderId=o.Id,
                     StatusName=o?.OrderStatus?.Name??"N/A",
-                    MerchantName=merchant?.User?.UserName??"N/A",
+                    MerchantName=o?.Merchant?.User?.UserName??"N/A",
                     CustomerName=o?.CustomerName??"N/A",
                     CustomerPhoneNum=o?.PhoneNumber1??"N/A",
                     GovName=o?.Governorate?.Name??"N/A",
@@ -670,8 +668,7 @@ namespace ShippingSystem.Presentation.Controllers
         //Get Orders Based On Date 
         public async Task<IActionResult> OrdersBasedOnDate(DateTime FromDate,DateTime ToDate)
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+            
             List<GetOrdersVM> OrdersMapped;
             List<Orders> OrdersBasedOnDateFromDB = await customOrderService.GetOrdersByDate(FromDate, ToDate);
             var cacheKey = $"Orders From {FromDate} To {ToDate}";
@@ -686,7 +683,7 @@ namespace ShippingSystem.Presentation.Controllers
                 {
                     OrderId=order.Id,
                     StatusName=order?.OrderStatus?.Name??"N/A",
-                    MerchantName=merchant?.User?.UserName??"N/A",
+                    MerchantName=order?.Merchant?.User?.UserName??"N/A",
                     CustomerName=order?.CustomerName??"N/A",
                     CustomerPhoneNum=order?.PhoneNumber1??"N/A",
                     GovName=order?.Governorate?.Name??"N/A",
