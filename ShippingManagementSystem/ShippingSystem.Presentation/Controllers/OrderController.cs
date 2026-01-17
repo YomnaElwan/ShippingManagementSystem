@@ -1,12 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Caching.Distributed;
-using Mono.TextTemplating;
-using ShippingSystem.Application.Interfaces;
-using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
-using ShippingSystem.Domain.Interfaces;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.SessionExtensions;
 using ShippingSystem.Presentation.ViewModels.OrderItemsVM;
 using ShippingSystem.Presentation.ViewModels.OrderVM;
@@ -19,45 +15,10 @@ namespace ShippingSystem.Presentation.Controllers
     {
         //Add Cache
         private readonly IDistributedCache cache;
-        private readonly IGenericService<Governorates> govService;
-        private readonly IGenericService<Branches> branchService;
-        private readonly IGenericService<ShippingTypes> shippingTypeService;
-        private readonly IGenericService<PaymentMethods> paymentMethodService;
-        private readonly ICityService cityService;
-        private readonly IGenericService<Orders> orderService;
-        private readonly IGenericService<OrderItem> orderItemsService;
-        private readonly IMerchantService merchantService;
-        private readonly IGenericService<OrderStatus> orderStatusService;
-        private readonly IOrderService customOrderService;
-        private readonly IWeightSettingsService weightSettService;
-        private readonly IOrderItemService specialOrderItemsService;
-        public OrderController(IGenericService<Governorates> govService,
-                               IGenericService<Branches> branchService,
-                               IGenericService<ShippingTypes> shippingTypeService,
-                               IGenericService<PaymentMethods> paymentMethodService,
-                               ICityService cityService,
-                               IGenericService<Orders> orderService,
-                               IGenericService<OrderItem> orderItemsService,
-                               IMerchantService merchantService,
-                               IGenericService<OrderStatus> orderStatusService,
-                               IOrderService customOrderService,
-                               IWeightSettingsService weightSettService,
-                               IOrderItemService specialOrderItemsService,
-                               IDistributedCache cache
-                               )
+        private readonly IUnitOfWork unitOfWork;
+        public OrderController(IDistributedCache cache,IUnitOfWork unitOfWork)
         {
-            this.govService = govService;
-            this.branchService = branchService;
-            this.shippingTypeService = shippingTypeService;
-            this.paymentMethodService = paymentMethodService;
-            this.cityService = cityService;
-            this.orderService = orderService;
-            this.orderItemsService = orderItemsService;
-            this.merchantService = merchantService;
-            this.orderStatusService = orderStatusService;
-            this.customOrderService = customOrderService;
-            this.weightSettService = weightSettService;
-            this.specialOrderItemsService = specialOrderItemsService;
+            this.unitOfWork = unitOfWork;
             this.cache = cache;
         }
         //Get Merchant and Employee Home Page
@@ -65,11 +26,11 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "OrdersHome")]
         public async Task<IActionResult> OrdersHome()
         {
-            List<Orders> orderList = await orderService.GetAllAsync();
+            List<Orders> orderList = await unitOfWork.OrderRepository.GetAllAsync();
             OrdersHomeVM mappedMerchantHome = new OrdersHomeVM()
             {
                 OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order => order.Key, order => order.Count()),
-                OrderStatusList = await orderStatusService.GetAllAsync()
+                OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync()
             };
             return View("OrdersHome", mappedMerchantHome);
         }
@@ -78,8 +39,8 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
-            List<Orders> orderList = await customOrderService.GetSpecialOrderList();
+            var merchant = (await unitOfWork.SpecificMerchantRepository.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+            List<Orders> orderList = await unitOfWork.SpecificOrderRepository.GetSpecialOrderList();
             List<GetOrdersVM> mappedOrderList = orderList.Select(order => new GetOrdersVM
             {
                 OrderId = order.Id,
@@ -98,7 +59,7 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrderListByOrderStatus(int orderStsId)
         {
-            List<Orders> orderListBySts = await customOrderService.GetOrdersByOrderStsId(orderStsId);
+            List<Orders> orderListBySts = await unitOfWork.SpecificOrderRepository.GetOrdersByOrderStsId(orderStsId);
             List<GetOrdersVM> mappedOrderList = orderListBySts.Select(order => new GetOrdersVM
             {
                 OrderId=order.Id,
@@ -116,7 +77,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "AllOrders")]
         public async Task<IActionResult> IndexBasedOnSts()
         {
-            List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
+            List<OrderStatus> orderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync();
             return View("IndexBasedOnSts", orderStatusList);
         }
         
@@ -125,7 +86,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "EditOrderStatus")]
         public async Task<IActionResult> EditOrderSts(int Id)
         {
-            Orders orderFromDB = await customOrderService.GetOrderById(Id);
+            Orders orderFromDB = await unitOfWork.SpecificOrderRepository.GetOrderById(Id);
             if (orderFromDB == null)
             {
                 return NotFound();
@@ -135,7 +96,7 @@ namespace ShippingSystem.Presentation.Controllers
                 Id=orderFromDB.Id,
                 OrderStsId = orderFromDB.OrderStatusId,
             };
-            mappingEditOrderSts.OrderStsList = await orderStatusService.GetAllAsync();
+            mappingEditOrderSts.OrderStsList = await unitOfWork.OrderStatusRepository.GetAllAsync();
             return View("EditOrderSts",mappingEditOrderSts);
         }
 
@@ -146,17 +107,17 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                Orders orderFromDB = await customOrderService.GetOrderById(editOrderStsFromUser.Id);
+                Orders orderFromDB = await unitOfWork.SpecificOrderRepository.GetOrderById(editOrderStsFromUser.Id);
                 if (orderFromDB==null)
                 {
                     return NotFound();
                 }
                 orderFromDB.OrderStatusId = editOrderStsFromUser.OrderStsId;
-                await orderService.UpdateAsync(orderFromDB);
-                await orderService.SaveAsync();
+                await unitOfWork.OrderRepository.UpdateAsync(orderFromDB);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
-            editOrderStsFromUser.OrderStsList = await orderStatusService.GetAllAsync();
+            editOrderStsFromUser.OrderStsList = await unitOfWork.OrderStatusRepository.GetAllAsync();
             return View("EditOrderSts",editOrderStsFromUser);
         }
 
@@ -189,7 +150,7 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult>GetCityList(int govId)
         {
-            List<Cities> cityList = await cityService.cityListByGov(govId);
+            List<Cities> cityList = await unitOfWork.SpecificCityRepository.cityListByGov(govId);
             return Json(cityList);
         }
 
@@ -206,17 +167,17 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Add()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList())
+            var merchant = (await unitOfWork.SpecificMerchantRepository.SpecialMerchantsList())
             .FirstOrDefault(m => m.UserId == userId);
 
             AddOrderVM addOrderVM = new AddOrderVM()
             {
-                GovList = await govService.GetAllAsync(),
-                BranchList = await branchService.GetAllAsync(),
-                ShippingTypeList = await shippingTypeService.GetAllAsync(),
-                PaymentMethodList = await paymentMethodService.GetAllAsync(),
+                GovList = await unitOfWork.GovernorateRepository.GetAllAsync(),
+                BranchList = await unitOfWork.BranchRepository.GetAllAsync(),
+                ShippingTypeList = await unitOfWork.ShippingTypesRepository.GetAllAsync(),
+                PaymentMethodList = await unitOfWork.PaymentMethodsRepository.GetAllAsync(),
                 CityList = new List<Cities>(),
-                OrderStatusList = await orderStatusService.GetAllAsync(),
+                OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync(),
                 MerchantPhoneNum = merchant?.User?.PhoneNumber ?? "null",
                 MerchantAddress = merchant?.User?.Address ?? "null",
             };
@@ -226,8 +187,8 @@ namespace ShippingSystem.Presentation.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCityCostsAndWeightSettById(int cityId)
         {
-            Cities cityById = await cityService.GetByIdAsync(cityId);
-            WeightSettings weightSett = await weightSettService.GetWeightSettByCityId(cityId);
+            Cities cityById = await unitOfWork.SpecificCityRepository.GetByIdAsync(cityId);
+            WeightSettings weightSett = await unitOfWork.SpecificWeightSettingsRepository.GetWeightSettByCityId(cityId);
 
             return Json(new
             {
@@ -281,7 +242,7 @@ namespace ShippingSystem.Presentation.Controllers
                 decimal totalWeight = orderItems.Sum(item => item.Weight * item.Quantity);
                 decimal totalShippingCost=0;
 
-                Cities selectedCity = await cityService.GetByIdAsync(newOrderFromUser.CityId);
+                Cities selectedCity = await unitOfWork.SpecificCityRepository.GetByIdAsync(newOrderFromUser.CityId);
                 if (selectedCity != null)
                 {
                     if (newOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
@@ -296,8 +257,8 @@ namespace ShippingSystem.Presentation.Controllers
                         
                     }
                 }
-                WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(newOrderFromUser.CityId);
-                if (weightSettService != null)
+                WeightSettings weightSettingsByCityId = await unitOfWork.SpecificWeightSettingsRepository.GetWeightSettByCityId(newOrderFromUser.CityId);
+                if (weightSettingsByCityId != null)
                 {
                     if (totalWeight > weightSettingsByCityId.BaseWeightLimit)
                     {
@@ -308,7 +269,7 @@ namespace ShippingSystem.Presentation.Controllers
                 }
 
                 var userId=User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var merchant = (await merchantService.GetAllAsync())
+                var merchant = (await unitOfWork.SpecificMerchantRepository.GetAllAsync())
                 .FirstOrDefault(m => m.UserId == userId);
 
 
@@ -335,8 +296,8 @@ namespace ShippingSystem.Presentation.Controllers
                     ShippingTotalCost=totalShippingCost,
                 };
 
-                await orderService.AddAsync(newOrder);
-                await orderService.SaveAsync();
+                await unitOfWork.OrderRepository.AddAsync(newOrder);
+                await unitOfWork.SaveAsync();
 
                 //Get OrderItems From Session
                 if (orderItems != null && orderItems.Any())
@@ -351,10 +312,10 @@ namespace ShippingSystem.Presentation.Controllers
                             Weight = item.Weight,
                             Price = item.Price,
                         };
-                        await orderItemsService.AddAsync(newOrderItems);
+                        await unitOfWork.OrderItemsRepository.AddAsync(newOrderItems);
                     }
 
-                    await orderItemsService.SaveAsync();
+                    await unitOfWork.SaveAsync();
                 }
 
                 // After Saving OrderItems To Database, Remove Session
@@ -363,12 +324,12 @@ namespace ShippingSystem.Presentation.Controllers
 
             }
 
-            newOrderFromUser.GovList = await govService.GetAllAsync();
-            newOrderFromUser.BranchList = await branchService.GetAllAsync();
-            newOrderFromUser.ShippingTypeList = await shippingTypeService.GetAllAsync();
-            newOrderFromUser.PaymentMethodList = await paymentMethodService.GetAllAsync();
-            newOrderFromUser.CityList = await cityService.cityListByGov(newOrderFromUser.GovernorateId);
-            newOrderFromUser.OrderStatusList = await orderStatusService.GetAllAsync();
+            newOrderFromUser.GovList = await unitOfWork.GovernorateRepository.GetAllAsync();
+            newOrderFromUser.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
+            newOrderFromUser.ShippingTypeList = await unitOfWork.ShippingTypesRepository.GetAllAsync();
+            newOrderFromUser.PaymentMethodList = await unitOfWork.PaymentMethodsRepository.GetAllAsync();
+            newOrderFromUser.CityList = await unitOfWork.SpecificCityRepository.cityListByGov(newOrderFromUser.GovernorateId);
+            newOrderFromUser.OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync();
 
             return View("Add", newOrderFromUser);
         }
@@ -378,16 +339,16 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
+            var merchant = (await unitOfWork.SpecificMerchantRepository.SpecialMerchantsList()).FirstOrDefault(m => m.UserId == userId);
             
-            Orders orderFromDB = await customOrderService.GetByIdAsync(Id);
+            Orders orderFromDB = await unitOfWork.SpecificOrderRepository.GetByIdAsync(Id);
             if (orderFromDB == null)
             {
                 return NotFound();
             }
-            Cities cityById = await cityService.GetByIdAsync(orderFromDB.CityId);
-            WeightSettings weightSettByCityId = await weightSettService.GetWeightSettByCityId(orderFromDB.CityId);
-            List<OrderItem> orderItemsByOrderId = await specialOrderItemsService.GetOrderItemsByOrderId(orderFromDB.Id);
+            Cities cityById = await unitOfWork.SpecificCityRepository.GetByIdAsync(orderFromDB.CityId);
+            WeightSettings weightSettByCityId = await unitOfWork.SpecificWeightSettingsRepository.GetWeightSettByCityId(orderFromDB.CityId);
+            List<OrderItem> orderItemsByOrderId = await unitOfWork.SpecificOrderItemsRepo.GetOrderItemsByOrderId(orderFromDB.Id);
             List<GetOrderItemsVM> mappedOrderItems = orderItemsByOrderId.Select(orderItem => new GetOrderItemsVM
             {
                Id=orderItem.Id,
@@ -417,12 +378,12 @@ namespace ShippingSystem.Presentation.Controllers
                 OrderStatusId = orderFromDB.OrderStatusId,
                 MerchantAddress = merchant?.User.Address ?? "null",
                 MerchantPhoneNum = merchant?.User.PhoneNumber ?? "null",
-                BranchList = await branchService.GetAllAsync(),
-                GovList = await govService.GetAllAsync(),
-                CityList = await cityService.cityListByGov(orderFromDB.GovernorateId),
-                ShippingTypeList = await shippingTypeService.GetAllAsync(),
-                PaymentMethodList=await paymentMethodService.GetAllAsync(),
-                OrderStatusList= await orderStatusService.GetAllAsync(),
+                BranchList = await unitOfWork.BranchRepository.GetAllAsync(),
+                GovList = await unitOfWork.GovernorateRepository.GetAllAsync(),
+                CityList = await unitOfWork.SpecificCityRepository.cityListByGov(orderFromDB.GovernorateId),
+                ShippingTypeList = await unitOfWork.ShippingTypesRepository.GetAllAsync(),
+                PaymentMethodList=await unitOfWork.PaymentMethodsRepository.GetAllAsync(),
+                OrderStatusList= await unitOfWork.OrderStatusRepository.GetAllAsync(),
                 DeliveryCost=cityById.DeliveryCost,
                 PickupCost=cityById.PickupCost,
                 BaseWeightLimit=weightSettByCityId?.BaseWeightLimit??0,
@@ -440,7 +401,7 @@ namespace ShippingSystem.Presentation.Controllers
             decimal totalWeight = orderItemsFromSession.Sum(item => item.Quantity * item.Weight);
             decimal totalShippingCost = 0;
 
-            Cities selectedCity =  await cityService.GetByIdAsync(editOrderFromUser.CityId);
+            Cities selectedCity =  await unitOfWork.SpecificCityRepository.GetByIdAsync(editOrderFromUser.CityId);
             if (selectedCity != null)
             {
                 if (editOrderFromUser.DeliveryTypeOption == DeliveryMethod.HomeDelivery)
@@ -454,7 +415,7 @@ namespace ShippingSystem.Presentation.Controllers
                     totalShippingCost = selectedCity.PickupCost;
                 }
             }
-            WeightSettings weightSettingsByCityId = await weightSettService.GetWeightSettByCityId(editOrderFromUser.CityId);
+            WeightSettings weightSettingsByCityId = await unitOfWork.SpecificWeightSettingsRepository.GetWeightSettByCityId(editOrderFromUser.CityId);
             if (totalWeight > weightSettingsByCityId.BaseWeightLimit)
             {
                 decimal extraWeight = totalWeight-weightSettingsByCityId.BaseWeightLimit;
@@ -464,12 +425,12 @@ namespace ShippingSystem.Presentation.Controllers
             }
 
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var merchant = (await merchantService.GetAllAsync()).FirstOrDefault(m => m.UserId == userId);
+            var merchant = (await unitOfWork.SpecificMerchantRepository.GetAllAsync()).FirstOrDefault(m => m.UserId == userId);
             if (editOrderFromUser.CityId == 0)
             {
                 ModelState.AddModelError("CityId", "Select a City!");
             }
-            Orders orderFromDB = await customOrderService.GetByIdAsync(editOrderFromUser.Id);
+            Orders orderFromDB = await unitOfWork.SpecificOrderRepository.GetByIdAsync(editOrderFromUser.Id);
             if (ModelState.IsValid)
             {
                 orderFromDB.Id = editOrderFromUser.Id;
@@ -494,15 +455,15 @@ namespace ShippingSystem.Presentation.Controllers
                 orderFromDB.ReceivedAmount = editOrderFromUser.ReceivedAmount;
                 orderFromDB.ReceivedDeliveryCost = editOrderFromUser.ReceivedDeliveryCost;
                 orderFromDB.ShippingTotalCost = totalShippingCost;
-                await orderService.UpdateAsync(orderFromDB);
-                await orderService.SaveAsync();
+                await unitOfWork.OrderRepository.UpdateAsync(orderFromDB);
+                await unitOfWork.SaveAsync();
                 
-                List<OrderItem> existingOrderItems = await specialOrderItemsService.GetOrderItemsByOrderId(editOrderFromUser.Id);
+                List<OrderItem> existingOrderItems = await unitOfWork.SpecificOrderItemsRepo.GetOrderItemsByOrderId(editOrderFromUser.Id);
                 foreach(var oldItem in existingOrderItems)
                 {
-                    await orderItemsService.DeleteAsync(oldItem.Id);
+                    await unitOfWork.OrderItemsRepository.DeleteAsync(oldItem.Id);
                 }
-                await orderItemsService.SaveAsync();
+                await unitOfWork.SaveAsync();
                 if(orderItemsFromSession!=null && orderItemsFromSession.Any())
                 {
                     foreach(var item in orderItemsFromSession)
@@ -514,9 +475,9 @@ namespace ShippingSystem.Presentation.Controllers
                             OrderId = editOrderFromUser.Id,
                             Price = item.Price,
                         };
-                        await orderItemsService.AddAsync(orderItem);
+                        await unitOfWork.OrderItemsRepository.AddAsync(orderItem);
                     }
-                    await orderItemsService.SaveAsync();
+                    await unitOfWork.SaveAsync();
                 }
                 HttpContext.Session.Remove("OrderItems");
                 return RedirectToAction("IndexBasedOnSts");
@@ -529,15 +490,15 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "DeleteOrder")]
         public async Task<IActionResult> Delete(int Id)
         {
-            List<OrderItem> orderItemsList = await orderItemsService.GetAllAsync();
+            List<OrderItem> orderItemsList = await unitOfWork.OrderItemsRepository.GetAllAsync();
             List<OrderItem> orderItemsRelatedToOrderId =  orderItemsList.Where(o => o.OrderId == Id).ToList();
             foreach(var item in orderItemsRelatedToOrderId)
             {
-                await orderItemsService.DeleteAsync(item.Id);
+                await unitOfWork.OrderItemsRepository.DeleteAsync(item.Id);
             }
-            await orderItemsService.SaveAsync();
-            await orderService.DeleteAsync(Id);
-            await orderService.SaveAsync();
+            await unitOfWork.SaveAsync();
+            await unitOfWork.OrderRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("IndexBasedOnSts");
         }
  
@@ -582,7 +543,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "OrderReport")]
         public async Task<IActionResult> OrderReport()
         {
-            List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
+            List<OrderStatus> orderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync();
             return View("OrderReport",orderStatusList);
         }
         [HttpGet]
@@ -597,7 +558,7 @@ namespace ShippingSystem.Presentation.Controllers
             }
             else
             {
-                List<Orders> GetOrdersFromDB = await customOrderService.GetSpecialOrderList();
+                List<Orders> GetOrdersFromDB = await unitOfWork.SpecificOrderRepository.GetSpecialOrderList();
                 orderReportData = GetOrdersFromDB.Select(order => new GetOrdersVM
                 {
                     OrderId=order.Id,
@@ -632,7 +593,7 @@ namespace ShippingSystem.Presentation.Controllers
             List<GetOrdersVM> orderReportData;
             var cacheKey = $"OrdersByStatus_{orderStsId}";
             var cachedData = await cache.GetStringAsync(cacheKey);
-            List<Orders> ordersFromDBByOrderSts = await customOrderService.GetOrdersByOrderStsId(orderStsId);
+            List<Orders> ordersFromDBByOrderSts = await unitOfWork.SpecificOrderRepository.GetOrdersByOrderStsId(orderStsId);
             if (cachedData != null)
             {
                 orderReportData = JsonSerializer.Deserialize<List<GetOrdersVM>>(cachedData);
@@ -670,7 +631,7 @@ namespace ShippingSystem.Presentation.Controllers
         {
             
             List<GetOrdersVM> OrdersMapped;
-            List<Orders> OrdersBasedOnDateFromDB = await customOrderService.GetOrdersByDate(FromDate, ToDate);
+            List<Orders> OrdersBasedOnDateFromDB = await unitOfWork.SpecificOrderRepository.GetOrdersByDate(FromDate, ToDate);
             var cacheKey = $"Orders From {FromDate} To {ToDate}";
             var cachedData = await cache.GetStringAsync(cacheKey);
             if (cachedData != null)

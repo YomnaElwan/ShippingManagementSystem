@@ -44,11 +44,6 @@ namespace ShippingSystem.Infrastructure.Repositories
             return await context.Set<T>().FindAsync(Id);
         }
 
-        public async Task SaveAsync()
-        {
-            await context.SaveChangesAsync();
-        }
-
         //SoftDelete
         public async Task DeleteAsync(int Id)
         {

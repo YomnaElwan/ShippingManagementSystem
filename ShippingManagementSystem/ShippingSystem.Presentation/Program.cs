@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using ShippingSystem.Application.Interfaces;
-using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Infrastructure.Auth;
 using ShippingSystem.Infrastructure.Data;
 using ShippingSystem.Infrastructure.Repositories;
+using ShippingSystem.Infrastructure.UnitWorks;
 using ShippingSystem.Presentation.Extensions;
 using System.Reflection;
 
@@ -34,25 +34,16 @@ namespace ShippingSystem.Presentation
             .AddEntityFrameworkStores<ShippingDbContext>()
             .AddDefaultTokenProviders();
             builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
-
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-            builder.Services.AddScoped(typeof(IGenericService<>), typeof(GenericService<>));
-            builder.Services.AddScoped<IGovernorateService, GovernorateService>();
-            builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
-            builder.Services.AddScoped<ICityService, CityService>();
-            builder.Services.AddScoped<ICityRepository, CityRepository>();
-            builder.Services.AddScoped<IWeightSettingsService, WeightSettingsService>();
-            builder.Services.AddScoped<IWeightSettingsRepository, WeightSettingsRepository>();
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            builder.Services.AddScoped<IEmployeeService, EmployeeService>();
-            builder.Services.AddScoped<ICourierRepository, CourierRepository>();
-            builder.Services.AddScoped<ICourierService, CourierService>();
-            builder.Services.AddScoped<IMerchantService, MerchantService>();
-            builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
-            builder.Services.AddScoped<IOrderService, OrderService>();
-            builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-            builder.Services.AddScoped<IOrderItemService, OrderItemsService>();
-            builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            //builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
+            //builder.Services.AddScoped<ICityRepository, CityRepository>();
+            //builder.Services.AddScoped<IWeightSettingsRepository, WeightSettingsRepository>();
+            //builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            //builder.Services.AddScoped<ICourierRepository, CourierRepository>();
+            //builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
+            //builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+            //builder.Services.AddScoped<IOrderItemsRepository, OrderItemsRepository>();
 
             //Add Permissions
             builder.Services.AddPermissionPolicies();

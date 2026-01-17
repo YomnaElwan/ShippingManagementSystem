@@ -1,24 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
+using ShippingSystem.Domain.IUnitWorks;
 using System.Collections.Immutable;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class PaymentMethodController : Controller
     {
-        private readonly IGenericService<PaymentMethods> paymentMethodService;
-        public PaymentMethodController(IGenericService<PaymentMethods> paymentMethodService)
+        private readonly IUnitOfWork unitOfWork;
+        public PaymentMethodController(IUnitOfWork unitOfWork)
         {
-            this.paymentMethodService = paymentMethodService;
+            this.unitOfWork = unitOfWork;
         }
         [HttpGet]
         [Authorize(Policy= "ViewPaymentMethods")]
         public async Task<IActionResult> Index()
         {
-            List<PaymentMethods> paymentMethodList = await paymentMethodService.GetAllAsync();
+            List<PaymentMethods> paymentMethodList = await unitOfWork.PaymentMethodsRepository.GetAllAsync();
             return View("Index",paymentMethodList);
         }
         [HttpGet]
@@ -33,8 +33,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await paymentMethodService.AddAsync(newPaymentMethod);
-                await paymentMethodService.SaveAsync();
+                await unitOfWork.PaymentMethodsRepository.AddAsync(newPaymentMethod);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Add",newPaymentMethod);
@@ -43,7 +43,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "EditPaymentMethod")]
         public async Task<IActionResult> Edit(int Id)
         {
-            PaymentMethods paymentMethodFromDB = await paymentMethodService.GetByIdAsync(Id);
+            PaymentMethods paymentMethodFromDB = await unitOfWork.PaymentMethodsRepository.GetByIdAsync(Id);
             return View("Edit",paymentMethodFromDB);
         }
         [HttpPost]
@@ -52,8 +52,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await paymentMethodService.UpdateAsync(editedPaymentMethod);
-                await paymentMethodService.SaveAsync();
+                await unitOfWork.PaymentMethodsRepository.UpdateAsync(editedPaymentMethod);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Edit",editedPaymentMethod);
@@ -61,8 +61,8 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "DeletePaymentMethod")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await paymentMethodService.DeleteAsync(Id);
-            await paymentMethodService.SaveAsync();
+            await unitOfWork.PaymentMethodsRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
     }

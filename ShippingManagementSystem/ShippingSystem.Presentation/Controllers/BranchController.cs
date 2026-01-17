@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.BranchVM;
 using System.Security;
 
@@ -10,19 +10,19 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class BranchController : Controller
     {
-        private readonly IGenericService<Branches> branchService;
         private readonly IMapper _mapper;
-        public BranchController(IGenericService<Branches> branchService,IMapper _mapper)
+        private readonly IUnitOfWork unitOfWork;
+        public BranchController(IMapper _mapper, IUnitOfWork unitOfWork)
         {
-            this.branchService = branchService;
             this._mapper = _mapper;
+            this.unitOfWork = unitOfWork;
           
         }
         [HttpGet]
         [Authorize(Policy = "ViewBranches")]
         public async Task<IActionResult> Index()
         {
-            List<Branches> branchList = await branchService.GetAllAsync();
+            List<Branches> branchList = await unitOfWork.BranchRepository.GetAllAsync();
             var model = _mapper.Map<List<ReadBranchesViewModel>>(branchList);
             return View("Index",model);
         }
@@ -39,8 +39,8 @@ namespace ShippingSystem.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var newBranch = _mapper.Map<Branches>(newBranchVM);
-                await branchService.AddAsync(newBranch);
-                await branchService.SaveAsync();
+                await unitOfWork.BranchRepository.AddAsync(newBranch);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Add", newBranchVM);
@@ -49,21 +49,21 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewBranchDetails")]
         public async Task<IActionResult> Details(int Id) {
 
-            var branch = await branchService.GetByIdAsync(Id);
+            var branch = await unitOfWork.BranchRepository.GetByIdAsync(Id);
             return View("Details", branch);
         }
         [Authorize(Policy = "DeleteBranch")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await branchService.DeleteAsync(Id);
-            await branchService.SaveAsync();
+            await unitOfWork.BranchRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
         [HttpGet]
         [Authorize(Policy = "EditBranch")]
         public async Task<IActionResult> Edit(int Id)
         {
-            var existingBranch = await branchService.GetByIdAsync(Id);
+            var existingBranch = await unitOfWork.BranchRepository.GetByIdAsync(Id);
             var mappedExistingBranch = _mapper.Map<EditBranchViewModel>(existingBranch);
             return View("Edit",mappedExistingBranch);
         }
@@ -74,8 +74,8 @@ namespace ShippingSystem.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var editedRecord = _mapper.Map<Branches>(branchVM);
-                await branchService.UpdateAsync(editedRecord);
-                await branchService.SaveAsync();
+                await unitOfWork.BranchRepository.UpdateAsync(editedRecord);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
 
             }

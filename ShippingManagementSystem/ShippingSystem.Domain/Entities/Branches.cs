@@ -1,5 +1,4 @@
-﻿using ShippingSystem.Domain.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -15,7 +14,6 @@ namespace ShippingSystem.Domain.Entities
         [Required(ErrorMessage ="You Must Enter Branch Name")]
         [MaxLength(20)]
         [MinLength(5)]
-        [UniqueBranch]
         public string Name { get; set; }
         [Required(ErrorMessage ="You Must Enter Branch Location")]
         [MaxLength(100)]

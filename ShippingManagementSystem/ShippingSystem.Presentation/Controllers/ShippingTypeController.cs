@@ -1,22 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class ShippingTypeController : Controller
     {
-        private readonly IGenericService<ShippingTypes> _shippingTypeService;
-        public ShippingTypeController(IGenericService<ShippingTypes> _shippingTypeService)
+        private readonly IUnitOfWork unitOfWork;
+        public ShippingTypeController(IUnitOfWork unitOfWork)
         {
-            this._shippingTypeService = _shippingTypeService;
+            this.unitOfWork = unitOfWork;
         }
         [HttpGet]
         [Authorize(Policy = "ViewShippingTypes")]
         public async Task<IActionResult> Index()
         {
-            List<ShippingTypes> shippingTypeList = await _shippingTypeService.GetAllAsync();
+            List<ShippingTypes> shippingTypeList = await unitOfWork.ShippingTypesRepository.GetAllAsync();
             return View("Index",shippingTypeList);
         }
         [HttpGet]
@@ -31,8 +31,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _shippingTypeService.AddAsync(newType);
-                await _shippingTypeService.SaveAsync();
+                await unitOfWork.ShippingTypesRepository.AddAsync(newType);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Add",newType);
@@ -42,7 +42,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "EditShippingType")]
         public async Task<IActionResult> Edit(int Id)
         {
-            var shippingTypeFromDB = await _shippingTypeService.GetByIdAsync(Id);
+            var shippingTypeFromDB = await unitOfWork.ShippingTypesRepository.GetByIdAsync(Id);
             return View("Edit",shippingTypeFromDB);
         }
         [HttpPost]
@@ -51,8 +51,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _shippingTypeService.UpdateAsync(editedShippingType);
-                await _shippingTypeService.SaveAsync();
+                await unitOfWork.ShippingTypesRepository.UpdateAsync(editedShippingType);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Edit",editedShippingType);
@@ -60,8 +60,8 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "DeleteShippingType")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await _shippingTypeService.DeleteAsync(Id);
-            await _shippingTypeService.SaveAsync();
+            await unitOfWork.ShippingTypesRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
     }

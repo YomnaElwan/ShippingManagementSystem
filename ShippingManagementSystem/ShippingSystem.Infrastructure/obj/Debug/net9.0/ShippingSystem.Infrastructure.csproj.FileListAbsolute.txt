@@ -34,3 +34,5 @@ D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagement
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Infrastructure\obj\Debug\net9.0\ShippingSystem.Infrastructure.pdb
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Infrastructure\obj\Debug\net9.0\ShippingSystem.Infrastructure.genruntimeconfig.cache
 D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Infrastructure\obj\Debug\net9.0\ref\ShippingSystem.Infrastructure.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Infrastructure\bin\Debug\net9.0\ShippingSystem.Application.dll
+D:\Data [Yomna]\Software Engineer\ShippingManagementSystemMVC\ShippingManagementSystem\ShippingSystem.Infrastructure\bin\Debug\net9.0\ShippingSystem.Application.pdb

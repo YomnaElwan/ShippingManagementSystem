@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ShippingSystem.Application\ShippingSystem.Application.csproj" />
     <ProjectReference Include="..\ShippingSystem.Domain\ShippingSystem.Domain.csproj" />
   </ItemGroup>
 

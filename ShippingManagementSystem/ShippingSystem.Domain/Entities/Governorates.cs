@@ -1,5 +1,4 @@
-﻿using ShippingSystem.Domain.Validation;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +12,6 @@ namespace ShippingSystem.Domain.Entities
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="You must enter governorate name!")]
-        [UniqueGov]
         [MinLength(4)]
         [MaxLength(15)]
         public string Name { get; set; }

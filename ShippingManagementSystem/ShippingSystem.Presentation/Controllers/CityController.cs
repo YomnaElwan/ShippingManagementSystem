@@ -1,26 +1,19 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.CityVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class CityController : Controller
     {
-        private readonly IGenericService<Cities> cityService;
-        private readonly ICityService citiesService;
-        private readonly IGenericService<Governorates> governoratesService;
+        private readonly IUnitOfWork unitOfWork;
         private readonly IMapper _mapper;
-        public CityController(IGenericService<Cities> cityService,
-                              ICityService citiesService,
-                              IGenericService<Governorates> governoratesService,
-                              IMapper _mapper)
+        public CityController(IUnitOfWork unitOfWork,IMapper _mapper)
         {
-            this.cityService = cityService;
-            this.citiesService = citiesService;
-            this.governoratesService = governoratesService;
+            this.unitOfWork = unitOfWork;
             this._mapper = _mapper;
         }
         [HttpGet]
@@ -39,7 +32,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewCities")]
         public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
-            List<Cities> cityList = await cityService.GetAllAsync();
+            List<Cities> cityList = await unitOfWork.CityRepository.GetAllAsync();
             int totalItems = cityList.Count();
             var allCities = cityList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.CurrentPage = pageNumber;
@@ -50,7 +43,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewCityDetails")]
         public async Task<IActionResult> Details(int Id)
         {
-            Cities cityDetails = await citiesService.cityHasGov(Id);
+            Cities cityDetails = await unitOfWork.SpecificCityRepository.cityHasGov(Id);
             return View("Details",cityDetails);
         }
 
@@ -58,7 +51,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "AddNewCity")]
         public async Task<IActionResult> Add()
         {
-            List<Governorates> govList = await governoratesService.GetAllAsync();
+            List<Governorates> govList = await unitOfWork.GovernorateRepository.GetAllAsync();
             CityViewModel cityVM = new CityViewModel()
             {
                 GovernoratesList = govList
@@ -76,26 +69,26 @@ namespace ShippingSystem.Presentation.Controllers
             }
             if (ModelState.IsValid) {
                 var cityModel = _mapper.Map<Cities>(cityVM);
-                await cityService.AddAsync(cityModel);
-                await cityService.SaveAsync();
+                await unitOfWork.CityRepository.AddAsync(cityModel);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
-            cityVM.GovernoratesList = await governoratesService.GetAllAsync();
+            cityVM.GovernoratesList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Add",cityVM);
         }
         [Authorize(Policy = "DeleteCity")]
         public async Task<IActionResult> Delete(int Id)
         {
-           await citiesService.DeleteAsync(Id);
-           await citiesService.SaveAsync();
+           await unitOfWork.SpecificCityRepository.DeleteAsync(Id);
+           await unitOfWork.SaveAsync();
            return RedirectToAction("Index");
         }
         [HttpGet]
         [Authorize(Policy = "EditCity")]
         public async Task<IActionResult> Edit(int Id)
         {
-            List<Governorates> govList = await governoratesService.GetAllAsync();
-            var existingCity = await citiesService.cityHasGov(Id);
+            List<Governorates> govList = await unitOfWork.GovernorateRepository.GetAllAsync();
+            var existingCity = await unitOfWork.SpecificCityRepository.cityHasGov(Id);
             var existingCityVM = _mapper.Map<CityViewModel>(existingCity);
             existingCityVM.GovernoratesList = govList;
             return View("Edit",existingCityVM);
@@ -107,11 +100,11 @@ namespace ShippingSystem.Presentation.Controllers
             if (ModelState.IsValid)
             {
                 var editedCity = _mapper.Map<Cities>(cityVM);
-                await cityService.UpdateAsync(editedCity);
-                await cityService.SaveAsync();
+                await unitOfWork.CityRepository.UpdateAsync(editedCity);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
-            cityVM.GovernoratesList = await governoratesService.GetAllAsync();
+            cityVM.GovernoratesList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Edit",cityVM);
         }
      

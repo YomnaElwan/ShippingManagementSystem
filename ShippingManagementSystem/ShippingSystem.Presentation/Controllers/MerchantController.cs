@@ -1,56 +1,37 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.MerchantVM;
 using ShippingSystem.Presentation.ViewModels.OrderVM;
-using System.Linq.Expressions;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class MerchantController : Controller
     {
-        private readonly IGenericService<Governorates> govService;
-        private readonly IGenericService<Branches> branchService;
-        private readonly ICityService cityService;
+        private readonly IUnitOfWork unitOfWork;
         private readonly UserManager<ApplicationUser> userService;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IGenericService<Merchants> merchantService;
-        private readonly IMerchantService _merService;
-        private readonly IGenericService<Orders> orderService;
-        private readonly IGenericService<OrderStatus> orderStsService;
-        public MerchantController(IGenericService<Governorates> govService,
-                                  IGenericService<Branches> branchService,
-                                  ICityService cityService,
+        public MerchantController(IUnitOfWork unitOfWork,
                                   UserManager<ApplicationUser> userService,
-                                  SignInManager<ApplicationUser> signInManager,
-                                  IGenericService<Merchants> merchantService,
-                                  IMerchantService _merService,
-                                  IGenericService<Orders> orderService,
-                                  IGenericService<OrderStatus> orderStsService)
+                                  SignInManager<ApplicationUser> signInManager
+                                 )
         {
-            this.govService = govService;
-            this.branchService = branchService;
-            this.cityService = cityService;
+            this.unitOfWork = unitOfWork;
             this.userService = userService;
             this.signInManager = signInManager;
-            this.merchantService = merchantService;
-            this._merService = _merService;
-            this.orderService = orderService;
-            this.orderStsService = orderStsService;
-
         }
         [HttpGet]
         [Authorize(Policy = "ViewMerchantHome")]
         public async Task<IActionResult> MerchantHome()
         {
-            List<Orders> orderList = await orderService.GetAllAsync();
+            List<Orders> orderList = await unitOfWork.OrderRepository.GetAllAsync();
 
             OrdersHomeVM mappedMerchantHome = new OrdersHomeVM()
             {
                 OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order=>order.Key,order=>order.Count()),
-                OrderStatusList = await orderStsService.GetAllAsync()
+                OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync()
 
             };
             return View("OrdersHome",mappedMerchantHome);
@@ -59,28 +40,28 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewMerchants")]
         public async Task<IActionResult> Index()
         {
-            List<Merchants> merchantList =await _merService.SpecialMerchantsList();
+            List<Merchants> merchantList =await unitOfWork.SpecificMerchantRepository.SpecialMerchantsList();
             return View("Index",merchantList);
         }
         [HttpGet]
         [Authorize(Policy = "ViewMerchantDetails")]
         public async Task<IActionResult> Details(int Id)
         {
-            Merchants merchantDetails = await _merService.GetMerchantById(Id);
+            Merchants merchantDetails = await unitOfWork.SpecificMerchantRepository.GetMerchantById(Id);
             return View("Details",merchantDetails);
         }
         [HttpGet]
         public async Task<IActionResult> CityList(int govId)
         {
-            List<Cities> cityList = await cityService.cityListByGov(govId);
+            List<Cities> cityList = await unitOfWork.SpecificCityRepository.cityListByGov(govId);
             return Json(cityList);
         }
         [HttpGet]
         [Authorize(Policy = "AddNewMerchant")]
         public async Task <IActionResult> Add()
         {
-            List<Branches> branchList = await branchService.GetAllAsync();
-            List<Governorates> govList = await govService.GetAllAsync();
+            List<Branches> branchList = await unitOfWork.BranchRepository.GetAllAsync();
+            List<Governorates> govList = await unitOfWork.GovernorateRepository.GetAllAsync();
             AddMerchantVM newMerchant = new AddMerchantVM()
             {
                 BranchList = branchList,
@@ -129,8 +110,8 @@ namespace ShippingSystem.Presentation.Controllers
                         CityId = newMerchantFromUser.CityId,
                         GovernorateId = newMerchantFromUser.GovernorateId
                     };
-                    await merchantService.AddAsync(newMerchant);
-                    await merchantService.SaveAsync();
+                    await unitOfWork.MerchantRepository.AddAsync(newMerchant);
+                    await unitOfWork.SaveAsync();
                     return RedirectToAction("Index");
                 }
                 else
@@ -141,16 +122,16 @@ namespace ShippingSystem.Presentation.Controllers
                     }
                 }
             }
-            newMerchantFromUser.BranchList = await branchService.GetAllAsync();
+            newMerchantFromUser.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
             newMerchantFromUser.CityList = new List<Cities>();
-            newMerchantFromUser.GovList = await govService.GetAllAsync();
+            newMerchantFromUser.GovList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Add", newMerchantFromUser);
         }
         [HttpGet]
         [Authorize(Policy = "EditMerchant")]
         public async Task<IActionResult> Edit(int Id)
         {
-            var existMerchant = await _merService.GetMerchantById(Id);
+            var existMerchant = await unitOfWork.SpecificMerchantRepository.GetMerchantById(Id);
             EditMerchantVM mappedEditMerchant = new EditMerchantVM()
             {
                 Id=existMerchant.Id,
@@ -165,9 +146,9 @@ namespace ShippingSystem.Presentation.Controllers
                 RejOrderCostPercent=existMerchant.RejOrderCostPercent,
                 SpecialPackUpCost=existMerchant.SpecialPackUpCost,
             };
-            mappedEditMerchant.BranchList =await branchService.GetAllAsync();
-            mappedEditMerchant.CityList = await cityService.GetAllAsync();
-            mappedEditMerchant.GovList = await govService.GetAllAsync();
+            mappedEditMerchant.BranchList =await unitOfWork.BranchRepository.GetAllAsync();
+            mappedEditMerchant.CityList = await unitOfWork.SpecificCityRepository.GetAllAsync();
+            mappedEditMerchant.GovList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Edit",mappedEditMerchant);
         }
         [HttpPost]
@@ -176,7 +157,7 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                var merchantFromDB = await _merService.GetMerchantById(editedMerchant.Id);
+                var merchantFromDB = await unitOfWork.SpecificMerchantRepository.GetMerchantById(editedMerchant.Id);
                 merchantFromDB.User.UserName = editedMerchant.MerchantName;
                 merchantFromDB.User.Email = editedMerchant.MerchantEmail;
                 merchantFromDB.User.Address = editedMerchant.MerchantAddress;
@@ -187,20 +168,20 @@ namespace ShippingSystem.Presentation.Controllers
                 merchantFromDB.CompanyName = editedMerchant.CompanyName;
                 merchantFromDB.RejOrderCostPercent = editedMerchant.RejOrderCostPercent;
                 merchantFromDB.SpecialPackUpCost = editedMerchant.SpecialPackUpCost;
-                await merchantService.UpdateAsync(merchantFromDB);
-                await merchantService.SaveAsync();
+                await unitOfWork.MerchantRepository.UpdateAsync(merchantFromDB);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
-            editedMerchant.BranchList = await branchService.GetAllAsync();
+            editedMerchant.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
             editedMerchant.CityList = new List<Cities>();
-            editedMerchant.GovList = await govService.GetAllAsync();
+            editedMerchant.GovList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Edit",editedMerchant);
         }
         [Authorize(Policy = "DeleteMerchant")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await merchantService.DeleteAsync(Id);
-            await merchantService.SaveAsync();
+            await unitOfWork.MerchantRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
 

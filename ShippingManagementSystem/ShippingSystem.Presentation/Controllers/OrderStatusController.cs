@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.OrderItemsVM;
 using ShippingSystem.Presentation.ViewModels.OrderStatusVM;
 
@@ -9,16 +9,16 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class OrderStatusController : Controller
     {
-        private readonly IGenericService<OrderStatus> orderStatusService;
-        public OrderStatusController(IGenericService<OrderStatus> orderStatusService)
+        private readonly IUnitOfWork unitOfWork;
+        public OrderStatusController(IUnitOfWork unitOfWork)
         {
-            this.orderStatusService = orderStatusService;
+            this.unitOfWork = unitOfWork;
         }
         [HttpGet]
         [Authorize(Policy = "ViewAllOrderStatus")]
         public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
-            List<OrderStatus> orderStatusList = await orderStatusService.GetAllAsync();
+            List<OrderStatus> orderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync();
             var totalItems = orderStatusList.Count();
             var allOrderSts = orderStatusList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.CurrentPage = pageNumber;
@@ -40,8 +40,8 @@ namespace ShippingSystem.Presentation.Controllers
                 OrderStatus newOrderSts = new OrderStatus() { 
                 Name=newStatus.StsName
                 };
-                await orderStatusService.AddAsync(newOrderSts);
-                await orderStatusService.SaveAsync();
+                await unitOfWork.OrderStatusRepository.AddAsync(newOrderSts);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
              
             }
@@ -51,7 +51,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "EditOrderStatus")]
         public async Task<IActionResult> Edit(int Id)
         {
-            OrderStatus orderStatusFromDB = await orderStatusService.GetByIdAsync(Id);
+            OrderStatus orderStatusFromDB = await unitOfWork.OrderStatusRepository.GetByIdAsync(Id);
             EditOrderStatusVM editOrderStatus = new EditOrderStatusVM()
             {
                 Id = orderStatusFromDB.Id,
@@ -64,10 +64,10 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> SaveEdit(EditOrderStatusVM editFromUser)
         {
             if (ModelState.IsValid) {
-                OrderStatus orderStatusFromDatabase = await orderStatusService.GetByIdAsync(editFromUser.Id);
+                OrderStatus orderStatusFromDatabase = await unitOfWork.OrderStatusRepository.GetByIdAsync(editFromUser.Id);
                 orderStatusFromDatabase.Name = editFromUser.StsName;
-                await orderStatusService.UpdateAsync(orderStatusFromDatabase);
-                await orderStatusService.SaveAsync();
+                await unitOfWork.OrderStatusRepository.UpdateAsync(orderStatusFromDatabase);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Edit",editFromUser);
@@ -75,8 +75,8 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "DeleteOrderStatus")]
         public async Task<IActionResult>Delete(int Id)
         {
-            await orderStatusService.DeleteAsync(Id);
-            await orderStatusService.SaveAsync();
+            await unitOfWork.OrderStatusRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
     }

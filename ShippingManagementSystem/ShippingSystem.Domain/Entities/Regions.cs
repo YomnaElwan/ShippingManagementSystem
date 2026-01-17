@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ShippingSystem.Application.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +12,6 @@ namespace ShippingSystem.Domain.Entities
     {
         public int Id { get; set; }
         [Required(ErrorMessage ="Please enter region name !")]
-        [UniqueRegion]
         [MinLength(4)]
         [MaxLength(20)]
         public string Name { get; set; }

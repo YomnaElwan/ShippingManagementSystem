@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.EmployeeVM;
 using ShippingSystem.Presentation.ViewModels.OrderVM;
 
@@ -10,38 +10,27 @@ namespace ShippingSystem.Presentation.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly IGenericService<Branches> branchService;
+        private readonly IUnitOfWork unitOfWork;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IGenericService<Employees> empService;
-        private readonly IEmployeeService employeeService;
-        private readonly IGenericService<Orders> orderService;
-        private readonly IGenericService<OrderStatus> orderStsService;
-        public EmployeeController(IGenericService<Branches> branchService,
+        public EmployeeController(IUnitOfWork unitOfWork,
                                   UserManager<ApplicationUser> userManager,
-                                  SignInManager<ApplicationUser> signInManager,
-                                  IGenericService<Employees> empService,
-                                  IEmployeeService employeeService,
-                                  IGenericService<Orders> orderService,
-                                  IGenericService<OrderStatus> orderStsService)
+                                  SignInManager<ApplicationUser> signInManager
+            )
         {
-            this.branchService = branchService;
+            this.unitOfWork = unitOfWork;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.empService = empService;
-            this.employeeService = employeeService;
-            this.orderService = orderService;
-            this.orderStsService = orderStsService;
         }
         [HttpGet]
         [Authorize(Policy = "ViewEmployeeHome")]
         public async Task<IActionResult> EmployeeHome()
         {
-            List<Orders> orderList = await orderService.GetAllAsync();
+            List<Orders> orderList = await unitOfWork.OrderRepository.GetAllAsync();
             OrdersHomeVM mappedEmployeeeHome = new OrdersHomeVM()
             {
                 OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order => order.Key, order => order.Count()),
-                OrderStatusList = await orderStsService.GetAllAsync()
+                OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync()
             };
             return View("OrdersHome",mappedEmployeeeHome);
         }
@@ -49,7 +38,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewEmployees")]
         public async Task<IActionResult> Index()
         {
-            List<Employees> empList = await employeeService.EmpListWithBranch();
+            List<Employees> empList = await unitOfWork.SpecificEmployeeRepository.EmpListWithBranch();
             List<GetEmployeeListViewModel> empListMapped = empList.Select(e => new GetEmployeeListViewModel
             {
                 EmployeeId=e.Id,
@@ -67,7 +56,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "AddNewEmployee")]
         public async Task<IActionResult> Add()
         {
-            List<Branches> branches = await branchService.GetAllAsync();
+            List<Branches> branches = await unitOfWork.BranchRepository.GetAllAsync();
             AddEmployeeViewModel modelIncludeBranchList = new AddEmployeeViewModel() {
                BranchList=branches
             };
@@ -101,8 +90,8 @@ namespace ShippingSystem.Presentation.Controllers
                         BranchId = newEmpFromUser.BranchId,
                         User = newUser
                     };
-                    await empService.AddAsync(newEmp);
-                    await empService.SaveAsync();
+                    await unitOfWork.EmployeeRepository.AddAsync(newEmp);
+                    await unitOfWork.SaveAsync();
                     return RedirectToAction("Index");
 
                 }
@@ -115,14 +104,14 @@ namespace ShippingSystem.Presentation.Controllers
                 }
               
             }
-            newEmpFromUser.BranchList = await branchService.GetAllAsync();
+            newEmpFromUser.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
             return View("Add",newEmpFromUser);
         }
         [HttpGet]
         [Authorize(Policy = "EditEmployee")]
         public async Task<IActionResult> Edit(int Id)
         {
-            Employees empById = await employeeService.EmpWithUserById(Id);
+            Employees empById = await unitOfWork.SpecificEmployeeRepository.EmpWithUserById(Id);
             EmployeeEditViewModel mappedEmployee = new EmployeeEditViewModel()
             {
                 EmployeeName=empById.User.UserName,
@@ -131,7 +120,7 @@ namespace ShippingSystem.Presentation.Controllers
                 EmployeeAddress=empById.User.Address,
                 BranchId=empById.BranchId,
             };
-            mappedEmployee.BranchList =await branchService.GetAllAsync();
+            mappedEmployee.BranchList =await unitOfWork.BranchRepository.GetAllAsync();
             return View("Edit",mappedEmployee);
         }
         [HttpPost]
@@ -140,7 +129,7 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employees empFromDB = await employeeService.EmpWithUserById(editModelFromUser.Id);
+                Employees empFromDB = await unitOfWork.SpecificEmployeeRepository.EmpWithUserById(editModelFromUser.Id);
 
                 empFromDB.User.UserName = editModelFromUser.EmployeeName;
                 empFromDB.User.PhoneNumber = editModelFromUser.EmployeePhone;
@@ -148,8 +137,8 @@ namespace ShippingSystem.Presentation.Controllers
                 empFromDB.User.Email = editModelFromUser.EmployeeEmail;
                 empFromDB.BranchId = editModelFromUser.BranchId;
                 empFromDB.Id= editModelFromUser.Id;
-                await empService.UpdateAsync(empFromDB);
-                await empService.SaveAsync();
+                await unitOfWork.EmployeeRepository.UpdateAsync(empFromDB);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Edit",editModelFromUser);
@@ -158,8 +147,8 @@ namespace ShippingSystem.Presentation.Controllers
 
         public async Task<IActionResult> Delete(int Id)
         {
-            await empService.DeleteAsync(Id);
-            await empService.SaveAsync();
+            await unitOfWork.EmployeeRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
     }

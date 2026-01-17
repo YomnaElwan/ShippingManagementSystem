@@ -1,40 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
-using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.CourierVM;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class CourierController : Controller
     {
-        private readonly IGenericService<Governorates> govService;
-        private readonly IGenericService<Branches> branchService;
+        private readonly IUnitOfWork unitOfWork;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-        private readonly IGenericService<Couriers> courierService;
-        private readonly ICourierService serviceCourier;
-        public CourierController(IGenericService<Governorates> govService,
-                                 IGenericService<Branches> branchService,
+        public CourierController(IUnitOfWork unitOfWork,
                                  UserManager<ApplicationUser> userManager,
-                                 SignInManager<ApplicationUser> signInManager,
-                                 IGenericService<Couriers> courierService,
-                                 ICourierService serviceCourier)
+                                 SignInManager<ApplicationUser> signInManager)
         {
-            this.govService = govService;
-            this.branchService = branchService;
             this.userManager = userManager;
             this.signInManager = signInManager;
-            this.courierService = courierService;
-            this.serviceCourier = serviceCourier;
+      
         }
         [HttpGet]
         [Authorize(Policy = "ViewCouriers")]
         public async Task <IActionResult> Index()
         {
-            List<Couriers> courierList = await serviceCourier.CourierList();
+            List<Couriers> courierList = await unitOfWork.SpecificCourierRepository.CourierList();
             List<ReadCourierViewModel> courierListMapped = courierList.Select(c => new ReadCourierViewModel
             {
                 CourierId = c.Id,
@@ -51,7 +41,7 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy= "ViewCourierDetails")]
         public async Task<IActionResult> Details(int Id)
         {
-            Couriers courierFromDB = await serviceCourier.CourierWithDataById(Id);
+            Couriers courierFromDB = await unitOfWork.SpecificCourierRepository.CourierWithDataById(Id);
             ReadCourierViewModel mappedCourier = new ReadCourierViewModel()
             {
                 CourierId = courierFromDB.Id,
@@ -73,8 +63,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             CourierAddViewModel viewModel = new CourierAddViewModel()
             {
-                BranchList = await branchService.GetAllAsync(),
-                GovernoratesList = await govService.GetAllAsync(),
+                BranchList = await unitOfWork.BranchRepository.GetAllAsync(),
+                GovernoratesList = await unitOfWork.GovernorateRepository.GetAllAsync(),
             };
             return View("Add",viewModel);
         }
@@ -112,8 +102,8 @@ namespace ShippingSystem.Presentation.Controllers
                         DiscountValue = newCourierFromUser.CompanyDiscountValue,
                         DiscountTypeOption = newCourierFromUser.DiscountTypeOptions.Value,
                   };
-                    await courierService.AddAsync(newCourier);
-                    await courierService.SaveAsync();
+                    await unitOfWork.CourierRepository.AddAsync(newCourier);
+                    await unitOfWork.SaveAsync();
                     return RedirectToAction("Index");
 
                 }
@@ -127,15 +117,15 @@ namespace ShippingSystem.Presentation.Controllers
              
 
             }
-            newCourierFromUser.BranchList = await branchService.GetAllAsync();
-            newCourierFromUser.GovernoratesList = await govService.GetAllAsync();
+            newCourierFromUser.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
+            newCourierFromUser.GovernoratesList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Add",newCourierFromUser);
         }
         [HttpGet]
         [Authorize(Policy = "EditCourier")]
         public async Task<IActionResult> Edit(int Id)
         {
-            Couriers courierFromDB = await serviceCourier.CourierWithDataById(Id);
+            Couriers courierFromDB = await unitOfWork.SpecificCourierRepository.CourierWithDataById(Id);
             EditCourierViewModel editCourier = new EditCourierViewModel()
             {
                 Id=courierFromDB.Id,
@@ -148,8 +138,8 @@ namespace ShippingSystem.Presentation.Controllers
                 DiscountTypeOptions = courierFromDB.DiscountTypeOption,
                 CompanyDiscountValue = courierFromDB.DiscountValue
             };
-            editCourier.BranchList= await branchService.GetAllAsync();
-            editCourier.GovernorateList = await govService.GetAllAsync();
+            editCourier.BranchList= await unitOfWork.BranchRepository.GetAllAsync();
+            editCourier.GovernorateList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Edit",editCourier);
         }
         [HttpPost]
@@ -158,7 +148,7 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                Couriers courierFromDB = await serviceCourier.CourierWithDataById(editedModel.Id);
+                Couriers courierFromDB = await unitOfWork.SpecificCourierRepository.CourierWithDataById(editedModel.Id);
                 courierFromDB.User.UserName = editedModel.CourierName;
                 courierFromDB.User.Email = editedModel.CourierEmail;
                 courierFromDB.User.PhoneNumber = editedModel.CourierPhone;
@@ -167,19 +157,19 @@ namespace ShippingSystem.Presentation.Controllers
                 courierFromDB.GovernorateId = editedModel.GovernorateId;
                 courierFromDB.DiscountTypeOption = editedModel.DiscountTypeOptions.Value;
                 courierFromDB.DiscountValue = editedModel.CompanyDiscountValue;
-                await courierService.UpdateAsync(courierFromDB);
-                await courierService.SaveAsync();
+                await unitOfWork.CourierRepository.UpdateAsync(courierFromDB);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
-            editedModel.BranchList = await branchService.GetAllAsync();
-            editedModel.GovernorateList = await govService.GetAllAsync();
+            editedModel.BranchList = await unitOfWork.BranchRepository.GetAllAsync();
+            editedModel.GovernorateList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Edit",editedModel);
         }
         [Authorize(Policy = "DeleteCourier")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await courierService.DeleteAsync(Id);
-            await courierService.SaveAsync();
+            await unitOfWork.CourierRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
     }

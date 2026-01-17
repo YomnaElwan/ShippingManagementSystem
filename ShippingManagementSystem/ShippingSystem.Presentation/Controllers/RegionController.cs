@@ -1,27 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.Operations;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
+using ShippingSystem.Domain.IUnitWorks;
 
 namespace ShippingSystem.Presentation.Controllers
 {
     public class RegionController : Controller
     {
-        private readonly IGenericService<Regions> _regionService;
-        private readonly IGovernorateService _govsService;
-        public RegionController(IGenericService<Regions> _regionService,
-                                IGovernorateService _govsService)
+        private readonly IUnitOfWork unitOfWork;
+        public RegionController(IUnitOfWork unitOfWork)
         {
-            this._regionService = _regionService;
-            this._govsService = _govsService;
+            this.unitOfWork = unitOfWork;   
         }
         [HttpGet]
         [Authorize(Policy = "ViewRegions")]
         public async Task<IActionResult> Index(int pageNumber=1, int pageSize=5)
         {
-            List<Regions> regionsList = await _regionService.GetAllAsync();
+            List<Regions> regionsList = await unitOfWork.RegionRepository.GetAllAsync();
             var totalItems = regionsList.Count();
             var totalRegions = regionsList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.CurrentPage = pageNumber;
@@ -42,8 +37,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _regionService.AddAsync(newRegion);
-                await _regionService.SaveAsync();
+                await unitOfWork.RegionRepository.AddAsync(newRegion);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("AddNew", newRegion);
@@ -52,23 +47,23 @@ namespace ShippingSystem.Presentation.Controllers
         [Authorize(Policy = "ViewRegionDetails")]
         public async Task<IActionResult> Details(int Id)
         {
-            Regions region = await _regionService.GetByIdAsync(Id);
-            List<Governorates> govsinRegionList = await _govsService.regionGovsList(Id);
+            Regions region = await unitOfWork.RegionRepository.GetByIdAsync(Id);
+            List<Governorates> govsinRegionList = await unitOfWork.SpecificGovernorateRepository.regionGovsList(Id);
             region.Governorates = govsinRegionList;
             return View("Details", region);
         }
         [Authorize(Policy = "DeleteRegion")]
         public async Task<IActionResult> Delete(int Id)
         {
-            await _regionService.DeleteAsync(Id);
-            await _regionService.SaveAsync();
+            await unitOfWork.RegionRepository.DeleteAsync(Id);
+            await unitOfWork.SaveAsync();
             return RedirectToAction("Index");
         }
         [HttpGet]
         [Authorize(Policy = "EditRegion")]
         public async Task<IActionResult> Edit(int Id)
         {
-            Regions region = await _regionService.GetByIdAsync(Id);
+            Regions region = await unitOfWork.RegionRepository.GetByIdAsync(Id);
             return View("Edit",region);
         }
         [HttpPost]
@@ -77,8 +72,8 @@ namespace ShippingSystem.Presentation.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _regionService.UpdateAsync(region);
-                await _regionService.SaveAsync();
+                await unitOfWork.RegionRepository.UpdateAsync(region);
+                await unitOfWork.SaveAsync();
                 return RedirectToAction("Index");
             }
             return View("Edit", region);

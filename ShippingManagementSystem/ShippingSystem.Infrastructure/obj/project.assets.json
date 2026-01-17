@@ -1694,6 +1694,19 @@
           }
         }
       },
+      "ShippingSystem.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v9.0",
+        "dependencies": {
+          "ShippingSystem.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/ShippingSystem.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ShippingSystem.Application.dll": {}
+        }
+      },
       "ShippingSystem.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v9.0",
@@ -4932,6 +4945,11 @@
         "useSharedDesignerContext.txt"
       ]
     },
+    "ShippingSystem.Application/1.0.0": {
+      "type": "project",
+      "path": "../ShippingSystem.Application/ShippingSystem.Application.csproj",
+      "msbuildProject": "../ShippingSystem.Application/ShippingSystem.Application.csproj"
+    },
     "ShippingSystem.Domain/1.0.0": {
       "type": "project",
       "path": "../ShippingSystem.Domain/ShippingSystem.Domain.csproj",
@@ -4945,6 +4963,7 @@
       "Microsoft.EntityFrameworkCore >= 9.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.8",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.8",
+      "ShippingSystem.Application >= 1.0.0",
       "ShippingSystem.Domain >= 1.0.0"
     ]
   },
@@ -4980,6 +4999,9 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "projectReferences": {
+            "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Application\\ShippingSystem.Application.csproj": {
+              "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Application\\ShippingSystem.Application.csproj"
+            },
             "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj": {
               "projectPath": "D:\\Data [Yomna]\\Software Engineer\\ShippingManagementSystemMVC\\ShippingManagementSystem\\ShippingSystem.Domain\\ShippingSystem.Domain.csproj"
             }
@@ -4996,7 +5018,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.300"
+      "SdkAnalysisLevel": "10.0.100"
     },
     "frameworks": {
       "net9.0": {
@@ -5041,7 +5063,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

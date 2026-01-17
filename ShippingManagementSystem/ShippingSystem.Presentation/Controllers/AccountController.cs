@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Presentation.ViewModels.AccountVM;
 
@@ -27,6 +26,8 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //UserName: YomnaS
+        //Password: Yomna@Admin123
         public async Task<IActionResult> Register(RegisterViewModel userFromRequest)
         {
             if (ModelState.IsValid)
