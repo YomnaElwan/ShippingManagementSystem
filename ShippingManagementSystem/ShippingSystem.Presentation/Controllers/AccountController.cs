@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Domain.Entities;
@@ -10,13 +11,16 @@ namespace ShippingSystem.Presentation.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IMapper mapper;
        
         public AccountController(UserManager<ApplicationUser> userManager,
-                                 SignInManager<ApplicationUser> signInManager
+                                 SignInManager<ApplicationUser> signInManager,
+                                 IMapper mapper
                                  )
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            this.mapper=mapper;
         }
         [HttpGet]
         [Authorize(Policy = "Register")]
@@ -26,18 +30,21 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //UserName: YomnaS
-        //Password: Yomna@Admin123
+        //UserName: YomnaS or KangYuHan or Saif
+        //Password: Yomna@Admin123 or TheDevilJudge@2021 or Saif@123
         public async Task<IActionResult> Register(RegisterViewModel userFromRequest)
         {
             if (ModelState.IsValid)
             {
-                ApplicationUser newUser = new ApplicationUser()
-                {
-                    UserName = userFromRequest.Name,
-                    PasswordHash = userFromRequest.Password,
-                    Address = userFromRequest.Address
-                };
+                #region manual mapping
+                //ApplicationUser newUser = new ApplicationUser()
+                //{
+                //    UserName = userFromRequest.Name,
+                //    PasswordHash = userFromRequest.Password,
+                //    Address = userFromRequest.Address
+                //};
+                #endregion
+                ApplicationUser newUser = mapper.Map<ApplicationUser>(userFromRequest);
                 IdentityResult result = await userManager.CreateAsync(newUser, userFromRequest.Password);
                 if (result.Succeeded)
                 {

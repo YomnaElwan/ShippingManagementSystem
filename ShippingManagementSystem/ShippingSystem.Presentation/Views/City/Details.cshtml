@@ -1,11 +1,11 @@
-﻿@using ShippingSystem.Domain.Entities
-@model Cities
+﻿@using ShippingSystem.Presentation.ViewModels.CityVM
+@model ReadCityViewModel
 @{
     ViewData["Title"] = "Details";
 }
 <div class="card shadow-sm rounded bg-light bg-opacity-75 mb-3 mt-3">
     <div class="card-body">
-        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name</h5>
+        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.CityName</h5>
     </div>
 </div>
 <div class="table-responsive"></div>
@@ -20,10 +20,10 @@
     </thead>
     <tbody>
        <tr>
-           <td>@Model.Name</td>
+           <td>@Model.CityName</td>
            <td>@Model.DeliveryCost EGP</td>
            <td>@Model.PickupCost EGP</td>
-           <td>@Model.Governorate?.Name</td>
+           <td>@Model.GovernorateName</td>
        </tr>
     </tbody>
 </table>

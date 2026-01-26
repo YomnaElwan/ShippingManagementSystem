@@ -1,5 +1,5 @@
-﻿@using ShippingSystem.Domain.Entities
-@model Regions
+﻿@using ShippingSystem.Presentation.ViewModels.RegionVM
+@model AddNewRegionViewModel
 @{
     ViewData["Title"] = "Add New Region";
 }
@@ -18,7 +18,7 @@
 
                         <div class="mb-3">
                             <label asp-for="Name" class="form-label"></label>
-                            <input class="form-control" asp-for="Name" placeholder="Enter region name" />
+                            <input class="form-control" asp-for="Name" placeholder="Enter Region Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
 

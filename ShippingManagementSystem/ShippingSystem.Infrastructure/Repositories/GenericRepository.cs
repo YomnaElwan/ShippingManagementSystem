@@ -12,7 +12,7 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class GenericRepository<T>:IGenericRepository<T>where T:class
     {
-        private readonly ShippingDbContext context;
+        protected readonly ShippingDbContext context;
 
         public GenericRepository(ShippingDbContext context)
         {
@@ -38,7 +38,27 @@ namespace ShippingSystem.Infrastructure.Repositories
         {
             return await context.Set<T>().ToListAsync();
         }
-
+        public async Task<List<T>> ActiveList()
+        {
+            #region Cause error
+            /* (bool)prop.GetValue(x)) is a method call on c# object
+               .where --> EF --> turn it into sql
+                method calls like --> GetValue --> can't be turned into SQL
+                error --> The LINQ expression ... could not be translated*/
+            //var prop = typeof(T).GetProperty("IsActive");
+            //if(prop==null || prop.PropertyType != typeof(bool))
+            //    throw new InvalidOperationException("This entity doesn't have a property called 'IsActive'");
+            //return await context.Set<T>().Where(x => (bool)prop.GetValue(x)).ToListAsync();
+            #endregion
+            #region Solve
+            // all is c# object so I can use method calls like 'Get Value' because I won't deal with SQL
+            var all=await context.Set<T>().ToListAsync();
+            var prop = typeof(T).GetProperty("IsActive");
+            if (prop == null || prop.PropertyType != typeof(bool))
+                throw new InvalidOperationException("This entity doesn't have a property called 'IsActive'");
+            return all.Where(x => (bool)prop.GetValue(x)).ToList();
+            #endregion
+        }
         public async Task<T> GetByIdAsync(int Id)
         {
             return await context.Set<T>().FindAsync(Id);
@@ -70,6 +90,6 @@ namespace ShippingSystem.Infrastructure.Repositories
             {
                 context.Entry(existing).CurrentValues.SetValues(obj);
             }
-            }
+        }
     }
 }

@@ -12,18 +12,16 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class EmployeeRepository:GenericRepository<Employees>,IEmployeeRepository
     {
-        private readonly ShippingDbContext cxt;
-        public EmployeeRepository(ShippingDbContext cxt):base(cxt)
+        public EmployeeRepository(ShippingDbContext context):base(context)
         {
-            this.cxt = cxt;
         }
 
         public Task<List<Employees>> EmpListWithBranch(){
-            return cxt.Employee.Include(e => e.Branch).Include(u=>u.User).ToListAsync();
+            return context.Employee.Include(e => e.Branch).Include(u=>u.User).ToListAsync();
         }
         public async Task<Employees> EmpWithUserById(int empId)
         {
-            return await cxt.Employee.Include(e=>e.User).FirstOrDefaultAsync(e=>e.Id==empId);
+            return await context.Employee.Include(e=>e.User).Include(b=>b.Branch).FirstOrDefaultAsync(e=>e.Id==empId);
         }
     }
 }

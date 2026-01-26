@@ -1,5 +1,5 @@
-﻿@using ShippingSystem.Domain.Entities
-@model List<Merchants>
+﻿@using ShippingSystem.Presentation.ViewModels.MerchantVM
+@model List<ReadMerchantsViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -25,10 +25,10 @@
             {
                 <tr>
                     <td>@item.Id</td>
-                    <td>@item.User.UserName</td>
-                    <td>@item.User.Email</td>
-                    <td>@item.User.PhoneNumber</td>
-                    <td>@item?.Branch?.Name</td>
+                    <td>@item.MerchantName</td>
+                    <td>@item.MerchantEmail</td>
+                    <td>@item.MerchantPhoneNumber</td>
+                    <td>@item.BranchName</td>
                     <td>
                         <div class="form-check form-switch">
                             <input onclick="return false;" class="form-check-input" type="checkbox" @(item.IsActive ? "checked" : "") />

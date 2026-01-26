@@ -1,5 +1,5 @@
-﻿@using ShippingSystem.Domain.Entities
-@model WeightSettings
+﻿@using ShippingSystem.Presentation.ViewModels.WeightSettingsVM
+@model ReadWeightSettingsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -16,7 +16,7 @@
             <tr>
                 <td>@Model.BaseWeightLimit</td>
                 <td>@Model.PricePerKg</td>
-                <td>@Model.Cities.Name</td>
+                <td>@Model.CityName</td>
             </tr>
         </tbody>
     </table>

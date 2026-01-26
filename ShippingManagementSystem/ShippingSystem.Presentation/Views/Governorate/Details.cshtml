@@ -1,5 +1,5 @@
-﻿﻿@using ShippingSystem.Domain.Entities
-@model Governorates
+﻿@using ShippingSystem.Presentation.ViewModels.GovernorateVM
+@model ReadGovernoratesViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -7,7 +7,10 @@
 
 <div class="card shadow-sm rounded bg-light bg-opacity-75 mb-4">
     <div class="card-body">
-        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name</h5>
+        <h5 class="card-title">
+            <i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name
+            </h5>
+        <small class="text-light">  @Model.RegionName</small>
         <hr />
         <h6 class="card-subtitle mb-3 text-muted">Cities:</h6>
         <div>

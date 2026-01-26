@@ -12,14 +12,12 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class OrderItemsRepository : GenericRepository<OrderItem>, IOrderItemsRepository
     {
-        private readonly ShippingDbContext cxt;
-        public OrderItemsRepository(ShippingDbContext cxt):base(cxt)
+        public OrderItemsRepository(ShippingDbContext context):base(context)
         {
-            this.cxt = cxt;
         }
         public Task<List<OrderItem>> GetOrderItemsByOrderId(int OrderId)
         {
-            return cxt.OrderItems.Where(order => order.OrderId == OrderId).ToListAsync();
+            return context.OrderItems.Where(order => order.OrderId == OrderId).ToListAsync();
         }
     }
 }

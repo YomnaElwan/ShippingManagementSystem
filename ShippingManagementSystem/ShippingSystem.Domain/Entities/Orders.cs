@@ -48,7 +48,7 @@ namespace ShippingSystem.Domain.Entities
         [ForeignKey("PaymentMethod")]
         public int PaymentMethodId { get; set; }
         public PaymentMethods? PaymentMethod { get; set; }
-        public DateTime CreateAt { get; set; } = DateTime.Now;
+        public DateTime CreateAt { get; set; } = DateTime.UtcNow.AddHours(2);
         [ForeignKey("OrderStatus")]
         public int OrderStatusId { get; set; }
         public OrderStatus? OrderStatus { get; set; }

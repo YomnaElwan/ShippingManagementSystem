@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShippingSystem.Application.Common.Exceptions;
+using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.IUnitWorks;
 using ShippingSystem.Presentation.ViewModels.BranchVM;
@@ -12,19 +14,32 @@ namespace ShippingSystem.Presentation.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork unitOfWork;
-        public BranchController(IMapper _mapper, IUnitOfWork unitOfWork)
+        private readonly IBranchService branchService;
+        public BranchController(IMapper _mapper, IUnitOfWork unitOfWork,IBranchService branchService)
         {
             this._mapper = _mapper;
             this.unitOfWork = unitOfWork;
-          
+            this.branchService = branchService;
+
         }
         [HttpGet]
         [Authorize(Policy = "ViewBranches")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber=1,int pageSize=5)
         {
-            List<Branches> branchList = await unitOfWork.BranchRepository.GetAllAsync();
-            var model = _mapper.Map<List<ReadBranchesViewModel>>(branchList);
-            return View("Index",model);
+            List<Branches> branchList;
+            if (User.IsInRole("Admin"))
+            {
+                branchList = await unitOfWork.BranchRepository.GetAllAsync();
+            }
+            else {
+                branchList = await unitOfWork.BranchRepository.ActiveList();
+            }
+            int totalItems = branchList.Count();
+            var branchesInOnePage = branchList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var mappedBranches = _mapper.Map<List<ReadBranchesViewModel>>(branchesInOnePage);
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            return View("Index",mappedBranches);
         }
         [HttpGet]
         [Authorize(Policy = "AddNewBranch")]
@@ -36,21 +51,41 @@ namespace ShippingSystem.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveNew(AddBranchViewModel newBranchVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var newBranch = _mapper.Map<Branches>(newBranchVM);
-                await unitOfWork.BranchRepository.AddAsync(newBranch);
-                await unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
+                return View("Add", newBranchVM);
             }
-            return View("Add", newBranchVM);
+            try
+            {
+                Branches addNewBranch = _mapper.Map<Branches>(newBranchVM);
+                await branchService.AddBranch(addNewBranch);
+            }
+            #region  Generic Exception
+            //catch(Exception ex)
+            //{
+            //    ModelState.AddModelError("Name", ex.Message);
+            //    return View("Add", newBranchVM);
+            //}
+            #endregion
+            #region Custom Exception
+            catch(DuplicateEntityException ex)
+            {
+                ModelState.AddModelError("Name", ex.Message);
+                return View("Add", newBranchVM);
+            }
+            #endregion
+            return RedirectToAction("Index");
+
         }
         [HttpGet]
         [Authorize(Policy = "ViewBranchDetails")]
-        public async Task<IActionResult> Details(int Id) {
-
+        public async Task<IActionResult> Details(int Id)
+        {
             var branch = await unitOfWork.BranchRepository.GetByIdAsync(Id);
-            return View("Details", branch);
+            if (branch == null)
+                return NotFound($"Branch with id:{Id} can't be found");
+            var mappedBranch = _mapper.Map<ReadBranchesViewModel>(branch);
+            return View("Details", mappedBranch);
         }
         [Authorize(Policy = "DeleteBranch")]
         public async Task<IActionResult> Delete(int Id)
@@ -64,6 +99,8 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Edit(int Id)
         {
             var existingBranch = await unitOfWork.BranchRepository.GetByIdAsync(Id);
+            if (existingBranch == null)
+                return NotFound($"Branch with id:{Id} can't be found");
             var mappedExistingBranch = _mapper.Map<EditBranchViewModel>(existingBranch);
             return View("Edit",mappedExistingBranch);
         }
@@ -71,15 +108,34 @@ namespace ShippingSystem.Presentation.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveEdit(EditBranchViewModel branchVM)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var editedRecord = _mapper.Map<Branches>(branchVM);
-                await unitOfWork.BranchRepository.UpdateAsync(editedRecord);
-                await unitOfWork.SaveAsync();
-                return RedirectToAction("Index");
-
+                return View("Edit",branchVM);
             }
-            return View("Edit",branchVM);
+            try
+            {
+                Branches editBranch = _mapper.Map<Branches>(branchVM);
+                await branchService.UpdateBranch(editBranch);
+                return RedirectToAction("Index");
+            }
+            #region General Exception
+            //catch (Exception ex)
+            //{
+            //    ModelState.AddModelError("Name", ex.Message);
+            //    return View("Edit", branchVM);
+            //}
+            #endregion
+            #region Custom Exception 
+            catch(DuplicateEntityException ex)
+            {
+                ModelState.AddModelError("Name", ex.Message);
+                return View("Edit", branchVM);
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            #endregion
         }
     }
 }

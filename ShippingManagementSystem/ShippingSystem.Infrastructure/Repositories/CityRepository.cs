@@ -12,20 +12,18 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class CityRepository : GenericRepository<Cities>, ICityRepository
     {
-        private readonly ShippingDbContext cxt;
-        public CityRepository(ShippingDbContext cxt):base(cxt)
+        public CityRepository(ShippingDbContext context):base(context)
         {
-            this.cxt = cxt;
         }
 
         public async Task<Cities> cityHasGov(int cityId)
         {
-            return await cxt.City.Include(c => c.Governorate).FirstOrDefaultAsync(c => c.Id == cityId);
+            return await context.City.Include(c => c.Governorate).FirstOrDefaultAsync(c => c.Id == cityId);
         }
 
         public async Task<List<Cities>> cityListByGov(int govId)
         {
-            return await cxt.City.Where(c => c.GovernorateId == govId).ToListAsync();    
+            return await context.City.Where(c => c.GovernorateId == govId).ToListAsync();    
         }
     }
 }

@@ -11,5 +11,6 @@ namespace ShippingSystem.Domain.Interfaces
     {
         Task<WeightSettings> GetById(int Id);
         Task<WeightSettings> GetWeightSettByCityId(int cityId);
+        Task<WeightSettings> GetWeightSettingsIncludeCity(int id);
     }
 }

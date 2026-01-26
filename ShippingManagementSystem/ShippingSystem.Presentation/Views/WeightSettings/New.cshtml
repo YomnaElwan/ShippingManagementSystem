@@ -1,5 +1,5 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.WeightSettingsVM
-@model WeightSettingsViewModel
+@model AddWeightSettingsViewModel
 @{
     ViewData["Title"] = "New";
     SelectList cityList = new SelectList(Model.CityList, "Id", "Name");
@@ -17,19 +17,19 @@
                     <form asp-action="SaveNew" asp-controller="WeightSettings" method="post">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div>
-                            <label asp-for="BaseWeightLimit"></label>(Kg)
-                            <input asp-for="BaseWeightLimit" class="form form-control" />
+                            <label asp-for="BaseWeightLimit"></label>
+                            <input asp-for="BaseWeightLimit" class="form form-control" type="number" />
                             <span asp-validation-for="BaseWeightLimit" class="text-danger"></span>
                         </div>
                         <div>
-                            <label asp-for="PricePerKg"></label>(EGP)
-                            <input asp-for="PricePerKg" class="form form-control" />
+                            <label asp-for="PricePerKg"></label>
+                            <input asp-for="PricePerKg" class="form form-control" type="number" />
                             <span asp-validation-for="PricePerKg" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="CityId"></label>
                             <select asp-for="CityId" asp-items="cityList" class="form form-control">
-                                <option value="0">--Select City--</option>
+                                <option value="">--Select City--</option>
                             </select>
                             <span asp-validation-for="CityId" class="text-danger"></span>
                         </div>

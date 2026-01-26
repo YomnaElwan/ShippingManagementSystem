@@ -1,5 +1,5 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.GovernorateVM
-@model EditGovRegionViewModel
+@model EditGovernorateViewModel
 @{
     ViewData["Title"] = "Edit";
     SelectList regionList = new SelectList(Model.RegionList, "Id", "Name");
@@ -19,12 +19,14 @@
                         </div>
                         <div>
                             <label asp-for="Name"></label>
-                            <input asp-for="Name" class="form form-control" />
+                            <input asp-for="Name" class="form form-control" placeholder="Edit Governorate Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="RegionId"></label>
-                            <select asp-for="RegionId" class="form form-control" asp-items="regionList"></select>
+                            <select asp-for="RegionId" class="form form-control" asp-items="regionList">
+                                <option value="">-- Select Region --</option>
+                            </select>
                             <span asp-validation-for="RegionId" class="text-danger"></span>
                         </div>
                         <div class="d-grid mt-3">

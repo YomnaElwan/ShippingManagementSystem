@@ -1,5 +1,5 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.GovernorateVM
-@model GovRegionViewModel
+@model AddGovernorateViewModel
 @{
     ViewData["Title"] = "Add";
     SelectList regionList = new SelectList(Model.RegionList, "Id", "Name");
@@ -18,13 +18,14 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div>
                             <label asp-for="Name"></label>
-                            <input asp-for="Name" class="form form-control" />
+                            <input asp-for="Name" class="form form-control" placeholder="Enter Governorate Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="RegionId"></label>
                             <select asp-for="RegionId" class="form form-control" asp-items="regionList">
-                                <option value="0">--Select Region--</option>
+                                @* <option value="0">--Select Region--</option> *@
+                                <option value="">--Select Region--</option>
                             </select>
                             <span asp-validation-for="RegionId" class="text-danger"></span>
                         </div>

@@ -35,6 +35,9 @@ namespace ShippingSystem.Infrastructure.UnitWorks
         private IOrderRepository specificOrderRepo;
         private IOrderItemsRepository specificOrderItemsRepo;
         private IWeightSettingsRepository specificWeightSetsRepo;
+        
+
+
 
         public UnitOfWork(ShippingDbContext context)
         {
@@ -123,6 +126,8 @@ namespace ShippingSystem.Infrastructure.UnitWorks
                     weightSetsRepo = new GenericRepository<WeightSettings>(context);
                 return weightSetsRepo;
             } }
+        
+
         public ICityRepository SpecificCityRepository { get 
             {
                 if (specificCityRepo == null)

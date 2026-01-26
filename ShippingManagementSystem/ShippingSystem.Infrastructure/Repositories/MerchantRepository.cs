@@ -14,18 +14,16 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class MerchantRepository : GenericRepository<Merchants>, IMerchantRepository
     {
-        private readonly ShippingDbContext cxt;
-        public MerchantRepository(ShippingDbContext cxt):base(cxt)
+        public MerchantRepository(ShippingDbContext context):base(context)
         {
-            this.cxt = cxt;
         }
         public Task<List<Merchants>> SpecialMerchantsList()
         {
-            return cxt.Merchant.Include(m => m.Branch).Include(m => m.User).ToListAsync();
+            return context.Merchant.Include(m => m.Branch).Include(m => m.User).ToListAsync();
         }
         public Task<Merchants> GetMerchantById(int MerchantId)
         {
-            return cxt.Merchant.Include(m => m.User).Include(m => m.Branch).Include(m => m.Governorate).Include(m => m.City).FirstOrDefaultAsync(m => m.Id == MerchantId);
+            return context.Merchant.Include(m => m.User).Include(m => m.Branch).Include(m => m.Governorate).Include(m => m.City).FirstOrDefaultAsync(m => m.Id == MerchantId);
         }
        
     }

@@ -12,10 +12,8 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class CourierRepository : GenericRepository<Couriers>, ICourierRepository
     {
-        private readonly ShippingDbContext context;
         public CourierRepository(ShippingDbContext context):base(context)
         {
-            this.context = context;
         }
 
         public Task<List<Couriers>> CourierList()

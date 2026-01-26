@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShippingSystem.Domain.Entities;
@@ -13,14 +14,17 @@ namespace ShippingSystem.Presentation.Controllers
         private readonly IUnitOfWork unitOfWork;
         private readonly UserManager<ApplicationUser> userService;
         private readonly SignInManager<ApplicationUser> signInManager;
+        private readonly IMapper mapper;
         public MerchantController(IUnitOfWork unitOfWork,
                                   UserManager<ApplicationUser> userService,
-                                  SignInManager<ApplicationUser> signInManager
+                                  SignInManager<ApplicationUser> signInManager,
+                                  IMapper mapper
                                  )
         {
             this.unitOfWork = unitOfWork;
             this.userService = userService;
             this.signInManager = signInManager;
+            this.mapper = mapper;
         }
         [HttpGet]
         [Authorize(Policy = "ViewMerchantHome")]
@@ -30,7 +34,8 @@ namespace ShippingSystem.Presentation.Controllers
 
             OrdersHomeVM mappedMerchantHome = new OrdersHomeVM()
             {
-                OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order=>order.Key,order=>order.Count()),
+                OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).Select(o => new { statusId = o.Key, count = o.Count() }).ToDictionary(order => order.statusId, order => order.count), //Best - SQL
+                //OrderCountByStatus = orderList.GroupBy(o => o.OrderStatusId).ToDictionary(order=>order.Key,order=>order.Count()), //C#
                 OrderStatusList = await unitOfWork.OrderStatusRepository.GetAllAsync()
 
             };
@@ -41,14 +46,18 @@ namespace ShippingSystem.Presentation.Controllers
         public async Task<IActionResult> Index()
         {
             List<Merchants> merchantList =await unitOfWork.SpecificMerchantRepository.SpecialMerchantsList();
-            return View("Index",merchantList);
+            List<ReadMerchantsViewModel> mappedReadMerchant = mapper.Map<List<ReadMerchantsViewModel>>(merchantList);
+            return View("Index",mappedReadMerchant);
         }
         [HttpGet]
         [Authorize(Policy = "ViewMerchantDetails")]
         public async Task<IActionResult> Details(int Id)
         {
             Merchants merchantDetails = await unitOfWork.SpecificMerchantRepository.GetMerchantById(Id);
-            return View("Details",merchantDetails);
+            if (merchantDetails == null)
+                return NotFound($"Merchant with id :{Id} isn't found!");
+            ReadMerchantsViewModel mappedMerchantDetails = mapper.Map<ReadMerchantsViewModel>(merchantDetails);
+            return View("Details", mappedMerchantDetails);
         }
         [HttpGet]
         public async Task<IActionResult> CityList(int govId)
@@ -69,11 +78,11 @@ namespace ShippingSystem.Presentation.Controllers
                 CityList = new List<Cities>()
 
             };
-            return View("Add",newMerchant);
+            return View("Add", newMerchant);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <IActionResult> SaveAdd(AddMerchantVM newMerchantFromUser)
+        public async Task<IActionResult> SaveAdd(AddMerchantVM newMerchantFromUser)
         {
             if (newMerchantFromUser.BranchId == 0)
             {
@@ -89,34 +98,21 @@ namespace ShippingSystem.Presentation.Controllers
             }
             if (ModelState.IsValid)
             {
-                ApplicationUser newUser = new ApplicationUser() {
-                    UserName=newMerchantFromUser.MerchantName,
-                    Email=newMerchantFromUser.MerchantEmail,
-                    PhoneNumber=newMerchantFromUser.MerchantPhoneNumber,
-                    Address=newMerchantFromUser.MerchantAddress,
-                };
+                ApplicationUser newUser = mapper.Map<ApplicationUser>(newMerchantFromUser);
                 IdentityResult result = await userService.CreateAsync(newUser, newMerchantFromUser.MerchantPassword);
                 if (result.Succeeded)
                 {
-                    await userService.AddToRoleAsync(newUser,"Merchant");
+                    await userService.AddToRoleAsync(newUser, "Merchant");
                     //await signInManager.SignInAsync(newUser, false);
-                    Merchants newMerchant = new Merchants()
-                    {
-                        User = newUser,
-                        CompanyName = newMerchantFromUser.CompanyName,
-                        RejOrderCostPercent = newMerchantFromUser.RejOrderCostPercent,
-                        SpecialPackUpCost = newMerchantFromUser.SpecialPackUpCost,
-                        BranchId = newMerchantFromUser.BranchId,
-                        CityId = newMerchantFromUser.CityId,
-                        GovernorateId = newMerchantFromUser.GovernorateId
-                    };
+                    Merchants newMerchant = mapper.Map<Merchants>(newMerchantFromUser);
+                    newMerchant.User = newUser;
                     await unitOfWork.MerchantRepository.AddAsync(newMerchant);
                     await unitOfWork.SaveAsync();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    foreach(var err in result.Errors)
+                    foreach (var err in result.Errors)
                     {
                         ModelState.AddModelError("", err.Description);
                     }
@@ -127,6 +123,8 @@ namespace ShippingSystem.Presentation.Controllers
             newMerchantFromUser.GovList = await unitOfWork.GovernorateRepository.GetAllAsync();
             return View("Add", newMerchantFromUser);
         }
+
+        
         [HttpGet]
         [Authorize(Policy = "EditMerchant")]
         public async Task<IActionResult> Edit(int Id)

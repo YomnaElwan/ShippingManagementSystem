@@ -1,5 +1,5 @@
-﻿@using ShippingSystem.Domain.Entities
-@model Merchants
+﻿@using ShippingSystem.Presentation.ViewModels.MerchantVM
+@model ReadMerchantsViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,16 +21,16 @@
         </thead>
         <tbody>
             <tr>
-                <td>@Model.User.UserName</td>
-                <td>@Model.User.Email</td>
-                <td>@Model.User.PhoneNumber</td>
+                <td>@Model.MerchantName</td>
+                <td>@Model.MerchantEmail</td>
+                <td>@Model.MerchantPhoneNumber</td>
                 <td>@Model.CompanyName</td>
                 <td>@Model.RejOrderCostPercent</td>
                 <td>@Model.SpecialPackUpCost</td>
-                <td>@Model.User.Address</td>
-                <td>@Model.Branch?.Name</td>
-                <td>@Model.City?.Name</td>
-                <td>@Model.Governorate?.Name</td>
+                <td>@Model.MerchantAddress</td>
+                <td>@Model.BranchName</td>
+                <td>@Model.CityName</td>
+                <td>@Model.GovernorateName</td>
             </tr>
         </tbody>
     </table>

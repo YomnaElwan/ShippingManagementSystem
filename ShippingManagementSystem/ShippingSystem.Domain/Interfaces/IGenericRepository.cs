@@ -9,6 +9,7 @@ namespace ShippingSystem.Domain.Interfaces
     public interface IGenericRepository<T>where T:class
     {
        Task< List<T>> GetAllAsync();
+        Task<List<T>> ActiveList();
        Task<T> GetByIdAsync(int Id);
        Task AddAsync(T obj);
        Task UpdateAsync(T obj);

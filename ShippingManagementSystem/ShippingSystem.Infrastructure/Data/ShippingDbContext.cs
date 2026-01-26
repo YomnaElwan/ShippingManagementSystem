@@ -41,6 +41,14 @@ namespace ShippingSystem.Infrastructure.Data
         }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<ApplicationUser>().HasIndex(u => u.NormalizedEmail).IsUnique();
+            builder.Entity<ApplicationUser>().HasIndex(u => u.NormalizedUserName).IsUnique();
+            builder.Entity<Regions>().HasIndex(r=>r.Name).IsUnique();
+            builder.Entity<Governorates>().HasIndex(g => g.Name).IsUnique();
+            builder.Entity<Cities>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<Branches>().HasIndex(b => b.Name).IsUnique();
+            builder.Entity<WeightSettings>().HasIndex(w => w.CityId).IsUnique();
+
             base.OnModelCreating(builder);
 
         }

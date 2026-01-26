@@ -1,5 +1,5 @@
-﻿@using ShippingSystem.Domain.Entities
-@model Regions
+﻿@using ShippingSystem.Presentation.ViewModels.RegionVM
+@model ReadRegionViewModel
 @{
     ViewData["Title"] = "Details";
 }
@@ -7,14 +7,14 @@
 
 <div class="card shadow-sm rounded bg-light bg-opacity-75 mb-4">
     <div class="card-body">
-        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.Name</h5>
+        <h5 class="card-title"><i class="bi bi-geo-alt-fill text-danger"></i> @Model.RegionName</h5>
         <hr />
         <h6 class="card-subtitle mb-3 text-muted">Governorates:</h6>
         <div>
-            @if (Model.Governorates != null && Model.Governorates.Any())
+            @if (Model.RegionGovs != null && Model.RegionGovs.Any())
             {
                 <ul class="list-group list-group-flush">
-                    @foreach (var item in Model.Governorates)
+                    @foreach (var item in Model.RegionGovs)
                     {
                         <li class="list-group-item">@item.Name</li>
                     }

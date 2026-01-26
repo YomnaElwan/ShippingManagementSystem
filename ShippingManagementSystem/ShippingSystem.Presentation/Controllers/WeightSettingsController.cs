@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShippingSystem.Application.Common.Exceptions;
+using ShippingSystem.Application.Interfaces;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
 using ShippingSystem.Domain.IUnitWorks;
@@ -11,27 +13,34 @@ namespace ShippingSystem.Presentation.Controllers
     public class WeightSettingsController : Controller
     {
         private readonly IUnitOfWork unitOfWork;
-        private IMapper _mapper;
+        private readonly IMapper _mapper;
+        private readonly IWeightSettingService weightSettingsService;
         public WeightSettingsController(IUnitOfWork unitOfWork,
-                                        IMapper _mapper
+                                        IMapper _mapper,
+                                        IWeightSettingService weightSettingsService
             )
         {
             this.unitOfWork = unitOfWork;
             this._mapper = _mapper;
-           
+            this.weightSettingsService = weightSettingsService;
         }
         [Authorize(Policy = "ViewWeightSettings")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1,int pageSize=5)
         {
             List<WeightSettings> settingsList = await unitOfWork.WeightSettingsRepository.GetAllAsync();
-            return View("Index",settingsList);
+            int totalItems = settingsList.Count();
+            var weightSettingsInOnePage = settingsList.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            var mappedSettings = _mapper.Map<List<ReadWeightSettingsViewModel>>(weightSettingsInOnePage);
+            ViewBag.CurrentPage = pageNumber;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+            return View("Index",mappedSettings);
         }
         [HttpGet]
         [Authorize(Policy = "AddNewWeightSetting")]
         public async Task<IActionResult> New()
         {
             List<Cities> cityList = await unitOfWork.CityRepository.GetAllAsync();
-            WeightSettingsViewModel settingVM = new WeightSettingsViewModel()
+            AddWeightSettingsViewModel settingVM = new AddWeightSettingsViewModel()
             {
                 CityList = cityList
             };
@@ -39,33 +48,38 @@ namespace ShippingSystem.Presentation.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveNew(WeightSettingsViewModel settingsVM)
+        public async Task<IActionResult> SaveNew(AddWeightSettingsViewModel settingsVM)
         {
-            if (settingsVM.CityId == 0)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("CityId","Please Choose a City!!!");
+                List<Cities> cityList = await unitOfWork.CityRepository.GetAllAsync();
+                settingsVM.CityList = cityList;
+                return View("New", settingsVM);
             }
-            if (ModelState.IsValid)
+            try
             {
-                var weightSettings = _mapper.Map<WeightSettings>(settingsVM);
-                await unitOfWork.WeightSettingsRepository.AddAsync(weightSettings);
-                await unitOfWork.SaveAsync();
+                var mappedNewWeightSettings = _mapper.Map<WeightSettings>(settingsVM);
+                await weightSettingsService.AddNewWeightSetting(mappedNewWeightSettings);
                 return RedirectToAction("Index");
             }
-            List<Cities> cityList = await unitOfWork.CityRepository.GetAllAsync();
-            settingsVM.CityList = cityList;
-            return View("New", settingsVM);
+            catch(DuplicateEntityException ex)
+            {
+                ModelState.AddModelError("CityId", ex.Message);
+                settingsVM.CityList = await unitOfWork.CityRepository.GetAllAsync();
+                return View("New", settingsVM);
+            }
         }
         [HttpGet]
         [Authorize(Policy= "ViewWeightSettingsDetails")]
         public async Task<IActionResult> Details(int Id)
         {
-            var setting = await unitOfWork.SpecificWeightSettingsRepository.GetById(Id);
+            var setting = await unitOfWork.SpecificWeightSettingsRepository.GetWeightSettingsIncludeCity(Id);
             if (setting == null)
             {
-                return NotFound();
+                return NotFound($"Weight Setting with this id:{Id} can't be found!");
             }
-            return View("Details",setting); 
+            var mappedSetting = _mapper.Map<ReadWeightSettingsViewModel>(setting);
+            return View("Details", mappedSetting); 
         }
         [Authorize(Policy = "DeleteWeightSetting")]
         public async Task<IActionResult> Delete(int Id)
@@ -82,25 +96,37 @@ namespace ShippingSystem.Presentation.Controllers
             var existingRecord = await unitOfWork.SpecificWeightSettingsRepository.GetById(Id);
             if (existingRecord == null)
             {
-                return NotFound();
+                return NotFound($"Weight Setting With this id:{Id} can't be found!");
             }
-            var existRecVM = _mapper.Map<WeightSettingsViewModel>(existingRecord);
+            var existRecVM = _mapper.Map<EditWeightSettingsViewModel>(existingRecord);
             existRecVM.CityList = await unitOfWork.CityRepository.GetAllAsync();
             return View("Edit",existRecVM);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveEdit(WeightSettingsViewModel editWSFromUser)
+        public async Task<IActionResult> SaveEdit(EditWeightSettingsViewModel editWSFromUser)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid) {
+                editWSFromUser.CityList = await unitOfWork.CityRepository.GetAllAsync();
+                return View("Edit", editWSFromUser);
+            }
+            try
             {
                 var mappedEditedRec = _mapper.Map<WeightSettings>(editWSFromUser);
-                await unitOfWork.WeightSettingsRepository.UpdateAsync(mappedEditedRec);
-                await unitOfWork.SaveAsync();
+                await weightSettingsService.UpdateWeightSetting(mappedEditedRec);
                 return RedirectToAction("Index");
             }
-            editWSFromUser.CityList = await unitOfWork.CityRepository.GetAllAsync();
-            return View("Edit",editWSFromUser);
+            catch(DuplicateEntityException ex)
+            {
+                ModelState.AddModelError("CityId", ex.Message);
+                editWSFromUser.CityList = await unitOfWork.CityRepository.GetAllAsync();
+                return View("Edit", editWSFromUser);
+            }
+            catch(EntityNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        
         }
     }
 }

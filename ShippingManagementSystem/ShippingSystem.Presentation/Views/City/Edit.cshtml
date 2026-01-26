@@ -1,5 +1,5 @@
 ﻿@using ShippingSystem.Presentation.ViewModels.CityVM
-@model CityViewModel
+@model EditCityViewModel
 @{
     ViewData["Title"] = "Edit";
     SelectList govList = new SelectList(Model.GovernoratesList, "Id", "Name");
@@ -18,22 +18,24 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div>
                             <label asp-for="Name"></label>
-                            <input class="form form-control" asp-for="Name" />
+                            <input class="form form-control" asp-for="Name" placeholder="Edit City Name" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="DeliveryCost"></label>
-                            <input asp-for="DeliveryCost" class="form form-control" />
+                            <input type="number" asp-for="DeliveryCost" class="form form-control" />
                             <span asp-validation-for="DeliveryCost" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="PickupCost"></label>
-                            <input asp-for="PickupCost" class="form form-control" />
+                            <input type="number" asp-for="PickupCost" class="form form-control" />
                             <span asp-validation-for="PickupCost" class="text-danger"></span>
                         </div>
                         <div>
                             <label asp-for="GovernorateId"></label>
-                            <select asp-for="GovernorateId" class="form form-control" asp-items="govList"></select>
+                            <select asp-for="GovernorateId" class="form form-control" asp-items="govList">
+                                <option value="">-- Select Governorate --</option>
+                            </select>
                             <span asp-validation-for="GovernorateId" class="text-danger"></span>
                         </div>
                         <div class="d-grid">

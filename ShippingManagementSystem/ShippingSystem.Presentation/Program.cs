@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using ShippingSystem.Application.Interfaces;
+using ShippingSystem.Application.Services;
 using ShippingSystem.Domain.Entities;
 using ShippingSystem.Domain.Interfaces;
 using ShippingSystem.Domain.IUnitWorks;
@@ -33,9 +35,19 @@ namespace ShippingSystem.Presentation
             })
             .AddEntityFrameworkStores<ShippingDbContext>()
             .AddDefaultTokenProviders();
+            //make email unique for all users
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.User.RequireUniqueEmail = true;
+            });
             builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, ApplicationUserClaimsPrincipalFactory>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddScoped<IBranchService, BranchService>();
+            builder.Services.AddScoped<IRegionService, RegionService>();
+            builder.Services.AddScoped<ICityService, CityService>();
+            builder.Services.AddScoped<IGovService, GovService>();
+            builder.Services.AddScoped<IWeightSettingService, WeightSettingService>();
             //builder.Services.AddScoped<IGovernorateRepository, GovernorateRepository>();
             //builder.Services.AddScoped<ICityRepository, CityRepository>();
             //builder.Services.AddScoped<IWeightSettingsRepository, WeightSettingsRepository>();

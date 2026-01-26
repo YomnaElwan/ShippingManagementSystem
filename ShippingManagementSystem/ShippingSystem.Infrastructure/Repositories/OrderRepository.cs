@@ -12,10 +12,8 @@ namespace ShippingSystem.Infrastructure.Repositories
 {
     public class OrderRepository : GenericRepository<Orders>, IOrderRepository
     {
-        private readonly ShippingDbContext context;
         public OrderRepository(ShippingDbContext context) :base(context)
         {
-            this.context = context;
         }
 
         public async Task<Orders> GetOrderById(int Id)

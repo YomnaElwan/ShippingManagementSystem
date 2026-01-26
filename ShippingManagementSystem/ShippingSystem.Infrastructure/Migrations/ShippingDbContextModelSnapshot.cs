@@ -213,7 +213,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
-                        .HasDatabaseName("EmailIndex");
+                        .IsUnique()
+                        .HasDatabaseName("EmailIndex")
+                        .HasFilter("[NormalizedEmail] IS NOT NULL");
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
@@ -244,10 +246,13 @@ namespace ShippingSystem.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Branch");
                 });
@@ -277,6 +282,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("GovernorateId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("City");
                 });
@@ -597,6 +605,9 @@ namespace ShippingSystem.Infrastructure.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Region");
                 });
